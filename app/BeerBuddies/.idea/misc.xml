@@ -9,8 +9,9 @@
         <entry key="app/src/main/res/drawable/btn_teamgames.xml" value="0.2385" />
         <entry key="app/src/main/res/drawable/gradient.xml" value="0.303" />
         <entry key="app/src/main/res/drawable/ic_splashscreen.xml" value="0.303" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.15658111572265626" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.5123153686523438" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2334716796875" />
+        <entry key="app/src/main/res/layout/activity_packselector.xml" value="0.27117486338797814" />
       </map>
     </option>
   </component>

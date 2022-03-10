@@ -18,6 +18,10 @@
         android:text="Beer"
         android:textColor="@color/logo"
         android:textSize="60sp"
+        android:shadowColor="@color/logo"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +35,10 @@
         android:text="Buddies"
         android:textColor="@color/logo"
         android:textSize="60sp"
+        android:shadowColor="@color/logo"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView" />
