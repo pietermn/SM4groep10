@@ -4,21 +4,21 @@
   "cards": [
     {
       "id": 1,
-      "packId": 1,
+
       "challenge": "Do this then do that example",
       "sips": 2,
       "players": 1
   },
     {
       "id": 2,
-      "packId": 1,
+
       "challenge": "Do this then do that example",
       "sips": 1,
       "players": 1
     },
     {
       "id": 3,
-      "packId": 1,
+
       "challenge": " ... do this to ...",
       "sips": 3,
       "players": 2
