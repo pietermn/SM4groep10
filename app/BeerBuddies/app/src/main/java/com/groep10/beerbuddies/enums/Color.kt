@@ -6,4 +6,6 @@ enum class Color(val rgb: String) {
 //    bij int:
 //    GREEN(0x00FF00),
 //    BLUE(0x0000FF)
+// NOPE
+//    Red("@colors/red")
 }

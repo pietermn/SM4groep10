@@ -7,7 +7,4 @@ class Card(
     val sips: Int,
     val players: Int
 ) {
-//    constructor(pack: Pack) {
-//        pack.cards.add(this)
-//    }
 }

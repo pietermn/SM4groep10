@@ -3,6 +3,10 @@ package com.groep10.beerbuddies.logicContainers
 class GameContainer {
 
 
+    fun addGame(){
+
+    }
+
     fun getGame(){
 
     }
