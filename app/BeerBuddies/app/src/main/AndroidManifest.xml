@@ -22,4 +22,5 @@
         <activity android:name=".PartyPackSelectorActivity" />
     </application>
 
+    
 </manifest>
