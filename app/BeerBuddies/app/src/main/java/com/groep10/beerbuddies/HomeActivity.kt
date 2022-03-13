@@ -27,5 +27,15 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra("type","Team")
             startActivity(intent)
         }
+
+        binding.btnSettings.setOnClickListener{
+            var intent = Intent(this@HomeActivity, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnHowTopPlay.setOnClickListener{
+            var intent = Intent(this@HomeActivity, HowToPlayActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
