@@ -9,9 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MemoriesPOC">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/navigation_view_colored" />
+
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="MemoriesPOC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
