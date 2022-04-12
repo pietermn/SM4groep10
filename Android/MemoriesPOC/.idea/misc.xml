@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Documents/GitHub/Memories/SM4groep10/Android/MemoriesPOC/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Documents/GitHub/Memories/SM4groep10/Android/MemoriesPOC/app/src/main/res/layout/fragment_home.xml" value="0.1068840579710145" />
+        <entry key="..\:/Documents/GitHub/Memories/SM4groep10/Android/MemoriesPOC/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Documents/GitHub/SmartMobileAndroid/SM4groep10/Android/MemoriesPOC/app/src/main/res/drawable/bottom_navigation.xml" value="0.22" />
         <entry key="..\:/Documents/GitHub/SmartMobileAndroid/SM4groep10/Android/MemoriesPOC/app/src/main/res/drawable/bottum_avigation.xml" value="0.3675" />
         <entry key="..\:/Documents/GitHub/SmartMobileAndroid/SM4groep10/Android/MemoriesPOC/app/src/main/res/drawable/home_full.xml" value="0.196" />
@@ -22,5 +25,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.152" />
+      </ProjectState>
+    </option>
   </component>
 </project>

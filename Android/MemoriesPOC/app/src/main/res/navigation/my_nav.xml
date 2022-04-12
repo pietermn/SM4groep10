@@ -9,7 +9,11 @@
         android:id="@+id/home2"
         android:name="com.example.memoriespoc.home"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home2_to_map"
+            app:destination="@id/map" />
+    </fragment>
     <fragment
         android:id="@+id/map"
         android:name="com.example.memoriespoc.map"
