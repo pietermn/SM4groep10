@@ -18,6 +18,8 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.applyCanvas
+import androidx.core.view.ViewCompat
 
 import com.example.memoriespoc.R
 import com.example.memoriespoc.util.CompareSizesByViewAspectRatio
@@ -35,7 +37,7 @@ import java.util.concurrent.TimeUnit
  */
 class CameraFragment : Fragment() {
 
-    private var viewPhoto: AutoFitTextureView? = null
+    private var viewPhoto: ImageView? = null
 //    private var surfaceViewer: SurfaceView? = null
     /**
      * An additional thread for running tasks that shouldn't block the UI.
@@ -323,6 +325,8 @@ class CameraFragment : Fragment() {
             //var image = imageReaderFront?.acquireLatestImage() as Bitmap
             //var image2 = imageReaderFront?.surface
             //viewPhoto.setImageBitmap(image)
+            viewPhoto?.setImageBitmap(v.drawToBitmap())
+            //viewPhoto?.setImageBitmap(takeScreenshotOfView(v, height = textureViewFront!!.width, width = textureViewFront!!.height))
         }
         return v
     }
@@ -334,6 +338,28 @@ class CameraFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+/** Screen captures which only return the layout**/
+    private fun View.drawToBitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888): Bitmap {
+        if (!ViewCompat.isLaidOut(this)) {
+            throw IllegalStateException("View needs to be laid out before calling drawToBitmap()")
+        }
+        return Bitmap.createBitmap(width, height, config).applyCanvas {
+            translate(-scrollX.toFloat(), -scrollY.toFloat())
+            draw(this)
+        }
+    }
+    private fun takeScreenshotOfView(view: View, height: Int, width: Int): Bitmap {
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        val bgDrawable = view.background
+        if (bgDrawable != null) {
+            bgDrawable.draw(canvas)
+        } else {
+            canvas.drawColor(Color.WHITE)
+        }
+        view.draw(canvas)
+        return bitmap
     }
 
     override fun onResume() {
