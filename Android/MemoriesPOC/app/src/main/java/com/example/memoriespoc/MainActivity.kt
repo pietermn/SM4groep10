@@ -1,7 +1,10 @@
 package com.example.memoriespoc
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -16,9 +19,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        val photo: FloatingActionButton = findViewById(R.id.floatingActionButton)
+        supportActionBar!!.hide()
 
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        val photo: ImageButton = findViewById(R.id.camera)
+        val back: FloatingActionButton = findViewById(R.id.backButton)
+        back.visibility = View.GONE
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -32,8 +38,13 @@ class MainActivity : AppCompatActivity() {
 
        photo.setOnClickListener {
            navController.navigate(R.id.photo)
-           Toast.makeText(applicationContext,"this is toast message",Toast.LENGTH_SHORT).show()
-
+           navView.visibility = View.GONE
+           back.visibility = View.VISIBLE
        }
+        back.setOnClickListener {
+            navController.popBackStack()
+            navView.visibility = View.VISIBLE
+            back.visibility = View.GONE
+        }
     }
 }
