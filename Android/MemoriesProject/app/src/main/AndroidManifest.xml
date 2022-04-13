@@ -8,16 +8,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MemoriesProject">
+        android:theme="@style/Theme.AppCompat.Light">
         <activity
-            android:name=".MainActivity"
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <!--        <activity android:name=".HomeActivity" />-->
+<!--        <activity android:name=".PartyPackSelectorActivity" />-->
+<!--        <activity android:name=".SettingsActivity" />-->
+<!--        <activity android:name=".HowToPlayActivity" />-->
     </application>
 
 </manifest>
