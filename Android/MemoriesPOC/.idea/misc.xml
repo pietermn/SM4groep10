@@ -37,6 +37,21 @@
         <entry key="..\:/Documents/GitHub/SmartMobileAndroid/SM4groep10/Android/MemoriesPOC/app/src/main/res/layout/fragment_map.xml" value="0.36666666666666664" />
         <entry key="..\:/Documents/GitHub/SmartMobileAndroid/SM4groep10/Android/MemoriesPOC/app/src/main/res/layout/fragment_photo.xml" value="0.36666666666666664" />
         <entry key="..\:/Documents/GitHub/SmartMobileAndroid/SM4groep10/Android/MemoriesPOC/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/bottom_navigation.xml" value="0.229" />
+        <entry key="app/src/main/res/drawable/home_full.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/home_outline.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/home_selector.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.223" />
+        <entry key="app/src/main/res/drawable/map_selector.xml" value="0.223" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/layout/fragment_photo.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/layout/home_bigcard.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/layout/home_smallcard.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.40989583333333335" />
       </map>
     </option>
   </component>

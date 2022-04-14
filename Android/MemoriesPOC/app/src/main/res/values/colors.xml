@@ -12,4 +12,7 @@
     <color name="Add">#2EC4B6</color>
     <color name="Second">#2EC4B6</color>
     <color name="Detail">#FFBF69</color>
+    <color name="textMain">#353747</color>
+    <color name="textSecondary">#FFC371</color>
+    <color name="textShadow">#FF000000</color>
 </resources>
