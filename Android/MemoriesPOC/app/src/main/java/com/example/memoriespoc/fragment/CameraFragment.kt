@@ -9,10 +9,7 @@ import android.graphics.*
 import android.hardware.camera2.*
 import android.media.Image
 import android.media.ImageReader
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.HandlerThread
+import android.os.*
 import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
@@ -35,6 +32,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
+import java.time.LocalDateTime
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
@@ -43,7 +41,7 @@ import java.util.concurrent.TimeUnit
 /**
  * A simple [Fragment] subclass.
  */
-class CameraFragment : Fragment() {
+class CameraFragment : Fragment(){
 
 
 //    private var surfaceViewer: SurfaceView? = null
@@ -173,7 +171,8 @@ class CameraFragment : Fragment() {
      */
     private lateinit var previewRequestRear: CaptureRequest
 
-
+    private lateinit var picturefront: Image
+    private lateinit var file: File
     /**
      * This a callback object for the [ImageReader]. "onImageAvailable" will be called when a
      * still image is ready to be saved.
@@ -182,6 +181,60 @@ class CameraFragment : Fragment() {
 //        backgroundHandler?.post(ImageSaver(it.acquireNextImage(), file))
         Log.d(TAG, "onImageAvailableListenerFront Called")
     }
+
+//    private val onImageAvailableListenerFront = ImageReader.OnImageAvailableListener {
+//        val currentDateTime: String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            LocalDateTime.now().toString()
+//        } else {
+//            TODO("VERSION.SDK_INT < O")
+//        }
+//
+//        file = File(
+//            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+//                .getAbsolutePath()
+//                .toString() + "/C2/" + "_" + currentDateTime + ".jpg"
+//        )
+//        Log.i("onImageAvailableListenerFront", file.name)
+//        if(it.acquireLatestImage() == null){
+//            Log.i("onImageAvailableListenerFront", "Image empty")
+//        }
+//       // backgroundHandlerFront?.post(ImageSaver(it.acquireNextImage(), file))
+//        Log.i(TAG, "onImageAvailableListenerFront Called")
+//    }
+//
+//    private class ImageSaver internal constructor(
+//        /**
+//         * The JPEG image
+//         */
+//        private val mImage: Image,
+//        /**
+//         * The file we save the image into.
+//         */
+//        private val mFile: File
+//    ) :
+//        Runnable {
+//        override fun run() {
+//            val buffer = mImage.planes[0].buffer
+//            val bytes = ByteArray(buffer.remaining())
+//            buffer[bytes]
+//            var output: FileOutputStream? = null
+//            try {
+//                output = FileOutputStream(mFile)
+//                output.write(bytes)
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            } finally {
+//                mImage.close()
+//                if (null != output) {
+//                    try {
+//                        output.close()
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
     /**
@@ -351,6 +404,12 @@ class CameraFragment : Fragment() {
             //configureTransformViewPhoto(viewPhoto.width, viewPhoto.height)
             //createCameraPreviewSessionViewPhoto()
             //viewPhoto.setImageBitmap(GetBitmapFromImageReader(imageReaderFront!!))
+            if(backgroundHandlerFront == null){
+                Log.i("OnImageAvailableListenerFront", "backgroudnHandler is null")
+            }
+            onImageAvailableListenerFront.onImageAvailable(imageReaderFront)
+            Log.i("onImageAvailableFront", file.name)
+
         }
         return v
     }
@@ -453,6 +512,7 @@ class CameraFragment : Fragment() {
 //        image.close()
 //        //savePicture(imageBytes)
 //    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     fun GetBitmapFromImageReader(imageReader: ImageReader): Bitmap? {
@@ -1170,5 +1230,12 @@ class CameraFragment : Fragment() {
 
         @JvmStatic fun newInstance(): CameraFragment = CameraFragment()
     }
+
+//    override fun onImageAvailable(reader: ImageReader?) {
+//        TODO("Not yet implemented")
+//        picturefront = reader?.acquireLatestImage()!!
+//        reader?.acquireLatestImage().close()
+//        Log.i("TestingNow",picturefront.timestamp.toString())
+//    }
 
 }
