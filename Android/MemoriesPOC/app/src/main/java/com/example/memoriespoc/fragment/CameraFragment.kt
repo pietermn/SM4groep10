@@ -1,10 +1,13 @@
 package com.example.memoriespoc.fragment
 
 import android.Manifest
+import android.R.attr.height
+import android.R.attr.width
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.hardware.camera2.*
+import android.media.Image
 import android.media.ImageReader
 import android.os.Build
 import android.os.Bundle
@@ -14,30 +17,35 @@ import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
 import android.view.*
-import android.widget.Button
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.applyCanvas
 import androidx.core.view.ViewCompat
-
+import androidx.fragment.app.Fragment
 import com.example.memoriespoc.R
 import com.example.memoriespoc.util.CompareSizesByViewAspectRatio
 import com.example.memoriespoc.util.REQUEST_CAMERA_PERMISSION
 import com.example.memoriespoc.view.AutoFitTextureView
 import com.example.memoriespoc.view.ConfirmationDialog
 import com.example.memoriespoc.view.ErrorDialog
+import kotlinx.android.synthetic.main.fragment_camera.*
 import kotlinx.android.synthetic.main.fragment_camera.view.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.nio.ByteBuffer
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
+
 
 /**
  * A simple [Fragment] subclass.
  */
 class CameraFragment : Fragment() {
 
-    private var viewPhoto: ImageView? = null
+
 //    private var surfaceViewer: SurfaceView? = null
     /**
      * An additional thread for running tasks that shouldn't block the UI.
@@ -74,6 +82,7 @@ class CameraFragment : Fragment() {
      * An [AutoFitTextureView] to show the camera preview from front camera.
      */
     private lateinit var textureViewFront: AutoFitTextureView
+    private lateinit var viewPhoto: ImageView
 
     /**
      * An [AutoFitTextureView] to show the camera preview from rear camera.
@@ -325,8 +334,23 @@ class CameraFragment : Fragment() {
             //var image = imageReaderFront?.acquireLatestImage() as Bitmap
             //var image2 = imageReaderFront?.surface
             //viewPhoto.setImageBitmap(image)
-            viewPhoto?.setImageBitmap(v.drawToBitmap())
             //viewPhoto?.setImageBitmap(takeScreenshotOfView(v, height = textureViewFront!!.width, width = textureViewFront!!.height))
+            viewPhoto.setImageBitmap(v.drawToBitmap())
+            //setUpCameraOutputsFront(textureViewFront.width, textureViewFront.height)
+            //onImageAvailable(imageReaderFront!!)
+            //imageReaderFront?.setOnImageAvailableListener(onImageAvailable(imageReaderFront) ,backgroundHandlerFront)
+            //startCapture()
+//            val reader:ImageReader = ImageReader.newInstance(
+//                textureViewFront.width, textureViewFront.height, ImageFormat.JPEG, 6
+//            )
+            //reader.setOnImageAvailableListener(onImageAvailableListenerFront, backgroundHandlerFront)
+            //previewRequestBuilderFront?.addTarget(imageReaderFront!!.surface)
+            //viewPhoto?.setImageBitmap()
+            //val texture = textureViewFront.surfaceTexture
+            //val surface = Surface(texture)
+            //configureTransformViewPhoto(viewPhoto.width, viewPhoto.height)
+            //createCameraPreviewSessionViewPhoto()
+            //viewPhoto.setImageBitmap(GetBitmapFromImageReader(imageReaderFront!!))
         }
         return v
     }
@@ -360,6 +384,116 @@ class CameraFragment : Fragment() {
         }
         view.draw(canvas)
         return bitmap
+    }
+    private fun startCapture() {
+        val mImageName = System.currentTimeMillis().toString() + ".png"
+        Log.e(TAG, "image name is : $mImageName")
+        val image: Image? = imageReaderFront?.acquireLatestImage()
+        val width = image?.width
+        val height = image?.height
+        val planes: Array<Image.Plane> = image!!.planes
+        val buffer: ByteBuffer = planes[0].getBuffer()
+        val pixelStride: Int = planes[0].getPixelStride()
+        val rowStride: Int = planes[0].getRowStride()
+        val rowPadding = rowStride - pixelStride * width!!
+        var bitmap =
+            Bitmap.createBitmap(width + rowPadding / pixelStride, height!!, Bitmap.Config.ARGB_8888)
+        bitmap!!.copyPixelsFromBuffer(buffer)
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
+        image.close()
+        if (bitmap != null) {
+            Log.e(TAG, "bitmap  create success ")
+            try {
+                viewPhoto.setImageBitmap(bitmap)
+                val mImagePath = "test"
+                val fileFolder = File(mImagePath)
+                if (!fileFolder.exists()) fileFolder.mkdirs()
+                val file = File(mImagePath, mImageName)
+                if (!file.exists()) {
+                    Log.e(TAG, "file create success ")
+                    file.createNewFile()
+                }
+                val out = FileOutputStream(file)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                out.flush()
+                out.close()
+                Log.e(TAG, "file save success ")
+
+            } catch (e: IOException) {
+                Log.e(TAG, e.toString())
+                e.printStackTrace()
+            }
+        }
+    }
+//    private fun onImageAvailable(reader: ImageReader?): ImageReader.OnImageAvailableListener {
+//        val im: ImageReader.OnImageAvailableListener = ImageReader.OnImageAvailableListener{
+//            var image: Image? = null
+//            try {
+//                image = imageReaderFront?.acquireLatestImage()
+//                val planes: Array<Image.Plane> = image!!.planes
+//                val buffer: ByteBuffer = planes[0].getBuffer()
+//                buffer.rewind()
+//                val data = ByteArray(buffer.capacity())
+//                buffer[data]
+//                val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
+//                if (bitmap == null) Log.e(TAG, "bitmap is null")
+//            } catch (e: Exception) {
+//                image?.close()
+//            }
+//        }
+//        return im
+//    }
+
+//    fun onImageAvailable(reader: ImageReader) {
+//        Log.d(TAG, "onImageAvailable()")
+//        val image = reader.acquireNextImage()
+//        val imageBuf: ByteBuffer = image.getPlanes().get(0).getBuffer()
+//        val imageBytes = ByteArray(imageBuf.remaining())
+//        imageBuf[imageBytes]
+//        image.close()
+//        //savePicture(imageBytes)
+//    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    fun GetBitmapFromImageReader(imageReader: ImageReader): Bitmap? {
+        val bitmap: Bitmap
+
+        //get image buffer
+        val image = imageReader.acquireNextImage()
+        val planes = image.planes
+        val buffer = planes[0].buffer
+        val pixelStride = planes[0].pixelStride
+        val rowStride = planes[0].rowStride
+        val rowPadding = rowStride - pixelStride * image.width
+        // create bitmap
+        bitmap = Bitmap.createBitmap(
+            image.width + rowPadding / pixelStride,
+            image.height,
+            Bitmap.Config.ARGB_8888
+        )
+        bitmap.copyPixelsFromBuffer(buffer)
+        image.close()
+        return bitmap
+    }
+
+    private fun getScreenShotFromView(v: View): Bitmap? {
+        // create a bitmap object
+        var screenshot: Bitmap? = null
+        try {
+            // inflate screenshot object
+            // with Bitmap.createBitmap it
+            // requires three parameters
+            // width and height of the view and
+            // the background color
+            screenshot = Bitmap.createBitmap(v.measuredWidth, v.measuredHeight, Bitmap.Config.ARGB_8888)
+            // Now draw this bitmap on a canvas
+            val canvas = Canvas(screenshot)
+            v.draw(canvas)
+        } catch (e: Exception) {
+            Log.e("GFG", "Failed to capture screenshot because:" + e.message)
+        }
+        // return the bitmap
+        return screenshot
     }
 
     override fun onResume() {
@@ -519,7 +653,6 @@ class CameraFragment : Fragment() {
                     rotatedPreviewWidth, rotatedPreviewHeight,
                     maxPreviewWidth, maxPreviewHeight,
                     aspectRatio)
-
 
                 /*
                  * We are filling the whole view with camera preview, on a downside, this distorts
@@ -753,6 +886,7 @@ class CameraFragment : Fragment() {
         textureViewRear.setTransform(matrix)
     }
 
+
     /**
      * Determines if the dimensions are swapped given the phone's current rotation.
      *
@@ -891,6 +1025,7 @@ class CameraFragment : Fragment() {
         }
 
     }
+
 
     /**
      * Creates a new [CameraCaptureSession] for rear camera preview.
