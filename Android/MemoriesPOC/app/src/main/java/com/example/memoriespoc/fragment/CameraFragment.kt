@@ -404,11 +404,11 @@ class CameraFragment : Fragment(){
             //configureTransformViewPhoto(viewPhoto.width, viewPhoto.height)
             //createCameraPreviewSessionViewPhoto()
             //viewPhoto.setImageBitmap(GetBitmapFromImageReader(imageReaderFront!!))
-            if(backgroundHandlerFront == null){
-                Log.i("OnImageAvailableListenerFront", "backgroudnHandler is null")
-            }
-            onImageAvailableListenerFront.onImageAvailable(imageReaderFront)
-            Log.i("onImageAvailableFront", file.name)
+            //if(backgroundHandlerFront == null){
+            //    Log.i("OnImageAvailableListenerFront", "backgroudnHandler is null")
+            //}
+            //onImageAvailableListenerFront.onImageAvailable(imageReaderFront)
+            //Log.i("onImageAvailableFront", file.name)
 
         }
         return v
