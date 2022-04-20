@@ -1,14 +1,13 @@
 package com.example.memoriespoc.fragment
 
 import android.Manifest
-import android.R.attr.height
-import android.R.attr.width
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.hardware.camera2.*
 import android.media.Image
 import android.media.ImageReader
+import android.media.ImageReader.OnImageAvailableListener
 import android.os.*
 import android.util.Log
 import android.util.Size
@@ -29,10 +28,10 @@ import com.example.memoriespoc.view.ErrorDialog
 import kotlinx.android.synthetic.main.fragment_camera.*
 import kotlinx.android.synthetic.main.fragment_camera.view.*
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
-import java.time.LocalDateTime
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
@@ -182,6 +181,47 @@ class CameraFragment : Fragment(){
         Log.d(TAG, "onImageAvailableListenerFront Called")
     }
 
+//    protected var onImageAvailableListenerFront =
+//        OnImageAvailableListener { reader ->
+//            Log.d(TAG, "onImageAvailable")
+//            val img = reader.acquireLatestImage()
+//            if (img != null) {
+//                processImage(img)
+//                img.close()
+//            }
+//        }
+//    private fun processImage(image: Image) {
+//        //Process image data
+//        val buffer: ByteBuffer
+//        val bytes: ByteArray
+//        var success = false
+//        val file =
+//            File(Environment.getExternalStorageDirectory().toString() + "/Pictures/image.jpg")
+//        var output: FileOutputStream? = null
+//        if (image.format == ImageFormat.JPEG) {
+//            buffer = image.planes[0].buffer
+//            bytes = ByteArray(buffer.remaining()) // makes byte array large enough to hold image
+//            buffer[bytes] // copies image from buffer to byte array
+//            try {
+//                output = FileOutputStream(file)
+//                output.write(bytes) // write the byte array to file
+//                success = true
+//            } catch (e: FileNotFoundException) {
+//                e.printStackTrace()
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            } finally {
+//                image.close() // close this to free up buffer for other images
+//                if (null != output) {
+//                    try {
+//                        output.close()
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+//                }
+//            }
+//        }
+//    }
 //    private val onImageAvailableListenerFront = ImageReader.OnImageAvailableListener {
 //        val currentDateTime: String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //            LocalDateTime.now().toString()
@@ -371,24 +411,23 @@ class CameraFragment : Fragment(){
         val v =  inflater.inflate(R.layout.fragment_camera, container, false)
         textureViewFront = v.findViewById(R.id.texture1)
         textureViewRear = v.findViewById(R.id.texture2)
-        //surfaceViewer = v.findViewById(R.id.surfaceView)
+        val surfaceViewer = v.findViewById<SurfaceView>(R.id.surfaceView)
         viewPhoto = v.findViewById(R.id.view)
 
         v.btn_switch.setOnClickListener {
-            Log.i("Test", "Button is pressed")
-            openCameraSwitch()
-            val textureSwitcherFront: AutoFitTextureView = textureViewFront
-            textureViewFront = textureViewRear
-            textureViewRear = textureSwitcherFront
-            openCameraSwitch()
+            Switch()
+        }
+        textureViewFront.setOnClickListener{
+            Switch()
         }
         v.btn_photo.setOnClickListener {
             Log.i("Test", "Button photo is pressed")
             //var image = imageReaderFront?.acquireLatestImage() as Bitmap
-            //var image2 = imageReaderFront?.surface
+            var image2 = imageReaderRear?.surface
+            var image3 = imageReaderFront?.surface
             //viewPhoto.setImageBitmap(image)
             //viewPhoto?.setImageBitmap(takeScreenshotOfView(v, height = textureViewFront!!.width, width = textureViewFront!!.height))
-            viewPhoto.setImageBitmap(v.drawToBitmap())
+            ///////////viewPhoto.setImageBitmap(v.drawToBitmap())
             //setUpCameraOutputsFront(textureViewFront.width, textureViewFront.height)
             //onImageAvailable(imageReaderFront!!)
             //imageReaderFront?.setOnImageAvailableListener(onImageAvailable(imageReaderFront) ,backgroundHandlerFront)
@@ -410,10 +449,19 @@ class CameraFragment : Fragment(){
             //onImageAvailableListenerFront.onImageAvailable(imageReaderFront)
             //Log.i("onImageAvailableFront", file.name)
 
+
         }
         return v
     }
 
+    private fun Switch(){
+        Log.i("Test", "Button is pressed")
+        openCameraSwitch()
+        val textureSwitcherFront: AutoFitTextureView = textureViewFront
+        textureViewFront = textureViewRear
+        textureViewRear = textureSwitcherFront
+        openCameraSwitch()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
     }
@@ -683,10 +731,14 @@ class CameraFragment : Fragment(){
                 val aspectRatio = Collections.max(
                     Arrays.asList(*map.getOutputSizes(ImageFormat.JPEG)),
                     CompareSizesByViewAspectRatio(textureViewFront.height, textureViewFront.width))
-                imageReaderFront = ImageReader.newInstance(aspectRatio.width, aspectRatio.height,
-                    ImageFormat.JPEG, /*maxImages*/ 2).apply {
-                    setOnImageAvailableListener(onImageAvailableListenerFront, backgroundHandlerFront)
+                imageReaderFront = ImageReader.newInstance(aspectRatio.width, aspectRatio.height, ImageFormat.JPEG, /*maxImages*/ 2)
+                imageReaderFront!!.setOnImageAvailableListener(onImageAvailableListenerFront, backgroundHandlerFront)
+                Log.i("Testing", "Imagereader created")
+                Log.i("Testing", imageReaderFront?.height.toString())
+                if(imageReaderFront?.acquireNextImage() != null){
+                    Log.i("Testing", "Image front is niet null")
                 }
+                textureViewFront.setAspectRatio(aspectRatio.height, aspectRatio.width)
 
                 Log.d(TAG, "selected aspect ratio " + aspectRatio.height  + "x" + aspectRatio.width + " : " + aspectRatio.height/aspectRatio.width)
                 // Find out if we need to swap dimension to get the preview size relative to sensor
@@ -816,10 +868,23 @@ class CameraFragment : Fragment(){
                 val aspectRatio = Collections.max(
                     Arrays.asList(*map.getOutputSizes(ImageFormat.JPEG)),
                     CompareSizesByViewAspectRatio(textureViewRear.height, textureViewRear.width))
-                imageReaderRear = ImageReader.newInstance(aspectRatio.width, aspectRatio.height,
-                    ImageFormat.JPEG, /*maxImages*/ 2).apply {
-                    setOnImageAvailableListener(onImageAvailableListenerRear, backgroundHandlerRear)
+//                imageReaderRear = ImageReader.newInstance(aspectRatio.width, aspectRatio.height,
+//                    ImageFormat.JPEG, /*maxImages*/ 2).apply {
+//                    setOnImageAvailableListener(onImageAvailableListenerRear, backgroundHandlerRear)
+//                    Log.i("Testing", "Imagereader created")
+//                    Log.i("Testing", imageReaderRear?.imageFormat.toString())
+//                }
+                imageReaderRear = ImageReader.newInstance(aspectRatio.width, aspectRatio.height, ImageFormat.JPEG, /*maxImages*/ 2)
+                imageReaderRear!!.setOnImageAvailableListener(onImageAvailableListenerRear, backgroundHandlerRear)
+                    Log.i("Testing", "Imagereader created")
+                    Log.i("Testing", imageReaderRear?.height.toString())
+                if(imageReaderRear?.surface != null){
+                    Log.i("Testing", "Image is niet null")
                 }
+                textureViewRear.setAspectRatio(aspectRatio.height, aspectRatio.width)
+
+
+
 
                 Log.d(TAG, "selected aspect ratio " + aspectRatio.height  + "x" + aspectRatio.width + " : " + aspectRatio.height/aspectRatio.width)
                 // Find out if we need to swap dimension to get the preview size relative to sensor
