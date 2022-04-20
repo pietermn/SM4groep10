@@ -47,4 +47,11 @@ class MainActivity : AppCompatActivity() {
             back.visibility = View.GONE
         }
     }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == cameraRequest) {
+//            val photo: Bitmap = data?.extras?.get("data") as Bitmap
+//            imageView.setImageBitmap(photo)
+//        }
+//    }
 }
