@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.hardware.camera2.*
+import android.hardware.camera2.CameraCaptureSession.CaptureCallback
 import android.media.Image
 import android.media.ImageReader
-import android.media.ImageReader.OnImageAvailableListener
 import android.os.*
 import android.util.Log
 import android.util.Size
@@ -28,7 +28,6 @@ import com.example.memoriespoc.view.ErrorDialog
 import kotlinx.android.synthetic.main.fragment_camera.*
 import kotlinx.android.synthetic.main.fragment_camera.view.*
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -1151,6 +1150,9 @@ class CameraFragment : Fragment(){
 
     }
 
+//    private fun captureStillImage(){
+//        CaptureRequest.Builder captureStillBuilder =
+//    }
 
     /**
      * Creates a new [CameraCaptureSession] for rear camera preview.
@@ -1303,4 +1305,32 @@ class CameraFragment : Fragment(){
 //        Log.i("TestingNow",picturefront.timestamp.toString())
 //    }
 
+    private fun captureStillImage() {
+        try {
+            val captureStillBuilder =
+                cameraDeviceFront!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+            captureStillBuilder.addTarget(imageReaderFront!!.surface)
+
+            //int rotation = getWindowManager().getDefaultDisplay().getRotation();
+            captureStillBuilder.set(CaptureRequest.JPEG_ORIENTATION, 0)
+            var captureCallback: CaptureCallback
+            run {
+                object : CaptureCallback() {
+                    override fun onCaptureCompleted(
+                        session: CameraCaptureSession,
+                        request: CaptureRequest,
+                        result: TotalCaptureResult
+                    ) {
+                        super.onCaptureCompleted(session, request, result)
+                        Log.i("Testing", "Image saved")
+                    }
+                }
+//                captureSessionFront?.capture(
+//                    captureStillBuilder.build(), captureCallback, null
+//                )
+            }
+        } catch (e: CameraAccessException) {
+            e.printStackTrace()
+        }
+    }
 }
