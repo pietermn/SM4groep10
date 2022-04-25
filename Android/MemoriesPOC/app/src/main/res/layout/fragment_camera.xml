@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"></com.example.memoriespoc.view.AutoFitTextureView>
+        app:layout_constraintVertical_bias="1.0"></com.example.memoriespoc.view.AutoFitTextureView>
 
     <com.example.memoriespoc.view.AutoFitTextureView
         android:id="@+id/texture1"
@@ -30,56 +30,64 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.029"></com.example.memoriespoc.view.AutoFitTextureView>
 
-    <Button
+    <!--    <Button-->
+    <!--        android:id="@+id/btn_photo"-->
+    <!--        style="@style/Widget.MaterialComponents.Button.Icon"-->
+    <!--        android:layout_width="56dp"-->
+    <!--        android:layout_height="52dp"-->
+    <!--        android:layout_marginTop="683dp"-->
+    <!--        app:icon="@android:drawable/ic_menu_camera"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.498"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/texture2"-->
+    <!--        app:layout_constraintVertical_bias="1.0" />-->
+
+
+    <ImageButton
         android:id="@+id/btn_photo"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="56dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="683dp"
-        app:icon="@android:drawable/ic_menu_camera"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/circle"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_baseline_photo_camera_24"
+        app:layout_constraintBottom_toBottomOf="@+id/texture2"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/texture2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958"
+        app:tint="@color/white" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_switch"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="136dp"
+        android:layout_width="52dp"
         android:layout_height="52dp"
-        android:text="Switch"
-        app:icon="@android:drawable/ic_menu_revert"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="29dp"
+        android:background="@drawable/circle2"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_baseline_flip_camera_ios_24"
+        app:layout_constraintBottom_toBottomOf="@+id/texture2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintHorizontal_bias="0.245"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="665dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintVertical_bias="0.981"
         app:tint="@color/Detail" />
 
     <ImageView
         android:id="@+id/view"
         android:layout_width="87dp"
         android:layout_height="146dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/btn_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
@@ -87,16 +95,19 @@
         app:layout_constraintTop_toTopOf="@+id/texture2"
         app:layout_constraintVertical_bias="0.974" />
 
-    <SurfaceView
-        android:id="@+id/surfaceView"
-        android:layout_width="84dp"
-        android:layout_height="152dp"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintStart_toStartOf="@+id/texture2"
-        app:layout_constraintTop_toBottomOf="@+id/texture1"
-        app:layout_constraintVertical_bias="0.954" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="663dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="205dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
