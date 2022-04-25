@@ -47,16 +47,18 @@
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/map_selector.xml" value="0.223" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/drawable/orange_arrow.xml" value="0.251" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.3001576741536459" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.40989583333333335" />
+        <entry key="app/src/main/res/layout/activity_mostpopularplaces.xml" value="0.2518315633138019" />
+        <entry key="app/src/main/res/layout/activity_my_camera.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.38606109619140627" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/fragment_photo.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/home_bigcard.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/home_smallcard.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.40989583333333335" />
-        <entry key="app/src/main/res/layout/activity_my_camera.xml" value="0.23802083333333332" />
-        <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.1" />
       </map>
     </option>
   </component>
