@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.hardware.camera2.*
+import android.hardware.camera2.CameraCaptureSession.CaptureCallback
 import android.media.Image
 import android.media.ImageReader
-import android.media.ImageReader.OnImageAvailableListener
 import android.os.*
 import android.util.Log
 import android.util.Size
@@ -28,10 +28,10 @@ import com.example.memoriespoc.view.ErrorDialog
 import kotlinx.android.synthetic.main.fragment_camera.*
 import kotlinx.android.synthetic.main.fragment_camera.view.*
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
@@ -172,12 +172,15 @@ class CameraFragment : Fragment(){
 
     private lateinit var picturefront: Image
     private lateinit var file: File
+    private lateinit var imageFolder: File
+    private lateinit var imageFileName: String
     /**
      * This a callback object for the [ImageReader]. "onImageAvailable" will be called when a
      * still image is ready to be saved.
      */
     private val onImageAvailableListenerFront = ImageReader.OnImageAvailableListener {
-//        backgroundHandler?.post(ImageSaver(it.acquireNextImage(), file))
+        //backgroundHandlerFront?.post(ImageSaver(imageReaderFront!!.acquireLatestImage()))
+        imageReaderFront?.acquireLatestImage()
         Log.d(TAG, "onImageAvailableListenerFront Called")
     }
 
@@ -411,20 +414,17 @@ class CameraFragment : Fragment(){
         val v =  inflater.inflate(R.layout.fragment_camera, container, false)
         textureViewFront = v.findViewById(R.id.texture1)
         textureViewRear = v.findViewById(R.id.texture2)
-        val surfaceViewer = v.findViewById<SurfaceView>(R.id.surfaceView)
+//        val surfaceViewer = v.findViewById<SurfaceView>(R.id.surfaceView)
         viewPhoto = v.findViewById(R.id.view)
 
         v.btn_switch.setOnClickListener {
             Switch()
         }
-        textureViewFront.setOnClickListener{
-            Switch()
-        }
         v.btn_photo.setOnClickListener {
             Log.i("Test", "Button photo is pressed")
             //var image = imageReaderFront?.acquireLatestImage() as Bitmap
-            var image2 = imageReaderRear?.surface
-            var image3 = imageReaderFront?.surface
+//            var image2 = imageReaderRear?.surface
+//            var image3 = imageReaderFront?.surface
             //viewPhoto.setImageBitmap(image)
             //viewPhoto?.setImageBitmap(takeScreenshotOfView(v, height = textureViewFront!!.width, width = textureViewFront!!.height))
             ///////////viewPhoto.setImageBitmap(v.drawToBitmap())
@@ -448,7 +448,7 @@ class CameraFragment : Fragment(){
             //}
             //onImageAvailableListenerFront.onImageAvailable(imageReaderFront)
             //Log.i("onImageAvailableFront", file.name)
-
+//            startStillCaptureRequest()
 
         }
         return v
@@ -1151,6 +1151,9 @@ class CameraFragment : Fragment(){
 
     }
 
+//    private fun captureStillImage(){
+//        CaptureRequest.Builder captureStillBuilder =
+//    }
 
     /**
      * Creates a new [CameraCaptureSession] for rear camera preview.
@@ -1303,4 +1306,141 @@ class CameraFragment : Fragment(){
 //        Log.i("TestingNow",picturefront.timestamp.toString())
 //    }
 
+    private fun captureStillImage() {
+        try {
+            val captureStillBuilder =
+                cameraDeviceFront!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+            captureStillBuilder.addTarget(imageReaderFront!!.surface)
+
+            //int rotation = getWindowManager().getDefaultDisplay().getRotation();
+            captureStillBuilder.set(CaptureRequest.JPEG_ORIENTATION, 0)
+            var captureCallback: CaptureCallback
+            run {
+                object : CaptureCallback() {
+                    override fun onCaptureCompleted(
+                        session: CameraCaptureSession,
+                        request: CaptureRequest,
+                        result: TotalCaptureResult
+                    ) {
+                        super.onCaptureCompleted(session, request, result)
+                        Log.i("Testing", "Image saved")
+                    }
+                }
+//                captureSessionFront?.capture(
+//                    captureStillBuilder.build(), captureCallback, null
+//                )
+            }
+        } catch (e: CameraAccessException) {
+            e.printStackTrace()
+        }
+    }
+
+//    private fun startStillCaptureRequest() {
+//        try {
+//            previewRequestBuilderFront = cameraDeviceFront!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+//
+//            imageReaderFront?.let { previewRequestBuilderFront.addTarget(it.getSurface()) }
+//            previewRequestBuilderFront.set<Int>(CaptureRequest.JPEG_ORIENTATION, 90)
+//            val stillCaptureCallback: CaptureCallback = object : CaptureCallback() {
+//                override fun onCaptureStarted(
+//                    session: CameraCaptureSession,
+//                    request: CaptureRequest,
+//                    timestamp: Long,
+//                    frameNumber: Long
+//                ) {
+//                    super.onCaptureStarted(session, request, timestamp, frameNumber)
+//                    try {
+//                        createImageFileName()
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+//                }
+//            }
+//                captureSessionFront?.capture(
+//                    previewRequestBuilderFront.build(),
+//                    stillCaptureCallback,
+//                    null
+//                )
+//
+//        } catch (e: CameraAccessException) {
+//            e.printStackTrace()
+//        }
+//    }
+//
+//    @Throws(IOException::class)
+//    private fun createImageFileName(): File? {
+//
+//        var imageFile2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+//        imageFolder = File(imageFile2, "camera2VideoImage")
+//        val timestamp = SimpleDateFormat("" +
+//                "yyyyMMdd_HHmmss").format(Date())
+//        val prepend = "IMAGE_" + timestamp + "_"
+//        val imageFile = File.createTempFile(prepend, ".jpg", imageFolder)
+//        imageFileName = imageFile.absolutePath
+//        return imageFile
+//    }
+//
+//    private class ImageSaver(private val img: Image) : Runnable {
+//        override fun run() {
+//            val imageFileName: String = "test"
+//            val byteBuffer = img.planes[0].buffer
+//            val bytes = ByteArray(byteBuffer.remaining())
+//            byteBuffer[bytes]
+//            var fileOutputStream: FileOutputStream? = null
+//            try {
+//                fileOutputStream = FileOutputStream(imageFileName)
+//                fileOutputStream!!.write(bytes)
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            } finally {
+//                img.close()
+//                val mediaStoreUpdateIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+//                mediaStoreUpdateIntent.data = Uri.fromFile(File(imageFileName))
+////                sendBroadcast(mediaStoreUpdateIntent)
+//                if (fileOutputStream != null) {
+//                    try {
+//                        fileOutputStream.close()
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+//                }
+//            }
+//        }
+//    }
+//private fun startStillCaptureRequest() {
+//    try {
+//        val captureRequestBuilder1 = cameraDeviceFront?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+//        imageReaderFront?.getSurface()?.let { captureRequestBuilder1?.addTarget(it) }
+//        captureRequestBuilder1?.set<Int>(CaptureRequest.JPEG_ORIENTATION, 90)
+//        val stillCaptureCallback: CaptureCallback = object : CaptureCallback() {
+//            override fun onCaptureStarted(
+//                session: CameraCaptureSession,
+//                request: CaptureRequest,
+//                timestamp: Long,
+//                frameNumber: Long
+//            ) {
+//                super.onCaptureStarted(session, request, timestamp, frameNumber)
+//                try {
+//                    createImageFileName()
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                }
+//            }
+//        }
+//        captureSessionFront?.capture(captureRequestBuilder1!!.build(), stillCaptureCallback, null)
+//
+//    } catch (e: CameraAccessException) {
+//        e.printStackTrace()
+//    }
+//}
+//    @Throws(IOException::class)
+//    private fun createImageFileName(): File? {
+//        val imageFileFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+//        val mImageFolder: File = File(imageFileFolder, "camera2VideoImage")
+//        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+//        val prepend = "IMAGE_" + timestamp + "_"
+//        val imageFile = File.createTempFile(prepend, ".jpg", mImageFolder)
+//        val mImageFileName: String = imageFile.absolutePath
+//        return imageFile
+//    }
 }
