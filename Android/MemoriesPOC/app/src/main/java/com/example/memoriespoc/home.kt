@@ -62,6 +62,7 @@ class home : Fragment() {
         binding.lblSeeAll1.setOnClickListener {
             var intent = Intent(this.requireActivity(), MostPopularPlaces::class.java)
             startActivity(intent)
+            Log.i("Test", "updated code")
         }
 
         binding.lblSeeAll2.setOnClickListener {

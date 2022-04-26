@@ -15,12 +15,14 @@ import android.util.Size
 import android.util.SparseIntArray
 import android.view.*
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.applyCanvas
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.example.memoriespoc.R
+import com.example.memoriespoc.fragment.CameraFragment
 import com.example.memoriespoc.util.CompareSizesByViewAspectRatio
 import com.example.memoriespoc.util.REQUEST_CAMERA_PERMISSION
 import com.example.memoriespoc.view.AutoFitTextureView
@@ -29,6 +31,7 @@ import com.example.memoriespoc.view.ErrorDialog
 import kotlinx.android.synthetic.main.fragment_camera.*
 import kotlinx.android.synthetic.main.fragment_camera.view.*
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -173,15 +176,59 @@ class photo : Fragment(){
 
     private lateinit var picturefront: Image
     private lateinit var file: File
+    private var imageTaken: Image? = null
     /**
      * This a callback object for the [ImageReader]. "onImageAvailable" will be called when a
      * still image is ready to be saved.
      */
-    private val onImageAvailableListenerFront = ImageReader.OnImageAvailableListener {
-//        backgroundHandler?.post(ImageSaver(it.acquireNextImage(), file))
-        Log.d(TAG, "onImageAvailableListenerFront Called")
+//    private val onImageAvailableListenerFront = object: ImageReader.OnImageAvailableListener {
+////        backgroundHandler?.post(ImageSaver(it.acquireNextImage(), file))
+//        //Log.d("Test", "onImageAvailableListenerFront Called")
+//        override fun onImageAvailable(reader: ImageReader) {
+//            Toast.makeText(this@MainActivity, "Photo Taken!", Toast.LENGTH_SHORT).show()
+//            val image: Image = reader.acquireLatestImage()
+//            image.close()
+//        }
+//    }
+    private val onImageAvailableListenerFront = object: ImageReader.OnImageAvailableListener{
+        override fun onImageAvailable(reader: ImageReader) {
+            Log.i("Test", "Photo taken")
+            imageTaken = reader.acquireLatestImage()
+            //image.close()
+        }
     }
-
+//    private fun processImage(image: Image) {
+//        //Process image data
+//        val buffer: ByteBuffer
+//        val bytes: ByteArray
+//        var success = false
+//        val file =
+//            File(Environment.getExternalStorageDirectory().toString() + "/Pictures/image.jpg")
+//        var output: FileOutputStream? = null
+//        if (image.format == ImageFormat.JPEG) {
+//            buffer = image.planes[0].buffer
+//            bytes = ByteArray(buffer.remaining()) // makes byte array large enough to hold image
+//            buffer[bytes] // copies image from buffer to byte array
+//            try {
+//                output = FileOutputStream(file)
+//                output.write(bytes) // write the byte array to file
+//                success = true
+//            } catch (e: FileNotFoundException) {
+//                e.printStackTrace()
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            } finally {
+//                image.close() // close this to free up buffer for other images
+//                if (null != output) {
+//                    try {
+//                        output.close()
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+//                }
+//            }
+//        }
+//    }
 //    private val onImageAvailableListenerFront = ImageReader.OnImageAvailableListener {
 //        val currentDateTime: String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //            LocalDateTime.now().toString()
@@ -375,20 +422,18 @@ class photo : Fragment(){
         viewPhoto = v.findViewById(R.id.view)
 
         v.btn_switch.setOnClickListener {
-            Log.i("Test", "Button is pressed")
-            openCameraSwitch()
-            val textureSwitcherFront: AutoFitTextureView = textureViewFront
-            textureViewFront = textureViewRear
-            textureViewRear = textureSwitcherFront
-            openCameraSwitch()
+            TestDezeSwitch()
         }
         v.btn_photo.setOnClickListener {
             Log.i("Test", "Button photo is pressed")
+            takePhoto()
+            //imageTaken?.let { it1 -> processImage(it1) }
+            imageTaken?.let { it1 -> startCapture(it1) }
             //var image = imageReaderFront?.acquireLatestImage() as Bitmap
             //var image2 = imageReaderFront?.surface
             //viewPhoto.setImageBitmap(image)
             //viewPhoto?.setImageBitmap(takeScreenshotOfView(v, height = textureViewFront!!.width, width = textureViewFront!!.height))
-            viewPhoto.setImageBitmap(v.drawToBitmap())
+            //viewPhoto.setImageBitmap(v.drawToBitmap())
             //setUpCameraOutputsFront(textureViewFront.width, textureViewFront.height)
             //onImageAvailable(imageReaderFront!!)
             //imageReaderFront?.setOnImageAvailableListener(onImageAvailable(imageReaderFront) ,backgroundHandlerFront)
@@ -410,8 +455,74 @@ class photo : Fragment(){
             //onImageAvailableListenerFront.onImageAvailable(imageReaderFront)
             //Log.i("onImageAvailableFront", file.name)
 
+
         }
         return v
+    }
+
+    private fun startCapture(image: Image) {
+        val mImageName = System.currentTimeMillis().toString() + ".png"
+        Log.i("Test", "image name is : $mImageName")
+        val width = image?.width
+        val height = image?.height
+        val planes: Array<Image.Plane> = image!!.planes
+        val buffer: ByteBuffer = planes[0].getBuffer()
+        val pixelStride: Int = planes[0].getPixelStride()
+        val rowStride: Int = planes[0].getRowStride()
+        val rowPadding = rowStride - pixelStride * width!!
+        //Hier gaat het fout
+        var bitmap =
+            Bitmap.createBitmap(width + rowPadding / pixelStride, height!!, Bitmap.Config.ARGB_8888)
+        bitmap!!.copyPixelsFromBuffer(buffer)
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
+        image.close()
+        if (bitmap != null) {
+            Log.i("Test", "bitmap  create success ")
+            try {
+                viewPhoto.setImageBitmap(bitmap)
+                val mImagePath = "test"
+                val fileFolder = File(mImagePath)
+                if (!fileFolder.exists()) fileFolder.mkdirs()
+                val file = File(mImagePath, mImageName)
+                if (!file.exists()) {
+                    Log.i("Test", "file create success ")
+                    file.createNewFile()
+                }
+                val out = FileOutputStream(file)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                out.flush()
+                out.close()
+                Log.i("Test", "file save success ")
+
+            } catch (e: IOException) {
+                Log.i("Test", e.toString())
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private var orientations : SparseIntArray = SparseIntArray(4).apply {
+        append(Surface.ROTATION_0, 0)
+        append(Surface.ROTATION_90, 90)
+        append(Surface.ROTATION_180, 180)
+        append(Surface.ROTATION_270, 270)
+    }
+
+    private fun takePhoto() {
+        previewRequestBuilderFront = cameraDeviceFront!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+        previewRequestBuilderFront.addTarget(imageReaderFront!!.surface)
+        val rotation = 0
+        previewRequestBuilderFront.set(CaptureRequest.JPEG_ORIENTATION, orientations.get(rotation))
+        captureSessionFront?.capture(previewRequestBuilderFront.build(), captureCallback, null)
+    }
+
+    private fun TestDezeSwitch(){
+        Log.i("Test", "Button is pressed tester ")
+        onPause()
+        val textureSwitcherFront: AutoFitTextureView = textureViewFront
+        textureViewFront = textureViewRear
+        textureViewRear = textureSwitcherFront
+        onResume()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

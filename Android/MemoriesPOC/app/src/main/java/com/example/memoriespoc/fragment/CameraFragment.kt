@@ -180,7 +180,7 @@ class CameraFragment : Fragment(){
      */
     private val onImageAvailableListenerFront = ImageReader.OnImageAvailableListener {
         //backgroundHandlerFront?.post(ImageSaver(imageReaderFront!!.acquireLatestImage()))
-        imageReaderFront?.acquireLatestImage()
+//        imageReaderFront?.acquireLatestImage()
         Log.d(TAG, "onImageAvailableListenerFront Called")
     }
 
@@ -414,11 +414,10 @@ class CameraFragment : Fragment(){
         val v =  inflater.inflate(R.layout.fragment_camera, container, false)
         textureViewFront = v.findViewById(R.id.texture1)
         textureViewRear = v.findViewById(R.id.texture2)
-//        val surfaceViewer = v.findViewById<SurfaceView>(R.id.surfaceView)
         viewPhoto = v.findViewById(R.id.view)
 
         v.btn_switch.setOnClickListener {
-            Switch()
+            TestDezeSwitch()
         }
         v.btn_photo.setOnClickListener {
             Log.i("Test", "Button photo is pressed")
@@ -454,6 +453,46 @@ class CameraFragment : Fragment(){
         return v
     }
 
+    private fun startCapture(image: Image) {
+        val mImageName = System.currentTimeMillis().toString() + ".png"
+        Log.e(TAG, "image name is : $mImageName")
+        val width = image?.width
+        val height = image?.height
+        val planes: Array<Image.Plane> = image!!.planes
+        val buffer: ByteBuffer = planes[0].getBuffer()
+        val pixelStride: Int = planes[0].getPixelStride()
+        val rowStride: Int = planes[0].getRowStride()
+        val rowPadding = rowStride - pixelStride * width!!
+        var bitmap =
+            Bitmap.createBitmap(width + rowPadding / pixelStride, height!!, Bitmap.Config.ARGB_8888)
+        bitmap!!.copyPixelsFromBuffer(buffer)
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
+        image.close()
+        if (bitmap != null) {
+            Log.e(TAG, "bitmap  create success ")
+            try {
+                viewPhoto.setImageBitmap(bitmap)
+                val mImagePath = "test"
+                val fileFolder = File(mImagePath)
+                if (!fileFolder.exists()) fileFolder.mkdirs()
+                val file = File(mImagePath, mImageName)
+                if (!file.exists()) {
+                    Log.e(TAG, "file create success ")
+                    file.createNewFile()
+                }
+                val out = FileOutputStream(file)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                out.flush()
+                out.close()
+                Log.e(TAG, "file save success ")
+
+            } catch (e: IOException) {
+                Log.e(TAG, e.toString())
+                e.printStackTrace()
+            }
+        }
+    }
+
     private fun Switch(){
         Log.i("Test", "Button is pressed")
         openCameraSwitch()
@@ -461,6 +500,14 @@ class CameraFragment : Fragment(){
         textureViewFront = textureViewRear
         textureViewRear = textureSwitcherFront
         openCameraSwitch()
+    }
+    private fun TestDezeSwitch(){
+        Log.i("Test", "Button is pressed tester ")
+        onPause()
+        val textureSwitcherFront: AutoFitTextureView = textureViewFront
+        textureViewFront = textureViewRear
+        textureViewRear = textureSwitcherFront
+        onResume()
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -562,47 +609,47 @@ class CameraFragment : Fragment(){
 //    }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    fun GetBitmapFromImageReader(imageReader: ImageReader): Bitmap? {
-        val bitmap: Bitmap
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    fun GetBitmapFromImageReader(imageReader: ImageReader): Bitmap? {
+//        val bitmap: Bitmap
+//
+//        //get image buffer
+//        val image = imageReader.acquireNextImage()
+//        val planes = image.planes
+//        val buffer = planes[0].buffer
+//        val pixelStride = planes[0].pixelStride
+//        val rowStride = planes[0].rowStride
+//        val rowPadding = rowStride - pixelStride * image.width
+//        // create bitmap
+//        bitmap = Bitmap.createBitmap(
+//            image.width + rowPadding / pixelStride,
+//            image.height,
+//            Bitmap.Config.ARGB_8888
+//        )
+//        bitmap.copyPixelsFromBuffer(buffer)
+//        image.close()
+//        return bitmap
+//    }
 
-        //get image buffer
-        val image = imageReader.acquireNextImage()
-        val planes = image.planes
-        val buffer = planes[0].buffer
-        val pixelStride = planes[0].pixelStride
-        val rowStride = planes[0].rowStride
-        val rowPadding = rowStride - pixelStride * image.width
-        // create bitmap
-        bitmap = Bitmap.createBitmap(
-            image.width + rowPadding / pixelStride,
-            image.height,
-            Bitmap.Config.ARGB_8888
-        )
-        bitmap.copyPixelsFromBuffer(buffer)
-        image.close()
-        return bitmap
-    }
-
-    private fun getScreenShotFromView(v: View): Bitmap? {
-        // create a bitmap object
-        var screenshot: Bitmap? = null
-        try {
-            // inflate screenshot object
-            // with Bitmap.createBitmap it
-            // requires three parameters
-            // width and height of the view and
-            // the background color
-            screenshot = Bitmap.createBitmap(v.measuredWidth, v.measuredHeight, Bitmap.Config.ARGB_8888)
-            // Now draw this bitmap on a canvas
-            val canvas = Canvas(screenshot)
-            v.draw(canvas)
-        } catch (e: Exception) {
-            Log.e("GFG", "Failed to capture screenshot because:" + e.message)
-        }
-        // return the bitmap
-        return screenshot
-    }
+//    private fun getScreenShotFromView(v: View): Bitmap? {
+//        // create a bitmap object
+//        var screenshot: Bitmap? = null
+//        try {
+//            // inflate screenshot object
+//            // with Bitmap.createBitmap it
+//            // requires three parameters
+//            // width and height of the view and
+//            // the background color
+//            screenshot = Bitmap.createBitmap(v.measuredWidth, v.measuredHeight, Bitmap.Config.ARGB_8888)
+//            // Now draw this bitmap on a canvas
+//            val canvas = Canvas(screenshot)
+//            v.draw(canvas)
+//        } catch (e: Exception) {
+//            Log.e("GFG", "Failed to capture screenshot because:" + e.message)
+//        }
+//        // return the bitmap
+//        return screenshot
+//    }
 
     override fun onResume() {
         super.onResume()
