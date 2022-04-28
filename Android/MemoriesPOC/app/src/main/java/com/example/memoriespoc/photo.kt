@@ -1,28 +1,25 @@
 package com.example.memoriespoc
 
 import android.Manifest
-import android.R.attr.height
-import android.R.attr.width
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.hardware.camera2.*
 import android.media.Image
 import android.media.ImageReader
+import android.net.Uri
 import android.os.*
 import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
 import android.view.*
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.applyCanvas
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
-import com.example.memoriespoc.R
-import com.example.memoriespoc.fragment.CameraFragment
 import com.example.memoriespoc.util.CompareSizesByViewAspectRatio
 import com.example.memoriespoc.util.REQUEST_CAMERA_PERMISSION
 import com.example.memoriespoc.view.AutoFitTextureView
@@ -31,11 +28,9 @@ import com.example.memoriespoc.view.ErrorDialog
 import kotlinx.android.synthetic.main.fragment_camera.*
 import kotlinx.android.synthetic.main.fragment_camera.view.*
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
-import java.time.LocalDateTime
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
@@ -176,7 +171,7 @@ class photo : Fragment(){
 
     private lateinit var picturefront: Image
     private lateinit var file: File
-    private var imageTaken: Image? = null
+    private lateinit var imageTaken: Image
     /**
      * This a callback object for the [ImageReader]. "onImageAvailable" will be called when a
      * still image is ready to be saved.
@@ -193,10 +188,55 @@ class photo : Fragment(){
     private val onImageAvailableListenerFront = object: ImageReader.OnImageAvailableListener{
         override fun onImageAvailable(reader: ImageReader) {
             Log.i("Test", "Photo taken")
+            //file = File(Environment.getExternalStorageDirectory().toString() + "/Pictures/image.jpeg")
             imageTaken = reader.acquireLatestImage()
-            //image.close()
+            startCapture(imageTaken)
+            //galleryAddPic()
+            //ImageSaver(imageTaken, file)
+            //backgroundHandlerFront?.post(ImageSaver(imageTaken, file))
+
+            imageTaken.close()
         }
     }
+
+//    private class ImageSaver(
+//        /**
+//         * The JPEG image
+//         */
+//        private val mImage: Image,
+//        /**
+//         * The file we save the image into.
+//         */
+//        private val mFile: File
+//    ) : Runnable {
+//        override fun run() {
+//            val buffer = mImage.planes[0].buffer
+//            val bytes = ByteArray(buffer.remaining())
+//            buffer[bytes]
+//            var output: FileOutputStream? = null
+//            try {
+//                output = FileOutputStream(mFile)
+//                output.write(bytes)
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            } finally {
+//                mImage.close()
+//                if (null != output) {
+//                    try {
+//                        output.close()
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    private fun galleryAddPic() {
+//        Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
+//            mediaScanIntent.data = Uri.fromFile(file)
+//            context?.sendBroadcast(mediaScanIntent)
+//        }
+//    }
 //    private fun processImage(image: Image) {
 //        //Process image data
 //        val buffer: ByteBuffer
@@ -428,7 +468,7 @@ class photo : Fragment(){
             Log.i("Test", "Button photo is pressed")
             takePhoto()
             //imageTaken?.let { it1 -> processImage(it1) }
-            imageTaken?.let { it1 -> startCapture(it1) }
+            //imageTaken?.let { it1 -> startCapture(it1) }
             //var image = imageReaderFront?.acquireLatestImage() as Bitmap
             //var image2 = imageReaderFront?.surface
             //viewPhoto.setImageBitmap(image)
@@ -461,26 +501,26 @@ class photo : Fragment(){
     }
 
     private fun startCapture(image: Image) {
-        val mImageName = System.currentTimeMillis().toString() + ".png"
+        val mImageName = System.currentTimeMillis().toString() + ".jpeg"
         Log.i("Test", "image name is : $mImageName")
         val width = image?.width
         val height = image?.height
-        val planes: Array<Image.Plane> = image!!.planes
+        val planes: Array<Image.Plane> = image.planes
         val buffer: ByteBuffer = planes[0].getBuffer()
-        val pixelStride: Int = planes[0].getPixelStride()
-        val rowStride: Int = planes[0].getRowStride()
-        val rowPadding = rowStride - pixelStride * width!!
-        //Hier gaat het fout
+//        val pixelStride: Int = planes[0].getPixelStride()
+//        val rowStride: Int = planes[0].getRowStride()
+//        val rowPadding = rowStride - pixelStride * width!!
         var bitmap =
-            Bitmap.createBitmap(width + rowPadding / pixelStride, height!!, Bitmap.Config.ARGB_8888)
-        bitmap!!.copyPixelsFromBuffer(buffer)
+            Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        //Hier gaat het fout ? /////////////////////////////////////////////////////////////////////////
+        //bitmap.copyPixelsFromBuffer(buffer)
+        //  /\ ///////////////////////////////////////////////////////////////////////////////////////
         bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
         image.close()
         if (bitmap != null) {
             Log.i("Test", "bitmap  create success ")
             try {
-                viewPhoto.setImageBitmap(bitmap)
-                val mImagePath = "test"
+                val mImagePath = Environment.getExternalStorageDirectory().toString() + "/Pictures/image.jpeg"
                 val fileFolder = File(mImagePath)
                 if (!fileFolder.exists()) fileFolder.mkdirs()
                 val file = File(mImagePath, mImageName)
@@ -489,7 +529,7 @@ class photo : Fragment(){
                     file.createNewFile()
                 }
                 val out = FileOutputStream(file)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
                 out.flush()
                 out.close()
                 Log.i("Test", "file save success ")
@@ -556,7 +596,7 @@ class photo : Fragment(){
         return bitmap
     }
     private fun startCapture() {
-        val mImageName = System.currentTimeMillis().toString() + ".png"
+        val mImageName = System.currentTimeMillis().toString() + ".jpeg"
         Log.e(TAG, "image name is : $mImageName")
         val image: Image? = imageReaderFront?.acquireLatestImage()
         val width = image?.width
