@@ -332,6 +332,11 @@ class photo : Fragment(){
             Log.i("Test", "Button photo is pressed")
             TakePhotoFront()
             TakePhotoRear()
+            v.popup_layout.visibility = View.VISIBLE
+        }
+        v.ok_btn.setOnClickListener {
+            v.popup_layout.visibility = View.INVISIBLE
+
         }
         return v
     }
