@@ -1,12 +1,11 @@
 package com.example.memoriespoc
 
 import android.Manifest
-import android.R.attr.height
-import android.R.attr.width
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.hardware.camera2.*
+import android.icu.text.SimpleDateFormat
 import android.media.Image
 import android.media.ImageReader
 import android.os.*
@@ -15,12 +14,8 @@ import android.util.Size
 import android.util.SparseIntArray
 import android.view.*
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.applyCanvas
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
-import com.example.memoriespoc.R
 import com.example.memoriespoc.util.CompareSizesByViewAspectRatio
 import com.example.memoriespoc.util.REQUEST_CAMERA_PERMISSION
 import com.example.memoriespoc.view.AutoFitTextureView
@@ -32,7 +27,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
-import java.time.LocalDateTime
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
@@ -44,7 +38,9 @@ import java.util.concurrent.TimeUnit
 class photo : Fragment(){
 
 
-//    private var surfaceViewer: SurfaceView? = null
+    //    private var surfaceViewer: SurfaceView? = null
+    private lateinit var imageFolder: File
+
     /**
      * An additional thread for running tasks that shouldn't block the UI.
      */
@@ -171,79 +167,33 @@ class photo : Fragment(){
      */
     private lateinit var previewRequestRear: CaptureRequest
 
-    private lateinit var picturefront: Image
-    private lateinit var file: File
+
+    private lateinit var imageTakenFront: Image
+    private lateinit var imageTakenRear: Image
     /**
      * This a callback object for the [ImageReader]. "onImageAvailable" will be called when a
      * still image is ready to be saved.
      */
-    private val onImageAvailableListenerFront = ImageReader.OnImageAvailableListener {
-//        backgroundHandler?.post(ImageSaver(it.acquireNextImage(), file))
-        Log.d(TAG, "onImageAvailableListenerFront Called")
+    private val onImageAvailableListenerFront = object: ImageReader.OnImageAvailableListener{
+        override fun onImageAvailable(reader: ImageReader) {
+            Log.i("Test", "Photo taken Front")
+            imageTakenFront = reader.acquireLatestImage()
+            StartCaptureFront(imageTakenFront)
+            imageTakenFront.close()
+        }
     }
 
-//    private val onImageAvailableListenerFront = ImageReader.OnImageAvailableListener {
-//        val currentDateTime: String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            LocalDateTime.now().toString()
-//        } else {
-//            TODO("VERSION.SDK_INT < O")
-//        }
-//
-//        file = File(
-//            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-//                .getAbsolutePath()
-//                .toString() + "/C2/" + "_" + currentDateTime + ".jpg"
-//        )
-//        Log.i("onImageAvailableListenerFront", file.name)
-//        if(it.acquireLatestImage() == null){
-//            Log.i("onImageAvailableListenerFront", "Image empty")
-//        }
-//       // backgroundHandlerFront?.post(ImageSaver(it.acquireNextImage(), file))
-//        Log.i(TAG, "onImageAvailableListenerFront Called")
-//    }
-//
-//    private class ImageSaver internal constructor(
-//        /**
-//         * The JPEG image
-//         */
-//        private val mImage: Image,
-//        /**
-//         * The file we save the image into.
-//         */
-//        private val mFile: File
-//    ) :
-//        Runnable {
-//        override fun run() {
-//            val buffer = mImage.planes[0].buffer
-//            val bytes = ByteArray(buffer.remaining())
-//            buffer[bytes]
-//            var output: FileOutputStream? = null
-//            try {
-//                output = FileOutputStream(mFile)
-//                output.write(bytes)
-//            } catch (e: IOException) {
-//                e.printStackTrace()
-//            } finally {
-//                mImage.close()
-//                if (null != output) {
-//                    try {
-//                        output.close()
-//                    } catch (e: IOException) {
-//                        e.printStackTrace()
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-
     /**
      * This a callback object for the [ImageReader]. "onImageAvailable" will be called when a
      * still image is ready to be saved.
      */
-    private val onImageAvailableListenerRear = ImageReader.OnImageAvailableListener {
-        //        backgroundHandler?.post(ImageSaver(it.acquireNextImage(), file))
-        Log.d(TAG, "onImageAvailableListener Called")
+    private val onImageAvailableListenerRear = object: ImageReader.OnImageAvailableListener {
+        override fun onImageAvailable(reader: ImageReader) {
+            Log.i("Test", "Photo taken rear")
+            imageTakenRear = reader.acquireLatestImage()
+            StartCaptureRear(imageTakenRear)
+            imageTakenRear.close()
+        }
     }
 
 
@@ -373,46 +323,202 @@ class photo : Fragment(){
         textureViewRear = v.findViewById(R.id.texture2)
         //surfaceViewer = v.findViewById(R.id.surfaceView)
         viewPhoto = v.findViewById(R.id.view)
+        CreateImageFolder()
 
         v.btn_switch.setOnClickListener {
-            Log.i("Test", "Button is pressed")
-            openCameraSwitch()
-            val textureSwitcherFront: AutoFitTextureView = textureViewFront
-            textureViewFront = textureViewRear
-            textureViewRear = textureSwitcherFront
-            openCameraSwitch()
+            TestDezeSwitch()
         }
         v.btn_photo.setOnClickListener {
             Log.i("Test", "Button photo is pressed")
-            //var image = imageReaderFront?.acquireLatestImage() as Bitmap
-            //var image2 = imageReaderFront?.surface
-            //viewPhoto.setImageBitmap(image)
-            //viewPhoto?.setImageBitmap(takeScreenshotOfView(v, height = textureViewFront!!.width, width = textureViewFront!!.height))
-            viewPhoto.setImageBitmap(v.drawToBitmap())
-            //setUpCameraOutputsFront(textureViewFront.width, textureViewFront.height)
-            //onImageAvailable(imageReaderFront!!)
-            //imageReaderFront?.setOnImageAvailableListener(onImageAvailable(imageReaderFront) ,backgroundHandlerFront)
-            //startCapture()
-//            val reader:ImageReader = ImageReader.newInstance(
-//                textureViewFront.width, textureViewFront.height, ImageFormat.JPEG, 6
-//            )
-            //reader.setOnImageAvailableListener(onImageAvailableListenerFront, backgroundHandlerFront)
-            //previewRequestBuilderFront?.addTarget(imageReaderFront!!.surface)
-            //viewPhoto?.setImageBitmap()
-            //val texture = textureViewFront.surfaceTexture
-            //val surface = Surface(texture)
-            //configureTransformViewPhoto(viewPhoto.width, viewPhoto.height)
-            //createCameraPreviewSessionViewPhoto()
-            //viewPhoto.setImageBitmap(GetBitmapFromImageReader(imageReaderFront!!))
-            //if(backgroundHandlerFront == null){
-            //    Log.i("OnImageAvailableListenerFront", "backgroudnHandler is null")
-            //}
-            //onImageAvailableListenerFront.onImageAvailable(imageReaderFront)
-            //Log.i("onImageAvailableFront", file.name)
+            TakePhotoFront()
+            TakePhotoRear()
+            v.popup_layout.visibility = View.VISIBLE
+        }
+        v.ok_btn.setOnClickListener {
+            v.popup_layout.visibility = View.INVISIBLE
 
         }
         return v
     }
+
+    private fun StartCaptureFront(image: Image) {
+        var file: File? = null
+        val mImageName = createImageFileNameFront()
+        Log.i("Test", "Front image name is : $mImageName")
+        val width = image?.width
+        val height = image?.height
+        val planes: Array<Image.Plane> = image.planes
+        val buffer: ByteBuffer = planes[0].buffer
+        buffer.rewind()
+        val data = ByteArray(buffer.capacity())
+        buffer[data]
+        var bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
+
+        if (bitmap == null) Log.e("Test", "bitmap is null")
+
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
+        bitmap = rotate(bitmap, 270f)
+        bitmap = flip(bitmap, true, false)
+
+//  Paint date in the Image
+//        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//        val dateTime = sdf.format(Calendar.getInstance().time)
+//        val cs = Canvas(bitmap)
+//        val tPaint = Paint()
+//        tPaint.textSize = 35f
+//        tPaint.color = Color.BLUE
+//        tPaint.style = Paint.Style.FILL
+//        cs.drawBitmap(bitmap, 0f, 0f, null)
+//        val heightPaint = tPaint.measureText("yY")
+//        cs.drawText(dateTime, 20f, height + 15f, tPaint)
+
+        image.close()
+        if (bitmap != null) {
+            Log.i("Test", "bitmap  create success ")
+            try {
+                val mImagePath = Environment.getExternalStorageDirectory().toString()
+                val fileFolder = File(mImagePath)
+                if (!fileFolder.exists()) fileFolder.mkdirs()
+                file = File(mImageName)
+                if (!file.exists()) {
+                    Log.i("Test", "file create success ")
+                    file.createNewFile()
+                }
+                val out = FileOutputStream(file)
+                out.use {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                    Log.i("Test", "Front Fileoutstream used")
+                }
+                out.flush()
+                out.close()
+                Log.i("Test", "Front file save success ")
+
+            } catch (e: IOException) {
+                Log.i("Test", e.toString())
+                e.printStackTrace()
+            }
+            //getImageView(file!!)
+        }
+    }
+
+    private fun StartCaptureRear(image: Image) {
+        val mImageName = createImageFileNameRear()
+        Log.i("Test", "Rear image name is : $mImageName")
+        val width = image?.width
+        val height = image?.height
+        val planes: Array<Image.Plane> = image.planes
+        val buffer: ByteBuffer = planes[0].buffer
+        buffer.rewind()
+        val data = ByteArray(buffer.capacity())
+        buffer[data]
+        var bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
+
+        if (bitmap == null) Log.e("Test", "bitmap is null")
+
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
+        bitmap = rotate(bitmap, 90f)
+        //bitmap = flip(bitmap, true, false)
+        image.close()
+        if (bitmap != null) {
+            Log.i("Test", "bitmap  create success ")
+            try {
+                val mImagePath = Environment.getExternalStorageDirectory().toString()
+                val fileFolder = File(mImagePath)
+                if (!fileFolder.exists()) fileFolder.mkdirs()
+                val file = File(mImageName)
+                if (!file.exists()) {
+                    Log.i("Test", "file create success ")
+                    file.createNewFile()
+                }
+                val out = FileOutputStream(file)
+                out.use {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                    Log.i("Test", "Rear Fileoutstream used")
+                }
+                out.flush()
+                out.close()
+                Log.i("Test", "Rear file save success ")
+
+            } catch (e: IOException) {
+                Log.i("Test", e.toString())
+                e.printStackTrace()
+            }
+        }
+    }
+
+//    private fun getImageView(file: File){
+//        val imgViewFile = file
+//        if (imgViewFile.exists()) {
+//            val myBitmap = BitmapFactory.decodeFile(imgViewFile.absolutePath)
+//            viewPhoto.setImageBitmap(myBitmap)
+//        }
+//    }
+
+    private fun rotate(bitmap: Bitmap, degrees: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degrees)
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+    private fun flip(bitmap: Bitmap, horizontal: Boolean, vertical: Boolean): Bitmap {
+        val matrix = Matrix()
+        matrix.preScale(if (horizontal) (-1f) else 1f, if (vertical) (-1f) else 1f)
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true);
+    }
+
+    private fun CreateImageFolder(){
+        var f: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        imageFolder = File(f, "MemoriesPOC")
+        if(!imageFolder.exists()){
+            imageFolder.mkdirs()
+        }
+    }
+    @Throws(IOException::class)
+    private fun createImageFileNameFront(): String {
+        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val prepend = "IMAGE_Front_" + timestamp
+        //val imageFile = File.createTempFile(prepend, ".jpg", imageFolder)
+        val imageFile = File(imageFolder, prepend + ".jpg")
+        return imageFile.absolutePath
+    }
+    @Throws(IOException::class)
+    private fun createImageFileNameRear(): String {
+        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val prepend = "IMAGE_Rear_" + timestamp
+        val imageFile = File(imageFolder, prepend + ".jpg")
+        return imageFile.absolutePath
+    }
+
+    private var orientations : SparseIntArray = SparseIntArray(4).apply {
+        append(Surface.ROTATION_0, 0)
+        append(Surface.ROTATION_90, 90)
+        append(Surface.ROTATION_180, 180)
+        append(Surface.ROTATION_270, 270)
+    }
+
+    private fun TakePhotoFront() {
+        previewRequestBuilderFront = cameraDeviceFront!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+        previewRequestBuilderFront.addTarget(imageReaderFront!!.surface)
+        val rotation = 1
+        previewRequestBuilderFront.set(CaptureRequest.JPEG_ORIENTATION, orientations.get(rotation))
+        captureSessionFront?.capture(previewRequestBuilderFront.build(), captureCallback, null)
+    }
+    private fun TakePhotoRear() {
+        previewRequestBuilderRear = cameraDeviceRear!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+        previewRequestBuilderRear.addTarget(imageReaderRear!!.surface)
+        val rotation = 1
+        previewRequestBuilderRear.set(CaptureRequest.JPEG_ORIENTATION, orientations.get(rotation))
+        captureSessionRear?.capture(previewRequestBuilderRear.build(), captureCallback, null)
+    }
+
+    private fun TestDezeSwitch(){
+        Log.i("Test", "Button is pressed tester ")
+        onPause()
+        val textureSwitcherFront: AutoFitTextureView = textureViewFront
+        textureViewFront = textureViewRear
+        textureViewRear = textureSwitcherFront
+        onResume()
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -421,139 +527,6 @@ class photo : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-    }
-    /** Screen captures which only return the layout**/
-    private fun View.drawToBitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888): Bitmap {
-        if (!ViewCompat.isLaidOut(this)) {
-            throw IllegalStateException("View needs to be laid out before calling drawToBitmap()")
-        }
-        return Bitmap.createBitmap(width, height, config).applyCanvas {
-            translate(-scrollX.toFloat(), -scrollY.toFloat())
-            draw(this)
-        }
-    }
-    private fun takeScreenshotOfView(view: View, height: Int, width: Int): Bitmap {
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        val bgDrawable = view.background
-        if (bgDrawable != null) {
-            bgDrawable.draw(canvas)
-        } else {
-            canvas.drawColor(Color.WHITE)
-        }
-        view.draw(canvas)
-        return bitmap
-    }
-    private fun startCapture() {
-        val mImageName = System.currentTimeMillis().toString() + ".png"
-        Log.e(TAG, "image name is : $mImageName")
-        val image: Image? = imageReaderFront?.acquireLatestImage()
-        val width = image?.width
-        val height = image?.height
-        val planes: Array<Image.Plane> = image!!.planes
-        val buffer: ByteBuffer = planes[0].getBuffer()
-        val pixelStride: Int = planes[0].getPixelStride()
-        val rowStride: Int = planes[0].getRowStride()
-        val rowPadding = rowStride - pixelStride * width!!
-        var bitmap =
-            Bitmap.createBitmap(width + rowPadding / pixelStride, height!!, Bitmap.Config.ARGB_8888)
-        bitmap!!.copyPixelsFromBuffer(buffer)
-        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
-        image.close()
-        if (bitmap != null) {
-            Log.e(TAG, "bitmap  create success ")
-            try {
-                viewPhoto.setImageBitmap(bitmap)
-                val mImagePath = "test"
-                val fileFolder = File(mImagePath)
-                if (!fileFolder.exists()) fileFolder.mkdirs()
-                val file = File(mImagePath, mImageName)
-                if (!file.exists()) {
-                    Log.e(TAG, "file create success ")
-                    file.createNewFile()
-                }
-                val out = FileOutputStream(file)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
-                out.flush()
-                out.close()
-                Log.e(TAG, "file save success ")
-
-            } catch (e: IOException) {
-                Log.e(TAG, e.toString())
-                e.printStackTrace()
-            }
-        }
-    }
-//    private fun onImageAvailable(reader: ImageReader?): ImageReader.OnImageAvailableListener {
-//        val im: ImageReader.OnImageAvailableListener = ImageReader.OnImageAvailableListener{
-//            var image: Image? = null
-//            try {
-//                image = imageReaderFront?.acquireLatestImage()
-//                val planes: Array<Image.Plane> = image!!.planes
-//                val buffer: ByteBuffer = planes[0].getBuffer()
-//                buffer.rewind()
-//                val data = ByteArray(buffer.capacity())
-//                buffer[data]
-//                val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
-//                if (bitmap == null) Log.e(TAG, "bitmap is null")
-//            } catch (e: Exception) {
-//                image?.close()
-//            }
-//        }
-//        return im
-//    }
-
-//    fun onImageAvailable(reader: ImageReader) {
-//        Log.d(TAG, "onImageAvailable()")
-//        val image = reader.acquireNextImage()
-//        val imageBuf: ByteBuffer = image.getPlanes().get(0).getBuffer()
-//        val imageBytes = ByteArray(imageBuf.remaining())
-//        imageBuf[imageBytes]
-//        image.close()
-//        //savePicture(imageBytes)
-//    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    fun GetBitmapFromImageReader(imageReader: ImageReader): Bitmap? {
-        val bitmap: Bitmap
-
-        //get image buffer
-        val image = imageReader.acquireNextImage()
-        val planes = image.planes
-        val buffer = planes[0].buffer
-        val pixelStride = planes[0].pixelStride
-        val rowStride = planes[0].rowStride
-        val rowPadding = rowStride - pixelStride * image.width
-        // create bitmap
-        bitmap = Bitmap.createBitmap(
-            image.width + rowPadding / pixelStride,
-            image.height,
-            Bitmap.Config.ARGB_8888
-        )
-        bitmap.copyPixelsFromBuffer(buffer)
-        image.close()
-        return bitmap
-    }
-
-    private fun getScreenShotFromView(v: View): Bitmap? {
-        // create a bitmap object
-        var screenshot: Bitmap? = null
-        try {
-            // inflate screenshot object
-            // with Bitmap.createBitmap it
-            // requires three parameters
-            // width and height of the view and
-            // the background color
-            screenshot = Bitmap.createBitmap(v.measuredWidth, v.measuredHeight, Bitmap.Config.ARGB_8888)
-            // Now draw this bitmap on a canvas
-            val canvas = Canvas(screenshot)
-            v.draw(canvas)
-        } catch (e: Exception) {
-            Log.e("GFG", "Failed to capture screenshot because:" + e.message)
-        }
-        // return the bitmap
-        return screenshot
     }
 
     override fun onResume() {
@@ -575,20 +548,20 @@ class photo : Fragment(){
             textureViewRear.surfaceTextureListener = surfaceTextureListenerRear
         }
     }
-
-    private fun openCameraSwitch(){
-        if (textureViewFront.isAvailable) {
-            openCameraFront(textureViewFront.width, textureViewFront.height)
-        } else {
-            textureViewFront.surfaceTextureListener = surfaceTextureListenerFront
-        }
-        if (textureViewRear.isAvailable) {
-            openCameraRear(textureViewRear.width, textureViewRear.height)
-        } else {
-            textureViewRear.surfaceTextureListener = surfaceTextureListenerRear
-        }
-    }
-
+//
+//    private fun openCameraSwitch(){
+//        if (textureViewFront.isAvailable) {
+//            openCameraFront(textureViewFront.width, textureViewFront.height)
+//        } else {
+//            textureViewFront.surfaceTextureListener = surfaceTextureListenerFront
+//        }
+//        if (textureViewRear.isAvailable) {
+//            openCameraRear(textureViewRear.width, textureViewRear.height)
+//        } else {
+//            textureViewRear.surfaceTextureListener = surfaceTextureListenerRear
+//        }
+//    }
+//
     override fun onPause() {
         closeCameraFront()
         closeCameraRear()
@@ -1230,12 +1203,4 @@ class photo : Fragment(){
 
         @JvmStatic fun newInstance(): photo = photo()
     }
-
-//    override fun onImageAvailable(reader: ImageReader?) {
-//        TODO("Not yet implemented")
-//        picturefront = reader?.acquireLatestImage()!!
-//        reader?.acquireLatestImage().close()
-//        Log.i("TestingNow",picturefront.timestamp.toString())
-//    }
-
 }
