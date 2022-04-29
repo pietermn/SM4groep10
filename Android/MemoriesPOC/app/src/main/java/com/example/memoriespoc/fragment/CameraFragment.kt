@@ -2,14 +2,12 @@ package com.example.memoriespoc.fragment
 
 import android.Manifest
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.hardware.camera2.*
 import android.hardware.camera2.CameraCaptureSession.CaptureCallback
 import android.media.Image
 import android.media.ImageReader
-import android.net.Uri
 import android.os.*
 import android.util.Log
 import android.util.Size
@@ -182,6 +180,7 @@ class CameraFragment : Fragment(){
      */
     private val onImageAvailableListenerFront = ImageReader.OnImageAvailableListener {
         //backgroundHandlerFront?.post(ImageSaver(imageReaderFront!!.acquireLatestImage()))
+        imageReaderFront?.acquireLatestImage()
         Log.d(TAG, "onImageAvailableListenerFront Called")
     }
 
@@ -415,20 +414,17 @@ class CameraFragment : Fragment(){
         val v =  inflater.inflate(R.layout.fragment_camera, container, false)
         textureViewFront = v.findViewById(R.id.texture1)
         textureViewRear = v.findViewById(R.id.texture2)
-        val surfaceViewer = v.findViewById<SurfaceView>(R.id.surfaceView)
+//        val surfaceViewer = v.findViewById<SurfaceView>(R.id.surfaceView)
         viewPhoto = v.findViewById(R.id.view)
 
         v.btn_switch.setOnClickListener {
             Switch()
         }
-        textureViewFront.setOnClickListener{
-            Switch()
-        }
         v.btn_photo.setOnClickListener {
             Log.i("Test", "Button photo is pressed")
             //var image = imageReaderFront?.acquireLatestImage() as Bitmap
-            var image2 = imageReaderRear?.surface
-            var image3 = imageReaderFront?.surface
+//            var image2 = imageReaderRear?.surface
+//            var image3 = imageReaderFront?.surface
             //viewPhoto.setImageBitmap(image)
             //viewPhoto?.setImageBitmap(takeScreenshotOfView(v, height = textureViewFront!!.width, width = textureViewFront!!.height))
             ///////////viewPhoto.setImageBitmap(v.drawToBitmap())
@@ -452,7 +448,7 @@ class CameraFragment : Fragment(){
             //}
             //onImageAvailableListenerFront.onImageAvailable(imageReaderFront)
             //Log.i("onImageAvailableFront", file.name)
-
+//            startStillCaptureRequest()
 
         }
         return v
@@ -1411,5 +1407,40 @@ class CameraFragment : Fragment(){
 //            }
 //        }
 //    }
-
+//private fun startStillCaptureRequest() {
+//    try {
+//        val captureRequestBuilder1 = cameraDeviceFront?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+//        imageReaderFront?.getSurface()?.let { captureRequestBuilder1?.addTarget(it) }
+//        captureRequestBuilder1?.set<Int>(CaptureRequest.JPEG_ORIENTATION, 90)
+//        val stillCaptureCallback: CaptureCallback = object : CaptureCallback() {
+//            override fun onCaptureStarted(
+//                session: CameraCaptureSession,
+//                request: CaptureRequest,
+//                timestamp: Long,
+//                frameNumber: Long
+//            ) {
+//                super.onCaptureStarted(session, request, timestamp, frameNumber)
+//                try {
+//                    createImageFileName()
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                }
+//            }
+//        }
+//        captureSessionFront?.capture(captureRequestBuilder1!!.build(), stillCaptureCallback, null)
+//
+//    } catch (e: CameraAccessException) {
+//        e.printStackTrace()
+//    }
+//}
+//    @Throws(IOException::class)
+//    private fun createImageFileName(): File? {
+//        val imageFileFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+//        val mImageFolder: File = File(imageFileFolder, "camera2VideoImage")
+//        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+//        val prepend = "IMAGE_" + timestamp + "_"
+//        val imageFile = File.createTempFile(prepend, ".jpg", mImageFolder)
+//        val mImageFileName: String = imageFile.absolutePath
+//        return imageFile
+//    }
 }
