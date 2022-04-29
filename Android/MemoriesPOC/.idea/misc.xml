@@ -52,25 +52,15 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/activity_mostpopularplaces.xml" value="0.2518315633138019" />
         <entry key="app/src/main/res/layout/activity_my_camera.xml" value="0.23802083333333332" />
-        <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.38606109619140627" />
+        <entry key="app/src/main/res/layout/activity_photoviewer.xml" value="0.23006439208984375" />
+        <entry key="app/src/main/res/layout/activity_yourrecentmemories.xml" value="0.2828125" />
+        <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.2485107421875" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/fragment_photo.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/home_bigcard.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/home_smallcard.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.40989583333333335" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2085" />
-        <entry key="app/src/main/res/drawable/circle.xml" value="0.235" />
-        <entry key="app/src/main/res/drawable/circle2.xml" value="0.235" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2085" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27180786132812496" />
-        <entry key="app/src/main/res/layout/activity_my_camera.xml" value="0.23802083333333332" />
-        <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.2939402981179772" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_photo.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/home_bigcard.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/home_smallcard.xml" value="0.1" />
       </map>
     </option>
   </component>
@@ -79,5 +69,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.152" />
+      </ProjectState>
+    </option>
   </component>
 </project>
