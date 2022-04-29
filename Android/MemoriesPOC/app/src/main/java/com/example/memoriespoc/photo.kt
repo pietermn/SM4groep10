@@ -14,10 +14,7 @@ import android.util.Size
 import android.util.SparseIntArray
 import android.view.*
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.applyCanvas
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.example.memoriespoc.util.CompareSizesByViewAspectRatio
 import com.example.memoriespoc.util.REQUEST_CAMERA_PERMISSION
@@ -170,6 +167,7 @@ class photo : Fragment(){
      */
     private lateinit var previewRequestRear: CaptureRequest
 
+
     private lateinit var imageTakenFront: Image
     private lateinit var imageTakenRear: Image
     /**
@@ -181,6 +179,7 @@ class photo : Fragment(){
             Log.i("Test", "Photo taken Front")
             imageTakenFront = reader.acquireLatestImage()
             StartCaptureFront(imageTakenFront)
+            imageTakenFront.close()
         }
     }
 
@@ -193,6 +192,7 @@ class photo : Fragment(){
             Log.i("Test", "Photo taken rear")
             imageTakenRear = reader.acquireLatestImage()
             StartCaptureRear(imageTakenRear)
+            imageTakenRear.close()
         }
     }
 
@@ -337,6 +337,7 @@ class photo : Fragment(){
     }
 
     private fun StartCaptureFront(image: Image) {
+        var file: File? = null
         val mImageName = createImageFileNameFront()
         Log.i("Test", "Front image name is : $mImageName")
         val width = image?.width
@@ -353,6 +354,19 @@ class photo : Fragment(){
         bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
         bitmap = rotate(bitmap, 270f)
         bitmap = flip(bitmap, true, false)
+
+//  Paint date in the Image
+//        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//        val dateTime = sdf.format(Calendar.getInstance().time)
+//        val cs = Canvas(bitmap)
+//        val tPaint = Paint()
+//        tPaint.textSize = 35f
+//        tPaint.color = Color.BLUE
+//        tPaint.style = Paint.Style.FILL
+//        cs.drawBitmap(bitmap, 0f, 0f, null)
+//        val heightPaint = tPaint.measureText("yY")
+//        cs.drawText(dateTime, 20f, height + 15f, tPaint)
+
         image.close()
         if (bitmap != null) {
             Log.i("Test", "bitmap  create success ")
@@ -360,7 +374,7 @@ class photo : Fragment(){
                 val mImagePath = Environment.getExternalStorageDirectory().toString()
                 val fileFolder = File(mImagePath)
                 if (!fileFolder.exists()) fileFolder.mkdirs()
-                val file = File(mImageName)
+                file = File(mImageName)
                 if (!file.exists()) {
                     Log.i("Test", "file create success ")
                     file.createNewFile()
@@ -368,18 +382,20 @@ class photo : Fragment(){
                 val out = FileOutputStream(file)
                 out.use {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-                    Log.i("Test", "Fileoutstream used")
+                    Log.i("Test", "Front Fileoutstream used")
                 }
                 out.flush()
                 out.close()
-                Log.i("Test", "file save success ")
+                Log.i("Test", "Front file save success ")
 
             } catch (e: IOException) {
                 Log.i("Test", e.toString())
                 e.printStackTrace()
             }
+            //getImageView(file!!)
         }
     }
+
     private fun StartCaptureRear(image: Image) {
         val mImageName = createImageFileNameRear()
         Log.i("Test", "Rear image name is : $mImageName")
@@ -412,11 +428,11 @@ class photo : Fragment(){
                 val out = FileOutputStream(file)
                 out.use {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-                    Log.i("Test", "Fileoutstream used")
+                    Log.i("Test", "Rear Fileoutstream used")
                 }
                 out.flush()
                 out.close()
-                Log.i("Test", "file save success ")
+                Log.i("Test", "Rear file save success ")
 
             } catch (e: IOException) {
                 Log.i("Test", e.toString())
@@ -424,6 +440,14 @@ class photo : Fragment(){
             }
         }
     }
+
+//    private fun getImageView(file: File){
+//        val imgViewFile = file
+//        if (imgViewFile.exists()) {
+//            val myBitmap = BitmapFactory.decodeFile(imgViewFile.absolutePath)
+//            viewPhoto.setImageBitmap(myBitmap)
+//        }
+//    }
 
     private fun rotate(bitmap: Bitmap, degrees: Float): Bitmap {
         val matrix = Matrix()
@@ -446,15 +470,16 @@ class photo : Fragment(){
     @Throws(IOException::class)
     private fun createImageFileNameFront(): String {
         val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val prepend = "IMAGE_Front_" + timestamp + "_"
-        val imageFile = File.createTempFile(prepend, ".jpg", imageFolder)
+        val prepend = "IMAGE_Front_" + timestamp
+        //val imageFile = File.createTempFile(prepend, ".jpg", imageFolder)
+        val imageFile = File(imageFolder, prepend + ".jpg")
         return imageFile.absolutePath
     }
     @Throws(IOException::class)
     private fun createImageFileNameRear(): String {
         val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val prepend = "IMAGE_Rear_" + timestamp + "_"
-        val imageFile = File.createTempFile(prepend, ".jpg", imageFolder)
+        val prepend = "IMAGE_Rear_" + timestamp
+        val imageFile = File(imageFolder, prepend + ".jpg")
         return imageFile.absolutePath
     }
 
@@ -489,6 +514,7 @@ class photo : Fragment(){
         onResume()
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
     }
@@ -496,116 +522,6 @@ class photo : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-    }
-//    private fun StartCapture() {
-//        val mImageName = System.currentTimeMillis().toString() + ".jpeg"
-//        Log.e(TAG, "image name is : $mImageName")
-//        val image: Image? = imageReaderFront?.acquireLatestImage()
-//        val width = image?.width
-//        val height = image?.height
-//        val planes: Array<Image.Plane> = image!!.planes
-//        val buffer: ByteBuffer = planes[0].getBuffer()
-//        val pixelStride: Int = planes[0].getPixelStride()
-//        val rowStride: Int = planes[0].getRowStride()
-//        val rowPadding = rowStride - pixelStride * width!!
-//        var bitmap =
-//            Bitmap.createBitmap(width + rowPadding / pixelStride, height!!, Bitmap.Config.ARGB_8888)
-//        //bitmap!!.copyPixelsFromBuffer(buffer)
-//        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
-//        image.close()
-//        if (bitmap != null) {
-//            Log.e(TAG, "bitmap  create success ")
-//            try {
-//                viewPhoto.setImageBitmap(bitmap)
-//                val mImagePath = "test"
-//                val fileFolder = File(mImagePath)
-//                if (!fileFolder.exists()) fileFolder.mkdirs()
-//                val file = File(mImagePath, mImageName)
-//                if (!file.exists()) {
-//                    Log.e(TAG, "file create success ")
-//                    file.createNewFile()
-//                }
-//                val out = FileOutputStream(file)
-//                out.flush()
-//                out.close()
-//                Log.e(TAG, "file save success ")
-//
-//            } catch (e: IOException) {
-//                Log.e(TAG, e.toString())
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-//    private fun onImageAvailable(reader: ImageReader?): ImageReader.OnImageAvailableListener {
-//        val im: ImageReader.OnImageAvailableListener = ImageReader.OnImageAvailableListener{
-//            var image: Image? = null
-//            try {
-//                image = imageReaderFront?.acquireLatestImage()
-//                val planes: Array<Image.Plane> = image!!.planes
-//                val buffer: ByteBuffer = planes[0].getBuffer()
-//                buffer.rewind()
-//                val data = ByteArray(buffer.capacity())
-//                buffer[data]
-//                val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
-//                if (bitmap == null) Log.e(TAG, "bitmap is null")
-//            } catch (e: Exception) {
-//                image?.close()
-//            }
-//        }
-//        return im
-//    }
-
-//    fun onImageAvailable(reader: ImageReader) {
-//        Log.d(TAG, "onImageAvailable()")
-//        val image = reader.acquireNextImage()
-//        val imageBuf: ByteBuffer = image.getPlanes().get(0).getBuffer()
-//        val imageBytes = ByteArray(imageBuf.remaining())
-//        imageBuf[imageBytes]
-//        image.close()
-//        //savePicture(imageBytes)
-//    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    fun GetBitmapFromImageReader(imageReader: ImageReader): Bitmap? {
-        val bitmap: Bitmap
-
-        //get image buffer
-        val image = imageReader.acquireNextImage()
-        val planes = image.planes
-        val buffer = planes[0].buffer
-        val pixelStride = planes[0].pixelStride
-        val rowStride = planes[0].rowStride
-        val rowPadding = rowStride - pixelStride * image.width
-        // create bitmap
-        bitmap = Bitmap.createBitmap(
-            image.width + rowPadding / pixelStride,
-            image.height,
-            Bitmap.Config.ARGB_8888
-        )
-        bitmap.copyPixelsFromBuffer(buffer)
-        image.close()
-        return bitmap
-    }
-
-    private fun getScreenShotFromView(v: View): Bitmap? {
-        // create a bitmap object
-        var screenshot: Bitmap? = null
-        try {
-            // inflate screenshot object
-            // with Bitmap.createBitmap it
-            // requires three parameters
-            // width and height of the view and
-            // the background color
-            screenshot = Bitmap.createBitmap(v.measuredWidth, v.measuredHeight, Bitmap.Config.ARGB_8888)
-            // Now draw this bitmap on a canvas
-            val canvas = Canvas(screenshot)
-            v.draw(canvas)
-        } catch (e: Exception) {
-            Log.e("GFG", "Failed to capture screenshot because:" + e.message)
-        }
-        // return the bitmap
-        return screenshot
     }
 
     override fun onResume() {
@@ -627,20 +543,20 @@ class photo : Fragment(){
             textureViewRear.surfaceTextureListener = surfaceTextureListenerRear
         }
     }
-
-    private fun openCameraSwitch(){
-        if (textureViewFront.isAvailable) {
-            openCameraFront(textureViewFront.width, textureViewFront.height)
-        } else {
-            textureViewFront.surfaceTextureListener = surfaceTextureListenerFront
-        }
-        if (textureViewRear.isAvailable) {
-            openCameraRear(textureViewRear.width, textureViewRear.height)
-        } else {
-            textureViewRear.surfaceTextureListener = surfaceTextureListenerRear
-        }
-    }
-
+//
+//    private fun openCameraSwitch(){
+//        if (textureViewFront.isAvailable) {
+//            openCameraFront(textureViewFront.width, textureViewFront.height)
+//        } else {
+//            textureViewFront.surfaceTextureListener = surfaceTextureListenerFront
+//        }
+//        if (textureViewRear.isAvailable) {
+//            openCameraRear(textureViewRear.width, textureViewRear.height)
+//        } else {
+//            textureViewRear.surfaceTextureListener = surfaceTextureListenerRear
+//        }
+//    }
+//
     override fun onPause() {
         closeCameraFront()
         closeCameraRear()
@@ -1282,12 +1198,4 @@ class photo : Fragment(){
 
         @JvmStatic fun newInstance(): photo = photo()
     }
-
-//    override fun onImageAvailable(reader: ImageReader?) {
-//        TODO("Not yet implemented")
-//        picturefront = reader?.acquireLatestImage()!!
-//        reader?.acquireLatestImage().close()
-//        Log.i("TestingNow",picturefront.timestamp.toString())
-//    }
-
 }
