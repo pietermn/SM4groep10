@@ -44,7 +44,6 @@ class home : Fragment() {
             inflater.setOnClickListener {
                 var intent = Intent(this.requireActivity(), PhotoViewer::class.java)
                 intent.putExtra("data", data as Serializable)
-                intent.putExtra("backPage", "MainActivity")
                 startActivity(intent)
             }
 
@@ -67,7 +66,6 @@ class home : Fragment() {
             inflater.setOnClickListener {
                 var intent = Intent(this.requireActivity(), PhotoViewer::class.java)
                 intent.putExtra("data", data as Serializable)
-                intent.putExtra("backPage", "MainActivity")
                 startActivity(intent)
             }
 

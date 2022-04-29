@@ -21,8 +21,6 @@ class PhotoViewer : AppCompatActivity() {
         supportActionBar?.hide()
 
         val data = intent.extras?.get("data") as Data
-        val backPage: String? = intent.getStringExtra("backPage")
-
         val idFront = resources.getIdentifier(data.front, "drawable", packageName)
         val idBack = resources.getIdentifier(data.back, "drawable", packageName)
         binding.image.setImageResource(idBack)
@@ -32,8 +30,7 @@ class PhotoViewer : AppCompatActivity() {
 
 
         binding.btnBack.setOnClickListener{
-            var intent = Intent(this@PhotoViewer, backPage.toString()::class.java)
-            startActivity(intent)
+            super.onBackPressed()
         }
 
         binding.btnSwitch.setOnClickListener{

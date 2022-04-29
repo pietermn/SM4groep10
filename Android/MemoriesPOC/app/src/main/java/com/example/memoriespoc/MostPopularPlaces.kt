@@ -22,8 +22,7 @@ class MostPopularPlaces : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.backButton.setOnClickListener{
-            var intent = Intent(this@MostPopularPlaces, MainActivity::class.java)
-            startActivity(intent)
+            super.onBackPressed()
         }
 
         getData().forEach{
@@ -42,7 +41,6 @@ class MostPopularPlaces : AppCompatActivity() {
             inflater.setOnClickListener {
                 var intent = Intent(this, PhotoViewer::class.java)
                 intent.putExtra("data", data as Serializable)
-                intent.putExtra("backPage", "MostPopularPlaces")
                 startActivity(intent)
             }
 

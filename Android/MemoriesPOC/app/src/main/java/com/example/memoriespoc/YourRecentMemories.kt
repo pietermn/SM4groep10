@@ -22,8 +22,7 @@ class YourRecentMemories : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.backButton.setOnClickListener{
-            var intent = Intent(this@YourRecentMemories, MainActivity::class.java)
-            startActivity(intent)
+            super.onBackPressed()
         }
 
         getData().forEach{
@@ -43,7 +42,6 @@ class YourRecentMemories : AppCompatActivity() {
             inflater.setOnClickListener {
                 var intent = Intent(this, PhotoViewer::class.java)
                 intent.putExtra("data", data as Serializable)
-                intent.putExtra("backPage", "YourRecentMemories")
                 startActivity(intent)
             }
 
