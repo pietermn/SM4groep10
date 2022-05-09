@@ -8,6 +8,7 @@ import android.hardware.camera2.*
 import android.icu.text.SimpleDateFormat
 import android.media.Image
 import android.media.ImageReader
+import android.net.Uri
 import android.os.*
 import android.util.Log
 import android.util.Size
@@ -451,6 +452,12 @@ class photo : Fragment(){
 //        if (imgViewFile.exists()) {
 //            val myBitmap = BitmapFactory.decodeFile(imgViewFile.absolutePath)
 //            viewPhoto.setImageBitmap(myBitmap)
+//        }
+//    }
+//    private fun getImageView(file: File){
+//        val imgViewFile = file
+//        if (imgViewFile.exists()) {
+//            viewPhoto.setImageURI(Uri.fromFile(imgViewFile))
 //        }
 //    }
 
