@@ -7,7 +7,8 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.memoriespoc.databinding.ActivityMostpopularplacesBinding
-import com.example.memoriespoc.util.getSmallCards
+import com.example.memoriespoc.util.getData
+import java.io.Serializable
 
 private lateinit var binding: ActivityMostpopularplacesBinding
 
@@ -21,21 +22,27 @@ class MostPopularPlaces : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.backButton.setOnClickListener{
-            var intent = Intent(this@MostPopularPlaces, MainActivity::class.java)
-            startActivity(intent)
+            super.onBackPressed()
         }
 
-        getSmallCards().forEach{
+        getData().forEach{
             val inflater = LayoutInflater.from(this).inflate(R.layout.home_smallcard, null)
 
             val image: ImageView = inflater.findViewById(R.id.image)
             val city: TextView = inflater.findViewById(R.id.txtCity)
             val country: TextView = inflater.findViewById(R.id.txtCountry)
 
-            val id = resources.getIdentifier(it.image, "drawable", packageName)
+            val id = resources.getIdentifier(it.back, "drawable", packageName)
             image.setImageResource(id)
             city.text = it.city
             country.text = it.country
+
+            val data = it
+            inflater.setOnClickListener {
+                var intent = Intent(this, PhotoViewer::class.java)
+                intent.putExtra("data", data as Serializable)
+                startActivity(intent)
+            }
 
             binding.containerSmallCard.addView(inflater, binding.containerSmallCard.childCount)
         }

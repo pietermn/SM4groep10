@@ -11,9 +11,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.memoriespoc.databinding.ActivityHomeBinding
-import com.example.memoriespoc.util.getBigCards
-import com.example.memoriespoc.util.getSmallCards
-import kotlinx.android.synthetic.main.activity_home.view.*
+import com.example.memoriespoc.util.getData
+import java.io.Serializable
 
 private lateinit var binding: ActivityHomeBinding
 
@@ -27,7 +26,7 @@ class home : Fragment() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
 
-        getBigCards().forEach{
+        getData().forEach{
             val inflater = LayoutInflater.from(this.requireActivity()).inflate(R.layout.home_bigcard, null)
 
             val date: TextView = inflater.findViewById(R.id.date)
@@ -41,31 +40,47 @@ class home : Fragment() {
             val idBack = resources.getIdentifier(it.back, "drawable", packageName)
             back.setImageResource(idBack)
 
+            val data = it
+            inflater.setOnClickListener {
+                var intent = Intent(this.requireActivity(), PhotoViewer::class.java)
+                intent.putExtra("data", data as Serializable)
+                startActivity(intent)
+            }
+
             binding.containerBigCard.addView(inflater, binding.containerBigCard.childCount)
         }
 
-        getSmallCards().forEach{
+        getData().forEach{
             val inflater = LayoutInflater.from(this.requireActivity()).inflate(R.layout.home_smallcard, null)
 
             val image: ImageView = inflater.findViewById(R.id.image)
             val city: TextView = inflater.findViewById(R.id.txtCity)
             val country: TextView = inflater.findViewById(R.id.txtCountry)
 
-            val id = resources.getIdentifier(it.image, "drawable", packageName)
+            val id = resources.getIdentifier(it.back, "drawable", packageName)
             image.setImageResource(id)
             city.text = it.city
             country.text = it.country
+
+            val data = it
+            inflater.setOnClickListener {
+                var intent = Intent(this.requireActivity(), PhotoViewer::class.java)
+                intent.putExtra("data", data as Serializable)
+                startActivity(intent)
+            }
 
             binding.containerSmallCard.addView(inflater, binding.containerSmallCard.childCount)
         }
 
         binding.lblSeeAll1.setOnClickListener {
-            var intent = Intent(this.requireActivity(), MostPopularPlaces::class.java)
+            var intent = Intent(this.requireActivity(), YourRecentMemories::class.java)
             startActivity(intent)
             Log.i("Test", "updated code")
         }
 
         binding.lblSeeAll2.setOnClickListener {
+            var intent = Intent(this.requireActivity(), MostPopularPlaces::class.java)
+            startActivity(intent)
         }
 
         return view

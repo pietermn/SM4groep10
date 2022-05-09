@@ -27,6 +27,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MostPopularPlaces"/>
+        <activity android:name=".YourRecentMemories"/>
+        <activity android:name=".PhotoViewer"/>
+        <activity android:name=".photo"/>
 
     </application>
 </manifest>
