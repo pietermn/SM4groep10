@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">MemoriesProject</string>
-    <string name="content_description">image</string>
-    <string name="country">Netherlands</string>
-    <string name="city">Amsterdam</string>
-    <string name="mpp">Most Popular Places</string>
-    <string name="yrm">Your Recent Memories</string>
-    <string name="see_all">See All</string>
-</resources>
