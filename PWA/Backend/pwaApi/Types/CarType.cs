@@ -1,15 +1,15 @@
 ﻿using System;
 namespace pwaApi.Types
 {
-    public enum VehicleType
-    {
-        coupe,
-        hatchback,
-        sedan,
-        station_wagon,
-        convertible,
-        SUV
-    }
+    //public enum VehicleType
+    //{
+    //    coupe,
+    //    hatchback,
+    //    sedan,
+    //    station_wagon,
+    //    convertible,
+    //    SUV
+    //}
 
     public class CarType
     {
@@ -19,7 +19,7 @@ namespace pwaApi.Types
         // Aesthetics
         public string Name { get; set; }
         public string Colour { get; set; }
-        public IEnumerable<VehicleType> Type { get; set; }
+        public string Type { get; set; }
 
         // Statistics
         public int MaxRange { get; set; }
