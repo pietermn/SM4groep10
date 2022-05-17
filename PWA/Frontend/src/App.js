@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { fetchWeather } from './api/fetchWeather';
 import './App.css';
+import CarCard from './components/CarCard';
 
 const App = () => {
     const [query, setQuery] = useState('');
@@ -18,6 +19,8 @@ const App = () => {
 
     return (
         <div className="main-container">
+            <CarCard name='TestName' range='TestRange' maxRange='TestMaxRange' status='TestStatus' type='/PWA/Frontend/public/images/minicooperside' colour='Orange.png'></CarCard>
+
             <input type="text"className="search"placeholder="Search..."value={query}onChange={(e) => setQuery(e.target.value)}onKeyPress={search}/>
             {weather.main && (
                 <div className="city">
