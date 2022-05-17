@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{5F2B8078-AECA-486C-A377-3261D1A9E40A}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.pwaApi PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+    <Files>
+      <File FileName="Properties/launchSettings.json" Line="11" Column="16" />
+      <File FileName="Program.cs" Line="12" Column="1" />
+      <File FileName="appsettings.json" Line="1" Column="1" />
+      <File FileName="Schema/Query.cs" Line="16" Column="11" />
+      <File FileName="Types/Types.cs" Line="10" Column="2" />
+      <File FileName="Types/Author.cs" Line="4" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="pwaApi" expanded="True">
+            <Node name="pwaApi" expanded="True">
+              <Node name="Schema" expanded="True" />
+              <Node name="Types" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>

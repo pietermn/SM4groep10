@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "YN+uYSalK9op1m3SxQ7j9KZPKLFQQUGqU+5hQltmiNg=",
+  "Source": "pwaApi",
+  "BasePath": "_content/pwaApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
