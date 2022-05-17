@@ -42,3 +42,4 @@
 /Users/pieter/Documents/Software/Semester4/SM4groep10/PWA/Backend/pwaApi/obj/Debug/net6.0/pwaApi.pdb
 /Users/pieter/Documents/Software/Semester4/SM4groep10/PWA/Backend/pwaApi/obj/Debug/net6.0/pwaApi.genruntimeconfig.cache
 /Users/pieter/Documents/Software/Semester4/SM4groep10/PWA/Backend/pwaApi/obj/Debug/net6.0/ref/pwaApi.dll
+/Users/pieter/Documents/Software/Semester4/SM4groep10/PWA/Backend/pwaApi/bin/Debug/net6.0/Bogus.dll

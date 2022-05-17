@@ -5,21 +5,27 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Schema/Query.cs">
     <Files>
-      <File FileName="Properties/launchSettings.json" Line="11" Column="16" />
-      <File FileName="Program.cs" Line="12" Column="1" />
+      <File FileName="Properties/launchSettings.json" Line="20" Column="32" />
+      <File FileName="Program.cs" Line="13" Column="11" />
       <File FileName="appsettings.json" Line="1" Column="1" />
-      <File FileName="Schema/Query.cs" Line="16" Column="11" />
-      <File FileName="Types/Types.cs" Line="10" Column="2" />
-      <File FileName="Types/Author.cs" Line="4" Column="1" />
+      <File FileName="Schema/Query.cs" Line="24" Column="42" />
+      <File FileName="Types/Types.cs" Line="37" Column="1" />
+      <File FileName="Types/UserType.cs" Line="9" Column="41" />
+      <File FileName="Types/ReservationType.cs" Line="12" Column="1" />
+      <File FileName="Types/TransactionType.cs" Line="9" Column="37" />
+      <File FileName="Types/TripType.cs" Line="9" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="pwaApi" expanded="True">
             <Node name="pwaApi" expanded="True">
-              <Node name="Schema" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Schema" expanded="True">
+                <Node name="Query.cs" selected="True" />
+              </Node>
               <Node name="Types" expanded="True" />
             </Node>
           </Node>
