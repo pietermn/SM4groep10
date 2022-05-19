@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+
+  pwaApi:
+    container_name: pwaApi
+    image: ${DOCKER_REGISTRY-}pwaapi
+    build:
+      context: Backend/pwaApi
+      dockerfile: Dockerfile
+
+    environment:
+      - ASPNETCORE_URLS=http://+:5200
+
+    ports:
+      - "5200:5200"
+      - "5201:5201"
