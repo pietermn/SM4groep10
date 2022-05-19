@@ -1,5 +1,8 @@
-import {} from "@mui/material"
-import React from "react"
+import {} from "@mui/material";
+import { url } from "inspector";
+import React from "react";
+import "./CarCard.scss"
+
 
 interface ICarCardProps{
     name: string;
@@ -15,12 +18,13 @@ export default function CarCard(props: ICarCardProps){
 
     return(
         <div className="car-container">
-            <div className="car-container div">
                 <h1 className="carName">{props.name}</h1>
-                <img className="carImage" src={props.type + props.colour}></img>
+                <div className="carImage-container">
+                    <img className="carImage" src={props.type + props.colour + ".png"}></img>
+                </div>
                 <h2 className="carRange"> {props.range} / {props.maxRange} KM LEFT</h2>
                 <h2 className="carStatus"> {props.status}</h2>
-            </div>
+                <p>Start trip</p>
         </div>
-    );
+    );  
 }

@@ -1,6 +1,12 @@
 .App {
   text-align: center;
 }
+.main-container{
+  background-color: #1A1C1F;
+}
+.cars-container{
+  overflow-y: scroll;
+}
 
 .App-logo {
   height: 40vmin;
