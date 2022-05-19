@@ -1,6 +1,9 @@
 .App {
   text-align: center;
 }
+body{
+  margin: 0;
+}
 .main-container{
   background-color: #1A1C1F;
 }
