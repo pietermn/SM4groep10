@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-
-import "./App.css";
+import "./HomeScreen.scss"
 import CarCard from "../../components/CarCard/CarCard";
 import FakeBackendAPI from "../../api/FakeBackendAPI";
-import { Car, CarStatus, User } from "../../globaltypes";
+import { Car, CarStatus, CarTypeEnum, User } from "../../globaltypes";
+import CarStatsCard from "../../components/CarStatsCard/CarStatsCard";
+import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 
 const App = () => {
   const[user, getUser] = useState<User>();
@@ -30,13 +31,15 @@ const App = () => {
 }, []);
 
   return <div className="main-container">
-    <div className="cars-container">
-      <h1>{user?.name}</h1>
+        <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type={CarTypeEnum.minicooperside} colour='Orange'></CarCard>
+        <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
+        <UserStatsCard driven={300} paid={346.68}></UserStatsCard>
+      {/* <h1>{user?.name}</h1>
       {cars.map((car) => {
         return (
-          <CarCard name={car.name} range="{range}" maxRange='{car.maxRange}' status={status?.toString()} type={car.type.toString()} colour={car.colour}></CarCard>
+          <CarCard name={car.name} range="{range}" maxRange='{car.maxRange}' status={status?.toString()} type={car.type} colour={car.colour}></CarCard>
         );
-      })}
+      })} */}
       {/* <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type='images/minicooperside' colour='Orange'></CarCard>
       <CarCard name='BMW M4' range='125' maxRange='750' status='Currently avaiable' type='images/bmw2022sideview' colour='Gray'></CarCard>
       <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type='images/minicooperside' colour='Blue'></CarCard>
@@ -44,7 +47,6 @@ const App = () => {
       <CarCard name='BMW M4' range='125' maxRange='750' status='Currently avaiable' type='images/bmw2022sideview' colour='Gray'></CarCard>
       <CarCard name='Porsche Taycan' range='125' maxRange='550' status='Currently reserved' type='images/porschetaycan' colour='White'></CarCard> */}
 
-    </div>
   </div>;
 };
 

@@ -1,6 +1,7 @@
 import {} from "@mui/material";
 import { url } from "inspector";
 import React from "react";
+import { CarTypeEnum } from "../../globaltypes";
 import "./CarCard.scss"
 
 
@@ -9,7 +10,7 @@ interface ICarCardProps{
     maxRange: string;
     range: string;
     status: string;
-    type: string;
+    type: CarTypeEnum;
     colour: string;
 }
 
@@ -18,7 +19,7 @@ export default function CarCard(props: ICarCardProps){
         <div className="car-container">
                 <h1 className="carName">{props.name}</h1>
                 <div className="carImage-container">
-                    <img className="carImage" src={props.type + props.colour + ".png"}></img>
+                    <img className="carImage" src={"images/" + props.type.toString() + props.colour + ".png"}></img>
                 </div>
                 <h2 className="carRange"> {props.range} / {props.maxRange} KM LEFT</h2>
                 <h2 className="carStatus"> {props.status}</h2>

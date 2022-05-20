@@ -1,18 +1,33 @@
-import React, { useEffect, useState } from "react";
-
+import {BrowserRouter as Router, useNavigate } from "react-router-dom";
+import Routes from "./routes/Routes";
+import AppWrapper from "./layout/AppWrapper";
 import "./App.scss";
-import CarCard from "./components/CarCard/CarCard";
-import CarStatsCard from "./components/CarStatsCard/CarStatsCard";
-import UserStatsCard from "./components/UserStatsCard/UserStatsCard";
 
-const App = () => {
+function App() {
+  return (
+    <Router>  
+        <AppWrapper>
+          <Routes />
+        </AppWrapper>  
+      </Router>
+  );
+}
 
-  return <div className="main-container">
-      <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type='images/minicooperside' colour='Orange'></CarCard>
-      <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
-      <UserStatsCard driven={300} paid={346.68}></UserStatsCard>
+// export function App() {
+  
 
-  </div>;
-};
+
+//   return <div className="main-container">
+//     <Routes>
+//       <AppWrapper>
+//         <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type={CarTypeEnum.minicooperside} colour='Orange'></CarCard>
+//         <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
+//         <UserStatsCard driven={300} paid={346.68}></UserStatsCard>
+//         <Navbar/>
+//       </AppWrapper>
+//   </Routes>
+//   </div>;
+// };
+
 
 export default App;

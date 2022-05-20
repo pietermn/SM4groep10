@@ -36,9 +36,10 @@ export type Trip = {
     date: Date;
 }
 export enum CarTypeEnum  {
-    bmw2022sideview,
-    minicooperside,
-    porschetaycan
+    bmw2022sideview = 'bmw2022sideview',
+    minicooperside = 'minicooperside',
+    porschetaycan = 'porschetaycan'
+    
 };
 export enum CarStatus {
     'Currently reserved',
