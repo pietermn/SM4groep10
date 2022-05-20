@@ -1,11 +1,20 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 .App {
   text-align: center;
 }
+
+body {
+  margin: 0px !important;
+}
+
 .main-container{
   background-color: #1A1C1F;
-}
-.cars-container{
-  overflow-y: scroll;
+  width: 100vw;
+  height: 100vh;
 }
 
 .App-logo {
@@ -41,4 +50,34 @@
   to {
     transform: rotate(360deg);
   }
+}
+@font-face {
+    font-family: 'Inter-light';
+    font-weight: 900;
+    src: local('Inter'), url(./font/inter_light.ttf) format('opentype');
+}
+@font-face {
+    font-family: 'Inter-medium';
+    font-weight: 900;
+    src: local('Inter'), url(./font/inter_medium.ttf) format('opentype');
+}
+@font-face {
+    font-family: 'Inter-regular';
+    font-weight: 900;
+    src: local('Inter'), url(./font/inter_regular.ttf) format('opentype');
+}
+@font-face {
+    font-family: 'Inter-semibold';
+    font-weight: 900;
+    src: local('Inter'), url(./font/inter_semibold.ttf) format('opentype');
+}
+@font-face {
+    font-family: 'Inter-bold';
+    font-weight: 900;
+    src: local('Lato'), url(./font/inter_bold.ttf) format('opentype');
+}
+@font-face {
+    font-family: 'Inter-extrabold';
+    font-weight: 900;
+    src: local('Inter'), url(./font/inter_extrabold.ttf) format('opentype');
 }

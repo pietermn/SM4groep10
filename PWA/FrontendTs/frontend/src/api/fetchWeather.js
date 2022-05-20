@@ -1,16 +1,19 @@
-import axios from 'axios';
+const axios = require("axios")
 
-const URL = 'https://api.openweathermap.org/data/2.5/weather';
-const API_KEY = 'f33a484cf794d08d0148764789aaba32';
-
-export const fetchWeather = async (query) => {
-    const { data } = await axios.get(URL, {
-        params: {
-            q: query,
-            units: 'metric',
-            APPID: API_KEY,
+let API_URL = "http://localhost:5200/graphql"
+export const data = await axios.post(API_URL, {
+    query: `{
+        user{
+            id
+            name
         }
-    });
-
-    return data;
-}
+    }`,
+    variables: {
+        id: 2,
+        city: 'Test'
+    }
+}, {
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
