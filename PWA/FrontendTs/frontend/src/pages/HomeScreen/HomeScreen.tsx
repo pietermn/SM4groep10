@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "./App.css";
-import CarCard from "../../components/CarCard";
+import CarCard from "../../components/CarCard/CarCard";
 import FakeBackendAPI from "../../api/FakeBackendAPI";
 import { Car, CarStatus, User } from "../../globaltypes";
 

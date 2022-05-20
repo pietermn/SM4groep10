@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import "./App.css";
+import "./App.scss";
 import CarCard from "./components/CarCard/CarCard";
-
+import CarStatsCard from "./components/CarStatsCard/CarStatsCard";
+import UserStatsCard from "./components/UserStatsCard/UserStatsCard";
 
 const App = () => {
 
   return <div className="main-container">
-    <div className="cars-container">
       <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type='images/minicooperside' colour='Orange'></CarCard>
-      <CarCard name='BMW M4' range='125' maxRange='750' status='Currently avaiable' type='images/bmw2022sideview' colour='Gray'></CarCard>
-      <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type='images/minicooperside' colour='Blue'></CarCard>
-      <CarCard name='Porsche Taycan' range='125' maxRange='550' status='Currently reserved' type='images/porschetaycan' colour='White'></CarCard>
-      <CarCard name='BMW M4' range='125' maxRange='750' status='Currently avaiable' type='images/bmw2022sideview' colour='Gray'></CarCard>
-      <CarCard name='Porsche Taycan' range='125' maxRange='550' status='Currently reserved' type='images/porschetaycan' colour='White'></CarCard>
+      <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
+      <UserStatsCard driven={300} paid={346.68}></UserStatsCard>
 
-    </div>
   </div>;
 };
 

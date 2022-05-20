@@ -14,8 +14,6 @@ interface ICarCardProps{
 }
 
 export default function CarCard(props: ICarCardProps){
-
-
     return(
         <div className="car-container">
                 <h1 className="carName">{props.name}</h1>

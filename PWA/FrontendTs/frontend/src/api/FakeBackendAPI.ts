@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { Car, User } from "../globaltypes";
+import { User } from "../globaltypes";
 
 import instance from "./APIInstance";
 
