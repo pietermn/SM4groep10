@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import "./App.css";
-import CarCard from "../components/CarCard";
-import FakeBackendAPI from "../api/FakeBackendAPI";
-import { User } from "../globaltypes";
+import ".SafetyScreen.scss";
 
-const App = () => {
+const SafetyScreen = () => {
   return <div className="main-container">
     <div className="cars-container">
       
@@ -25,4 +22,4 @@ const App = () => {
   </div>;
 };
 
-export default App;
+export default SafetyScreen;

@@ -40,3 +40,7 @@ export enum CarTypeEnum  {
     minicooperside,
     porschetaycan
 };
+export enum CarStatus {
+    'Currently reserved',
+    'Currently available'
+}
