@@ -1,14 +1,14 @@
 import AvatarCustom from "./Avatar";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
-import "./UserCard.scss";
+import "./UserPageHeader.scss";
 
 interface IUserCardProps {
     name: string;
     colour: string;
 }
 
-export default function UserCard(props: IUserCardProps) {
+export default function UserPageHeader(props: IUserCardProps) {
     return (
         <div className="user-container">
             <p className="backButton">

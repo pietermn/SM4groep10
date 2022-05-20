@@ -3,7 +3,7 @@ import { data } from "./api/fetchWeather";
 import { request, gql, GraphQLClient } from "graphql-request";
 
 import "./App.css";
-import UserCard from "./components/UserCard";
+import UserPageHeader from "./components/UserPageHeader";
 
 const query = gql`
     {
@@ -21,7 +21,7 @@ const App = () => {
 
     return (
         <div className="main-container">
-            <UserCard name="Kara van Oranje" colour="Orange" />
+            <UserPageHeader name="Kara van Oranje" colour="Orange" />
         </div>
     );
 };
