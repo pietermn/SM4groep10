@@ -3,6 +3,7 @@ import { BrowserRouter, Routes as AllRoutes, Route } from 'react-router-dom'
 import PageLoader from '../layout/PageLoader'
 import HomeScreen from '../pages/HomeScreen/HomeScreen'
 import SafetyScreen from '../pages/SafetyScreen/SafetyScreen'
+import StatsScreen from '../pages/StatsScreen/StatsScreen'
 
 export default function Routes() {
     return (
@@ -10,6 +11,7 @@ export default function Routes() {
                 <Route path="/" element={<HomeScreen/>}/>
                 <Route path="homescreen" element={<HomeScreen/>} />
                 <Route path="safetyscreen" element={<SafetyScreen/>} />
+                <Route path="statsscreen" element={<StatsScreen/>} />
         </AllRoutes>
     
     )

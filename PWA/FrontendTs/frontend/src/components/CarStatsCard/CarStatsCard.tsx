@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "./CarStatsCard.scss"
 
 
@@ -9,11 +10,12 @@ interface ICarStatsCardProps{
 }
 
 export default function CarStatsCard(props: ICarStatsCardProps){
+    const navigate = useNavigate();
     return(
         <div className="stats-container">
         <div className="stats-topper">
           <h1 className="stats-title">Stats</h1>  
-          <p className="stats-seeall">See all</p>  
+          <p className="stats-seeall" onClick={() => navigate('/statsscreen')}>See all</p>  
         </div>
         <div className="stats-info">
           <div className="stats-range">
