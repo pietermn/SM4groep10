@@ -11,10 +11,10 @@ interface IUserCardProps {
 export default function UserPageHeader(props: IUserCardProps) {
     return (
         <div className="user-container">
-            <p className="backButton">
+            <div className="backButton">
                 <KeyboardArrowLeftIcon />
                 <p>Back</p>
-            </p>
+            </div>
             <div className="carImage-container">
                 <AvatarCustom className="avatar" name={props.name} colour={props.colour} size={128} fontSize={48} />
             </div>
