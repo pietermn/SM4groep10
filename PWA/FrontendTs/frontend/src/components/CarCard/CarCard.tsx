@@ -4,8 +4,7 @@ import React from "react";
 import { CarTypeEnum } from "../../globaltypes";
 import "./CarCard.scss"
 
-
-interface ICarCardProps{
+interface ICarCardProps {
     name: string;
     maxRange: string;
     range: string;
@@ -25,5 +24,5 @@ export default function CarCard(props: ICarCardProps){
                 <h2 className="carStatus"> {props.status}</h2>
                 <p>Start trip</p>
         </div>
-    );  
+    );
 }
