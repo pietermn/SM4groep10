@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar/Navbar';
-import { Routes } from 'react-router-dom';
+import { Routes, useLocation } from 'react-router-dom';
 
 
 interface AppWrapper_Children {
@@ -8,14 +8,27 @@ interface AppWrapper_Children {
 }
 
 export default function AppWrapper(props: AppWrapper_Children) {
+    const { pathname } = useLocation();
+    if(pathname === "/safetyscreen"){
+        return (
+            <React.Fragment>
+                <div id="page-container">
+                    <div id="content-wrapper">
+                        {props.children}
+                    </div>
+                </div>
+            </React.Fragment>
+        )
+    } else{
     return (
         <React.Fragment>
             <div id="page-container">
                 <div id="content-wrapper">
                     {props.children}
                 </div>
+                
                 <Navbar />
             </div>
         </React.Fragment>
     )
-}
+}}

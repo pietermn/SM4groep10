@@ -31,9 +31,18 @@ const App = () => {
 }, []);
 
   return <div className="main-container">
+      <div className="flex-containers">
+        <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type={CarTypeEnum.minicooperside} colour='Orange'></CarCard>
+        <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type={CarTypeEnum.minicooperside} colour='Orange'></CarCard>
+        <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type={CarTypeEnum.minicooperside} colour='Orange'></CarCard>
         <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type={CarTypeEnum.minicooperside} colour='Orange'></CarCard>
         <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
+        <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
+        <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
         <UserStatsCard driven={300} paid={346.68}></UserStatsCard>
+        <UserStatsCard driven={300} paid={346.68}></UserStatsCard>
+        </div>
+        {/* <UserStatsCard driven={300} paid={346.68}></UserStatsCard> */}
       {/* <h1>{user?.name}</h1>
       {cars.map((car) => {
         return (

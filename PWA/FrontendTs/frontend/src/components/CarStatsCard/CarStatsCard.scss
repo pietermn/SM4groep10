@@ -1,5 +1,6 @@
 .stats-container{
     margin: auto;
+    margin-top: 10px;
     width: 90%;
     height: 31vh;
     border-radius: 10px;
@@ -13,6 +14,7 @@
       justify-content: space-between;
       font-family: Inter-semibold;
       align-items: baseline;
+      overflow-y: hidden;
       .stats-title{
         margin: 4%;
         color: white;
