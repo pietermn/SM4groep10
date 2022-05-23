@@ -5,6 +5,12 @@
     margin-top: 0;
     height: 26.125%;
     position: relative;
+    
+    .avatarImage-container{
+        height: 18vh;
+        overflow: hidden;
+        width: inherit;
+    }
 }
 
 .avatar{

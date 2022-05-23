@@ -33,7 +33,7 @@ export default function CarPageHeader(props: ICarCardProps) {
                         End trip
                     </Fab>
                 ) : (
-                    <Fab className="tripButtonCarPage" variant="extended" size="small" color="primary" aria-label="add">
+                    <Fab className="tripButtonCarPage" variant="extended" size="small" color="primary" aria-label="add" onClick={() => navigate("/safetyscreen")}>
                         Start trip
                     </Fab>
                 )}

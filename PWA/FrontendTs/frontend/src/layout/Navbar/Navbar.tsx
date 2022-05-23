@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import PageLoader from "../PageLoader";
 import "./Navbar.scss";
+import {FaCar} from 'react-icons/fa'
+import PersonIcon from "@mui/icons-material/Person";
 
 export default function Navbar() {
     return (
@@ -26,8 +28,14 @@ function NavbarRedirects() {
             {/* <p className={pathname === "/menu" ? "bold-text" : ""} onClick={() => history.push("menu")}>
                 Home
             </p> */}
-            <p className={pathname === "/homescreen" ? "bold-text" : ""} onClick={() => navigate('/homescreen')}>HOME</p>
-            <p className={pathname === "/safetyscreen" ? "bold-text" : ""} onClick={() => navigate('/safetyscreen')}>SAFETY</p>
+            <div className="HomeNavBar" onClick={() => navigate('/homescreen')}>
+            <FaCar/>
+                <p className={pathname === "/homescreen" ? "bold-text" : ""} >Home</p>
+            </div>
+            <div className="HomeNavBar" onClick={() => navigate('/userscreen')}>
+                <PersonIcon/>
+                <p className={pathname === "/userscreen" ? "bold-text" : ""} >User</p>
+            </div>
         </section>
     );
 }

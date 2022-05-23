@@ -5,6 +5,7 @@ import FakeBackendAPI from "../../api/FakeBackendAPI";
 import { Car, CarStatus, CarTypeEnum, User } from "../../globaltypes";
 import CarStatsCard from "../../components/CarStatsCard/CarStatsCard";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
+import BackButton from "../../components/BackButton";
 
 const HomeScreen = () => {
   const[user, getUser] = useState<User>();

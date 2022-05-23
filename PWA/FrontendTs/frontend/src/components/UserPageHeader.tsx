@@ -2,6 +2,7 @@ import AvatarCustom from "./Avatar";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
 import "./UserPageHeader.scss";
+import { useNavigate } from "react-router";
 
 interface IUserCardProps {
     name: string;
@@ -9,13 +10,14 @@ interface IUserCardProps {
 }
 
 export default function UserPageHeader(props: IUserCardProps) {
+    const navigate = useNavigate()
     return (
         <div className="user-container">
             <div className="backButton">
                 <KeyboardArrowLeftIcon />
-                <p>Back</p>
+                <p onClick={() => navigate(-1)}>Back</p>
             </div>
-            <div className="carImage-container">
+            <div className="avatarImage-container">
                 <AvatarCustom className="avatar" name={props.name} colour={props.colour} size={128} fontSize={48} />
             </div>
             <h1 className="username">{props.name}</h1>
