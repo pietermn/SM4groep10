@@ -42,6 +42,7 @@ namespace pwaApi.Schema
                 .RuleFor(c => c.Colour, f => f.Commerce.Color())
                 .RuleFor(c => c.Type, f => f.Vehicle.Type())
                 .RuleFor(c => c.MaxRange, f => f.Random.Int(250, 750))
+                .RuleFor(c => c.Tank, f => f.Random.Int(40, 70))
                 .RuleFor(c => c.Trips, f => _tripFaker.Generate(3))
                 .RuleFor(c => c.Transactions, f => _transactionFaker.Generate(3))
                 .RuleFor(c => c.Reservations, f => _reservationFaker.Generate(3))

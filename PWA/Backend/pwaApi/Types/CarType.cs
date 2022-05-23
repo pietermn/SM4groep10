@@ -23,6 +23,7 @@ namespace pwaApi.Types
 
         // Statistics
         public int MaxRange { get; set; }
+        public int Tank { get; set; }
 
         // Related
         public List<TripType> Trips { get; set; }

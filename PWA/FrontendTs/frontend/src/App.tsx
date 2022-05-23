@@ -1,38 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { data } from "./api/fetchWeather";
-import { request, gql, GraphQLClient } from "graphql-request";
+import { BrowserRouter as Router, useNavigate } from "react-router-dom";
+import Routes from "./routes/Routes";
+import AppWrapper from "./layout/AppWrapper";
+import "./App.scss";
 
-import "./App.css";
-import CarPageHeader from "./components/CarPageHeader";
-import CarCard from "./components/CarCard";
-
-const query = gql`
-    {
-        user {
-            id
-        }
-    }
-`;
-
-const App = () => {
-    // const client = new GraphQLClient("http://localhost:5000/graphql", {
-    //     headers: {},
-    // });
-    // client.request(query).then((data) => console.log(data));
-
+function App() {
     return (
-        <div className="main-container">
-            <CarPageHeader name="Cooper SE" type="minicooperside" colour="Orange" tripStatus={false} />
-            <CarCard
-                name="Cooper SE"
-                type="images/minicooperside"
-                colour="Orange"
-                maxRange="100"
-                range="1"
-                status="1"
-            />
-        </div>
+        <Router>
+            <AppWrapper>
+                <Routes />
+            </AppWrapper>
+        </Router>
     );
-};
+}
 
 export default App;
