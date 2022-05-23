@@ -3,7 +3,6 @@ import Routes from "./routes/Routes";
 import AppWrapper from "./layout/AppWrapper";
 import "./App.scss";
 import CarPageHeader from "./components/CarPageHeader";
-import CarCard from "./components/CarCard";
 
 function App() {
   return (
