@@ -1,4 +1,4 @@
-import AvatarCustom from "./Avatar";
+import AvatarCustom from "./../Avatar/Avatar";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
 import "./UserPageHeader.scss";
