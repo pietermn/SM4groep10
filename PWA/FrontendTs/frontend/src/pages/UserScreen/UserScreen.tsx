@@ -4,6 +4,7 @@ import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import { Car, User, CarTypeEnum, Trip, Reservation, Transaction, PercentageUser } from "../../globaltypes";
 import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUseStatsCard";
 import UserPageHeader from "../../components/UserPageHeader/UserPageHeader";
+import OdometerOverlay from "../../components/OdometerOverlay/OdometerOverlay";
 
 const StatsScreen = () => {
     const userOne: User = { id: "1", name: "Givan Wiggers", colour: "Pink", firebaseId: 404 };
@@ -21,7 +22,7 @@ const StatsScreen = () => {
         maxRange: 350,
         name: "Cooper SE",
         colour: "Orange",
-        odometer: 11304,
+        odometer: 113042,
         type: CarTypeEnum.minicooperside,
         tank: 60,
         users: users,
@@ -38,6 +39,7 @@ const StatsScreen = () => {
                 {/* <CarPageHeader name={"COOPER SE"} type={CarTypeEnum.minicooperside} colour={"Orange"} tripStatus={false}></CarPageHeader> */}
                 {/* <CarStatsCard range={car.maxRange} volume={car.tank} odometer={car.odometer} consumption={"1 L:" + Math.round((car.maxRange/car.tank)).toString() + " km"}></CarStatsCard>
         <AverageUseStatsCard car={car}></AverageUseStatsCard> */}
+            <OdometerOverlay car={car}/>
             </div>
         </div>
     );
