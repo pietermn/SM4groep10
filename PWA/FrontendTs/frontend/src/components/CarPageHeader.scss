@@ -1,4 +1,4 @@
-.header-container {
+.header-containerCarPage {
     color: white;
     width: 100vw;
     background-color: #2D2F32;
@@ -15,7 +15,7 @@
 
 }
 
-.carname {
+.carnameCarPage {
     font-family: Inter-semibold;
     bottom: 0;
     margin: 15px;
@@ -23,7 +23,7 @@
     font-size: 24px;
 }
 
-.backButton {
+.backButtonCarPage {
     position: absolute;
     margin-top: 15px;
     margin-left: 10px;
@@ -33,19 +33,19 @@
     align-items: center;
 }
 
-.carImage{
+.carImageCarPage{
     width: 100%;
     object-fit: scale-down;
     margin-top: calc(((100vh * 0.26125) - ((100vw * 0.8) * 0.463))*0.2);
 }
 
-.carImage-container{
+.carImage-containerCarPage{
     height: calc(100vh * 0.26125);
     width: 80%;
     margin: auto;
 }
 
-.tripButton {
+.tripButtonCarPage {
     position: absolute !important;
     right: 0 !important;
     bottom: 0 !important;
@@ -54,7 +54,7 @@
     width: 130px !important;
 }
 
-.bottomContainer {
+.bottomContainerCarPage {
     display: flex;
     position: absolute;
     bottom: 0;
