@@ -54,6 +54,7 @@ const StatsScreen = () => {
                 ></CarStatsCard>
                 <AverageUseStatsCard car={car}></AverageUseStatsCard>
                 <TransactionCard transactions={transactions} />
+                <div style={{ width: "100vw", height: "1vh" }} />
             </div>
         </div>
     );
