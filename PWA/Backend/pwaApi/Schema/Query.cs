@@ -4,8 +4,8 @@ using pwaApi.Types;
 
 namespace pwaApi.Schema
 {
-	public class Query
-	{
+    public class Query
+    {
         private readonly Faker<UserType> _userFaker;
         private readonly Faker<TripType> _tripFaker;
         private readonly Faker<ReservationType> _reservationFaker;
@@ -32,6 +32,7 @@ namespace pwaApi.Schema
 
             _transactionFaker = new Faker<TransactionType>()
                 .RuleFor(c => c.Id, f => Guid.NewGuid())
+                .RuleFor(c => c.User, f => _userFaker.Generate())
                 .RuleFor(c => c.Liters, f => f.Random.Int(20, 65))
                 .RuleFor(c => c.Date, f => f.Date.Recent())
                 .RuleFor(c => c.Amount, f => f.Random.Double(30, 100));
@@ -44,7 +45,7 @@ namespace pwaApi.Schema
                 .RuleFor(c => c.MaxRange, f => f.Random.Int(250, 750))
                 .RuleFor(c => c.Tank, f => f.Random.Int(40, 70))
                 .RuleFor(c => c.Trips, f => _tripFaker.Generate(3))
-                .RuleFor(c => c.Transactions, f => _transactionFaker.Generate(3))
+                .RuleFor(c => c.Transactions, f => _transactionFaker.Generate(4))
                 .RuleFor(c => c.Reservations, f => _reservationFaker.Generate(3))
                 .RuleFor(c => c.Owner, f => _userFaker.Generate())
                 .RuleFor(c => c.Users, f => _userFaker.Generate(3));
@@ -58,12 +59,12 @@ namespace pwaApi.Schema
         //{
         //    return _carFaker.Generate(limit);
         //}
-        
+
         public IEnumerable<CarType> GetCars()
         {
             return _carFaker.Generate(5);
         }
-        
+
     }
 }
 

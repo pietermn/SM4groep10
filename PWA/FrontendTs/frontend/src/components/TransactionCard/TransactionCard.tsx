@@ -1,7 +1,6 @@
 import AvatarCustom from "./../Avatar/Avatar";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
-import "./UserPageHeader.scss";
+import "./TransactionCard.scss";
 
 interface IUserCardProps {
     name: string;
@@ -12,7 +11,6 @@ export default function UserPageHeader(props: IUserCardProps) {
     return (
         <div className="user-container">
             <div className="backButton">
-                <KeyboardArrowLeftIcon />
                 <p>Back</p>
             </div>
             <div className="carImage-container">
