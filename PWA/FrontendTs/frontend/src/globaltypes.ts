@@ -26,6 +26,7 @@ export type Reservation = {
 }
 export type Transaction = {
     id: string;
+    user: User;
     liters: number;
     date: Date;
     amount: number;

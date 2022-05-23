@@ -22,11 +22,13 @@ namespace pwaApi.Schema
 
             _tripFaker = new Faker<TripType>()
                 .RuleFor(c => c.Id, f => Guid.NewGuid())
+                .RuleFor(c => c.User, f => _userFaker.Generate())
                 .RuleFor(c => c.Date, f => f.Date.Recent())
                 .RuleFor(c => c.Distance, f => f.Random.Int(3, 350));
 
             _reservationFaker = new Faker<ReservationType>()
                 .RuleFor(c => c.Id, f => Guid.NewGuid())
+                .RuleFor(c => c.User, f => _userFaker.Generate())
                 .RuleFor(c => c.StartDate, f => f.Date.Recent())
                 .RuleFor(c => c.EndDate, f => f.Date.Recent());
 
