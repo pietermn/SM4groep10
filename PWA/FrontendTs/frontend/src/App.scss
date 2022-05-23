@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  overflow-y: scroll;
 }
 
 .App {
@@ -15,10 +14,11 @@ body {
 .main-container{
   background-color: #1A1C1F;
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: scroll;
 }
 
 .App-logo {

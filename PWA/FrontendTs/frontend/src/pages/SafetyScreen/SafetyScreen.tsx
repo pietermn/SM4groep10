@@ -12,7 +12,7 @@ const SafetyScreen = () => {
         <div className="roadBrick3" />
         </div>
       <div className="Safety-container">
-        <div>
+        <div className="safety-text-container">
           <h1 className="safetyNote">SAFETY NOTE</h1>
           <h2 className="smallText">Do not use this app while driving</h2>
           <button className="buttonEndTrip" onClick={() => navigate('/homescreen')}>End Trip</button>

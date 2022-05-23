@@ -6,7 +6,7 @@ import { Car, CarStatus, CarTypeEnum, User } from "../../globaltypes";
 import CarStatsCard from "../../components/CarStatsCard/CarStatsCard";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 
-const App = () => {
+const HomeScreen = () => {
   const[user, getUser] = useState<User>();
   const[cars, getCars] = useState<Car[]>([]);
   const[range, getRange] = useState<number>();
@@ -59,4 +59,4 @@ const App = () => {
   </div>;
 };
 
-export default App;
+export default HomeScreen;
