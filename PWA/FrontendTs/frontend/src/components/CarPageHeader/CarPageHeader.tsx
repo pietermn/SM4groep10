@@ -1,3 +1,4 @@
+import AvatarCustom from "./../Avatar/Avatar";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import "./CarPageHeader.scss";
 import { Fab } from "@mui/material";
@@ -11,7 +12,7 @@ interface ICarCardProps {
 }
 
 export default function CarPageHeader(props: ICarCardProps) {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     return (
         <div className="header-containerCarPage">
             <div className="backButtonCarPage">
@@ -32,7 +33,14 @@ export default function CarPageHeader(props: ICarCardProps) {
                         End trip
                     </Fab>
                 ) : (
-                    <Fab className="tripButtonCarPage" variant="extended" size="small" color="primary" aria-label="add">
+                    <Fab
+                        className="tripButtonCarPage"
+                        variant="extended"
+                        size="small"
+                        color="primary"
+                        aria-label="add"
+                        onClick={() => navigate("/safetyscreen")}
+                    >
                         Start trip
                     </Fab>
                 )}

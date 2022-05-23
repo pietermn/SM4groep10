@@ -20,7 +20,7 @@ export default function UserStatsCard(props: IUserStatsCardProps){
           </div>
           <div className="stats-tank">
             <h1 className="stats-name">Money paid</h1>
-            <h1 className="stats-statistics">{props.paid} Liters</h1>
+            <h1 className="stats-statistics">€{props.paid}</h1>
           </div>
         </div>
       </div>

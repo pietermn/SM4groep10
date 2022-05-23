@@ -4,6 +4,7 @@ import PageLoader from '../layout/PageLoader'
 import HomeScreen from '../pages/HomeScreen/HomeScreen'
 import SafetyScreen from '../pages/SafetyScreen/SafetyScreen'
 import StatsScreen from '../pages/StatsScreen/StatsScreen'
+import UserScreen from '../pages/UserScreen/UserScreen'
 
 export default function Routes() {
     return (
@@ -12,6 +13,7 @@ export default function Routes() {
                 <Route path="homescreen" element={<HomeScreen/>} />
                 <Route path="safetyscreen" element={<SafetyScreen/>} />
                 <Route path="statsscreen" element={<StatsScreen/>} />
+                <Route path="userscreen" element={<UserScreen/>} />
         </AllRoutes>
     
     )
