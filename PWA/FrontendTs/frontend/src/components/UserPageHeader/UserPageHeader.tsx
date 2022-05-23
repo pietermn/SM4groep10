@@ -1,4 +1,4 @@
-import AvatarCustom from "./Avatar";
+import AvatarCustom from "./../Avatar/Avatar";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
 import "./UserPageHeader.scss";
@@ -10,7 +10,7 @@ interface IUserCardProps {
 }
 
 export default function UserPageHeader(props: IUserCardProps) {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     return (
         <div className="user-container">
             <div className="backButton">
