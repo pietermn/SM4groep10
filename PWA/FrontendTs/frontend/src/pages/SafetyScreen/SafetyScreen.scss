@@ -15,10 +15,10 @@
     overflow-y: hidden;
   }
   .carImageSafety{
-    width: 125%;
+    width: 155%;
     position: fixed;
     bottom: -1%;
-    left: -45px;
+    left: -26.5%;
     margin: auto;
   }
   .safety-text-container{
@@ -54,8 +54,8 @@
     position: fixed;
     bottom: 87.5%;
     margin-top: 20%;
-    right: 48%;
-    width: 2%;
+    right: 46%;
+    width: 21px;
     height: 15%;
     background-color: #FFCA28;
     border: 3px solid #FFCA28;
@@ -64,8 +64,8 @@
     position: fixed;
     bottom: 45%;
     margin-top: 20%;
-    right: 48%;
-    width: 2%;
+    right: 46%;
+    width: 21px;
     height: 15%;
     background-color: #FFCA28;
     border: 3px solid #FFCA28;
@@ -74,8 +74,8 @@
     position: fixed;
     bottom: 5%;
     margin-top: 20%;
-    right: 48%;
-    width: 2%;
+    right: 46%;
+    width: 21px;
     height: 15%;
     background-color: #FFCA28;
     border: 3px solid #FFCA28;
@@ -91,16 +91,20 @@
   .smallText{
     margin-top: 4%;
     margin-bottom: 7%;
-    font-size: small;
+    font-size: 20px;
+    width: 260px;
     font-family: 'Inter-semibold';
   }
   .safetyNote{
-    font-size: xxx-large;
-    font-family: 'Inter-bold';
+    font-size: 32px;
+    font-family: 'Inter-semibold';
     
   }
   .buttonEndTrip{
     font-family: 'Inter-bold';
+    width: 100px;
+    height: 25px;
+    font-size: 20px;
       border: none;
       border-radius: 5px;
       background-color: #DD8419;
