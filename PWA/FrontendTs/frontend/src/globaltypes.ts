@@ -33,7 +33,6 @@ export type Transaction = {
     liters: number;
     date: Date;
     amount: number;
-    user: User;
 }
 export type Trip = {
     id: string;
