@@ -126,24 +126,28 @@ namespace pwaApi.Schema
                         new TransactionType{
                             Id = 1,
                             User = Kara,
+                            Date = DateTime.Parse("May 20, 2022, 11:00:00"),
                             Liters = 10,
                             Amount = 21.79
                         },
                         new TransactionType{
                             Id = 2,
                             User = Bob,
+                            Date = DateTime.Parse("May 22, 2022, 11:00:00"),
                             Liters = 3,
                             Amount = 6.54
                         },
                         new TransactionType{
                             Id = 3,
                             User = Kara,
+                            Date = DateTime.Parse("May 24, 2022, 11:00:00"),
                             Liters = 22,
                             Amount = 47.94
                         },
                         new TransactionType{
                             Id = 4,
                             User = Wim,
+                            Date = DateTime.Parse("May 25, 2022, 11:00:00"),
                             Liters = 42,
                             Amount = 91.51
                         },
@@ -217,24 +221,28 @@ namespace pwaApi.Schema
                         new TransactionType{
                             Id = 1,
                             User = Kara,
+                            Date = DateTime.Parse("May 20, 2022, 11:00:00"),
                             Liters = 10,
                             Amount = 21.79
                         },
                         new TransactionType{
                             Id = 2,
                             User = Bob,
+                            Date = DateTime.Parse("May 22, 2022, 11:00:00"),
                             Liters = 3,
                             Amount = 6.54
                         },
                         new TransactionType{
                             Id = 3,
                             User = Kara,
+                            Date = DateTime.Parse("May 24, 2022, 11:00:00"),
                             Liters = 22,
                             Amount = 47.94
                         },
                         new TransactionType{
                             Id = 4,
                             User = Wim,
+                            Date = DateTime.Parse("May 25, 2022, 11:00:00"),
                             Liters = 42,
                             Amount = 91.51
                         },
@@ -308,24 +316,28 @@ namespace pwaApi.Schema
                         new TransactionType{
                             Id = 1,
                             User = Kara,
+                            Date = DateTime.Parse("May 20, 2022, 11:00:00"),
                             Liters = 10,
                             Amount = 21.79
                         },
                         new TransactionType{
                             Id = 2,
                             User = Bob,
+                            Date = DateTime.Parse("May 22, 2022, 11:00:00"),
                             Liters = 3,
                             Amount = 6.54
                         },
                         new TransactionType{
                             Id = 3,
                             User = Kara,
+                            Date = DateTime.Parse("May 24, 2022, 11:00:00"),
                             Liters = 22,
                             Amount = 47.94
                         },
                         new TransactionType{
                             Id = 4,
                             User = Wim,
+                            Date = DateTime.Parse("May 25, 2022, 11:00:00"),
                             Liters = 42,
                             Amount = 91.51
                         },
