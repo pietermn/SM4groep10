@@ -6,6 +6,7 @@ import CarPageHeader from "../../components/CarPageHeader/CarPageHeader";
 import TransactionCard from "../../components/TransactionCard/TransactionCard";
 import { Car, User, CarTypeEnum, Trip, Reservation, Transaction, PercentageUser } from "../../globaltypes";
 import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUseStatsCard";
+import BalanceCard from "../../components/BalanceCard/BalanceCard";
 
 const StatsScreen = () => {
     const userOne: User = { id: "1", name: "Givan Wiggers", colour: "Pink", firebaseId: 404 };
@@ -53,6 +54,10 @@ const StatsScreen = () => {
                     consumption={"1 L :" + Math.round(car.maxRange / car.tank).toString() + " km"}
                 ></CarStatsCard>
                 <AverageUseStatsCard car={car}></AverageUseStatsCard>
+                <BalanceCard 
+                car={car}
+                balance = {40.54}
+                ></BalanceCard>
                 <TransactionCard transactions={transactions} />
             </div>
         </div>
