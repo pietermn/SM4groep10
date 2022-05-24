@@ -6,19 +6,29 @@ builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>();
 
+
+var cors = Environment.GetEnvironmentVariable("CORS");
+var origins = cors?.Split(',', StringSplitOptions.RemoveEmptyEntries);
+
+if (origins == null || origins.Length == 0)
+{
+    origins = new string[] { "http://localhost", "http://localhost:3001", "http://localhost:3000" };
+}
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy",
-        builder => builder
-            .WithOrigins("http://localhost:3000/")
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials());
+    options.AddDefaultPolicy(
+    builder =>
+    {
+        builder.WithOrigins(origins)
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
 });
 
 var app = builder.Build();
 
-app.UseCors("CorsPolicy");
+app.UseCors();
 
 app.MapGraphQL();
 

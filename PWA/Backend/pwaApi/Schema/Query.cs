@@ -93,7 +93,7 @@ namespace pwaApi.Schema
                     Id = 1,
                     Name = "Cooper S",
                     Colour = "Orange",
-                    Type = "Hatchback",
+                    Type = "minicooperside",
                     MaxRange = 668,
                     Tank = 49,
                     Trips = new List<TripType>{
@@ -188,7 +188,7 @@ namespace pwaApi.Schema
                     Id = 2,
                     Name = "BMW M4",
                     Colour = "Gray",
-                    Type = "Sport Coupe",
+                    Type = "bmw2022sideview",
                     MaxRange = 527,
                     Tank = 59,
                     Trips = new List<TripType>{
@@ -283,7 +283,7 @@ namespace pwaApi.Schema
                     Id = 3,
                     Name = "Porsche Panamera",
                     Colour = "White",
-                    Type = "Hatchback",
+                    Type = "porschetaycan",
                     MaxRange = 772,
                     Tank = 80,
                     Trips = new List<TripType>{

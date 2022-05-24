@@ -23,9 +23,9 @@ export type User = {
 
 export type Reservation = {
     id: string;
+    user: User
     startDate: Date;
     endDate: Date;
-    user: User;
 }
 export type Transaction = {
     id: string;
@@ -36,9 +36,9 @@ export type Transaction = {
 }
 export type Trip = {
     id: string;
+    user: User
     distance: number;
     date: Date;
-    user: User;
 }
 
 export type PercentageUser = {

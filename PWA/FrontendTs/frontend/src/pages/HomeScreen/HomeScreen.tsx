@@ -8,13 +8,14 @@ import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import AddCarCard from "../../components/AddCarCard/AddCarCard";
 
 const HomeScreen = () => {
-    const [user, getUser] = useState<User>();
-    const [cars, getCars] = useState<Car[]>([]);
+    const [user, setUser] = useState<User>();
+    const [cars, setCars] = useState<Car[]>([]);
     const [range, getRange] = useState<number>();
     const [status, getStatus] = useState<CarStatus>(CarStatus["Currently available"]);
 
-    async function loadUser() {
-        const user = await FakeBackendAPI.getUser();
+    async function loadData() {
+        setCars(await FakeBackendAPI.getCars());
+        setUser(await FakeBackendAPI.getUser());
     }
 
     // async function calculateRange(car:Car): number{
@@ -28,44 +29,23 @@ const HomeScreen = () => {
     // }
 
     useEffect(() => {
-        loadUser();
+        loadData();
     }, []);
 
     return (
         <div className="main-container">
             <div className="flex-containers">
-                <CarCard
-                    name="Cooper SE"
-                    range="125"
-                    maxRange="450"
-                    status="Currently reserved"
-                    type={CarTypeEnum.minicooperside}
-                    colour="Orange"
-                ></CarCard>
-                <CarCard
-                    name="Cooper SE"
-                    range="125"
-                    maxRange="450"
-                    status="Currently reserved"
-                    type={CarTypeEnum.minicooperside}
-                    colour="Orange"
-                ></CarCard>
-                <CarCard
-                    name="Cooper SE"
-                    range="125"
-                    maxRange="450"
-                    status="Currently reserved"
-                    type={CarTypeEnum.minicooperside}
-                    colour="Orange"
-                ></CarCard>
-                <CarCard
-                    name="Cooper SE"
-                    range="125"
-                    maxRange="450"
-                    status="Currently reserved"
-                    type={CarTypeEnum.minicooperside}
-                    colour="Orange"
-                ></CarCard>
+                {cars.map((car) => (
+                    <CarCard
+                        key={car.id}
+                        name={car.name}
+                        range="125"
+                        maxRange={car.maxRange.toString()}
+                        status="Currently reserved"
+                        type={car.type}
+                        colour={car.colour}
+                    ></CarCard>
+                ))}
                 <AddCarCard />
                 {/* <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
                 <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
