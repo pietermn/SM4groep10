@@ -116,6 +116,19 @@ useEffect(() => {
                     );
                 })}  
             </div> */}
+            {/* EIGEN LEGENDA MIDDEN */}
+            {/* <div className="chart-info">
+            {data.map((item) => {
+              console.log(colours[data.findIndex(c => c.label == item.label)].toString()) 
+                    return (
+                        <div className="chartInfo-person"> 
+                            <SquareIcon className="chartInfo-colour" style={{ color: colours[data.findIndex(c => c.label == item.label)].toString()}}/>
+                            <h3 className="chartInfo-name">{item.label}</h3> 
+                            <h3 className="chartInfo-percentage">{item.value}%</h3>
+                        </div>
+                    );
+                })}  
+            </div> */}
        </div>
     );
 };

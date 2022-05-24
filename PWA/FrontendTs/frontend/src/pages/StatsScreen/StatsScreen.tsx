@@ -62,7 +62,7 @@ const StatsScreen = () => {
                 <AverageUseStatsCard car={car}></AverageUseStatsCard>
                 <TransactionCard transactions={transactions} />
                 <Button onClick={() => navigate("/calenderscreen")}>View Calender</Button>
-                <ReservationCard car={car}/>
+                {/* <ReservationCard car={car}/> */}
                 <div style={{ width: "100vw", height: "1vh" }} />
             </div>
         </div>

@@ -48,6 +48,20 @@
     visibility: hidden;
   }
 
-  .calender-containers{
-    height: 100vh;
-  }
+
+  .calendar-container {
+    color: white;
+    width: 100vw;
+    background-color: #2D2F32;
+    margin-top: 0;
+    height: 26.125%;
+    position: relative;
+}
+.react-calendar__month-view__weekdays div{
+  color: white;
+  opacity: 50%;
+}
+.react-calendar__month-view__days button{
+  background-color: #282c34;
+  color: white;
+}
