@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./HomeScreen.scss";
 import CarCard from "../../components/CarCard/CarCard";
 import FakeBackendAPI from "../../api/FakeBackendAPI";
 import { Car, CarStatus, CarTypeEnum, User } from "../../globaltypes";
 import CarStatsCard from "../../components/CarStatsCard/CarStatsCard";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
-import { width } from "@mui/system";
-import BackButton from "../../components/BackButton/BackButton";
 
 const HomeScreen = () => {
     const [user, getUser] = useState<User>();

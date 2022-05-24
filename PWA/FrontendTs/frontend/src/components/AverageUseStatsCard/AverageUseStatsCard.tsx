@@ -1,4 +1,3 @@
-import { cardActionAreaClasses } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Car, User } from "../../globaltypes";
 import AvatarCustom from "./../Avatar/Avatar";

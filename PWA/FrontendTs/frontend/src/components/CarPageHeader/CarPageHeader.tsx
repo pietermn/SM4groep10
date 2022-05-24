@@ -1,4 +1,3 @@
-import AvatarCustom from "./../Avatar/Avatar";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import "./CarPageHeader.scss";
 import { Fab } from "@mui/material";
