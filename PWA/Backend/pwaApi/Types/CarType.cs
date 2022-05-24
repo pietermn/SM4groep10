@@ -14,7 +14,7 @@ namespace pwaApi.Types
     public class CarType
     {
 
-        public Guid? Id { get; set; }
+        public int? Id { get; set; }
 
         // Aesthetics
         public string? Name { get; set; }
