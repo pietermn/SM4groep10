@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
 import "./UserScreen.scss";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import { Car, User, CarTypeEnum, Trip, Reservation, Transaction, PercentageUser } from "../../globaltypes";
-import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUseStatsCard";
 import UserPageHeader from "../../components/UserPageHeader/UserPageHeader";
 import OdometerOverlay from "../../components/OdometerOverlay/OdometerOverlay";
 
