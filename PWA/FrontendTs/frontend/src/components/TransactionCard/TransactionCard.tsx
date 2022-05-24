@@ -48,9 +48,9 @@ export default function TransactionCard(props: ITransactionCardProps) {
                     </TableHead>
                     <TableBody>
                         {props.transactions ? (
-                            props.transactions.map((trans) => (
+                            props.transactions.map((trans, i) => (
                                 <TableRow
-                                    key={trans.id}
+                                    key={i}
                                     sx={{
                                         "td, &:last-child th": { border: 0 },
                                         "td, th": { color: "#FFFFFF !important" },

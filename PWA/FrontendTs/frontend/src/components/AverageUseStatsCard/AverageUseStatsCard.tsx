@@ -19,9 +19,9 @@ export default function AverageUseStatsCard(props: IAverageUseStatsCardProps) {
                 <h1 className="averageUseStats-title">Average use per person</h1>
             </div>
             <div className="averageUseStats-people">
-                {props.car.users.map((user) => {
+                {props.car.users.map((user, i) => {
                     return (
-                        <div className="averageUseStats-person">
+                        <div className="averageUseStats-person" key={i}>
                             <AvatarCustom className={user.name} name={user.name} colour={user.colour} />
                             <h1 className="averageUseStats-name">{user.name}</h1>
                             <h1 className="averageUseStats-statistics">{getPercentage(user)}%</h1>
