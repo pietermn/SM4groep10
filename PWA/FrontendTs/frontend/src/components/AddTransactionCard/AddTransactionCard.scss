@@ -1,9 +1,8 @@
-
 $MainColor: #2D2F32;
 $white: #ffffff;
 $Card-Corners: 10px;
 
-.Add-container{
+.Trans-container{
     position: relative;
     background-color: $MainColor;
     border-radius: $Card-Corners;
@@ -12,16 +11,15 @@ $Card-Corners: 10px;
     width: 95vw;
     height: 130px;
     margin: auto;
-    margin-top: 10px;
     overflow: hidden;
 }
-.Add-container img{
+.Trans-container img{
     position: absolute;
-    top: 5px;
+    top: 40px;
     width: 70%;
-    margin-left: 45%;
+    margin-left: 40%;
 }
-.Add-container h2{
+.Trans-container h2{
     font-size: 24px;
     font-family: Inter-semibold;
     padding: 10px 4% 0px 4%;

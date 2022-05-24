@@ -5,6 +5,7 @@ import FakeBackendAPI from "../../api/FakeBackendAPI";
 import { Car, CarStatus, CarTypeEnum, User } from "../../globaltypes";
 import CarStatsCard from "../../components/CarStatsCard/CarStatsCard";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
+import AddCarCard from "../../components/AddCarCard/AddCarCard";
 
 const HomeScreen = () => {
     const [user, getUser] = useState<User>();
@@ -65,11 +66,12 @@ const HomeScreen = () => {
                     type={CarTypeEnum.minicooperside}
                     colour="Orange"
                 ></CarCard>
-                <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
+                <AddCarCard />
+                {/* <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
                 <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
                 <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
                 <UserStatsCard driven={300} paid={346.68}></UserStatsCard>
-                <UserStatsCard driven={300} paid={346.68}></UserStatsCard>
+                <UserStatsCard driven={300} paid={346.68}></UserStatsCard> */}
                 <div style={{ width: "100vw", height: "10px" }} />
             </div>
             {/* <UserStatsCard driven={300} paid={346.68}></UserStatsCard> */}
