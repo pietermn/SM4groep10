@@ -24,7 +24,7 @@ export default function BalanceCard(props: IBalanceProps) {
     return (
         <div className="balance-container">
             <div className="balance-topper">
-                <h1 className="balance-title">Average use per person</h1>
+                <h1 className="balance-title">Balance</h1>
             </div>
             <div className="balance-people">
                 {props.car.users.map((user) => {
