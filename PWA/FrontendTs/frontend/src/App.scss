@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+.main-container::-webkit-scrollbar{
+  display: none;
+}
+
 h1{
   font-size: 24px;
 }

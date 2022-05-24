@@ -47,26 +47,8 @@ const HomeScreen = () => {
                     ></CarCard>
                 ))}
                 <AddCarCard />
-                {/* <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
-                <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
-                <CarStatsCard range={300} volume={30} odometer={11.304} consumption="1L:10km"></CarStatsCard>
-                <UserStatsCard driven={300} paid={346.68}></UserStatsCard>
-                <UserStatsCard driven={300} paid={346.68}></UserStatsCard> */}
                 <div style={{ width: "100vw", height: "10px" }} />
             </div>
-            {/* <UserStatsCard driven={300} paid={346.68}></UserStatsCard> */}
-            {/* <h1>{user?.name}</h1>
-      {cars.map((car) => {
-        return (
-          <CarCard name={car.name} range="{range}" maxRange='{car.maxRange}' status={status?.toString()} type={car.type} colour={car.colour}></CarCard>
-        );
-      })} */}
-            {/* <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type='images/minicooperside' colour='Orange'></CarCard>
-      <CarCard name='BMW M4' range='125' maxRange='750' status='Currently avaiable' type='images/bmw2022sideview' colour='Gray'></CarCard>
-      <CarCard name='Cooper SE' range='125' maxRange='450' status='Currently reserved' type='images/minicooperside' colour='Blue'></CarCard>
-      <CarCard name='Porsche Taycan' range='125' maxRange='550' status='Currently reserved' type='images/porschetaycan' colour='White'></CarCard>
-      <CarCard name='BMW M4' range='125' maxRange='750' status='Currently avaiable' type='images/bmw2022sideview' colour='Gray'></CarCard>
-      <CarCard name='Porsche Taycan' range='125' maxRange='550' status='Currently reserved' type='images/porschetaycan' colour='White'></CarCard> */}
         </div>
     );
 };
