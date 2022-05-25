@@ -16,7 +16,7 @@ export default function UserStatsCard(props: IUserStatsCardProps){
         <div className="stats-info">
           <div className="stats-range">
             <h1 className="stats-name">Kilometers driven</h1>
-            <h1 className="stats-statistics">{props.driven}km</h1>
+            <h1 className="stats-statistics">{props.driven} km</h1>
           </div>
           <div className="stats-tank">
             <h1 className="stats-name">Money paid</h1>

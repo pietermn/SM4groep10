@@ -31,7 +31,7 @@ const StatsScreen = () => {
                         odometer={car.odometer}
                         consumption={"1 L :" + Math.round(car.maxRange / car.tank).toString() + " km"}
                     ></CarStatsCard>
-                    <AverageUseStatsCard key={car.id} car={car}></AverageUseStatsCard>
+                    <AverageUseStatsCard car={car}></AverageUseStatsCard>
                     <TransactionCard transactions={car.transactions} />
                 </div>
             )}
