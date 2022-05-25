@@ -4,7 +4,7 @@ import CarStatsCard from "../../components/CarStatsCard/CarStatsCard";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import CarPageHeader from "../../components/CarPageHeader/CarPageHeader";
 import TransactionCard from "../../components/TransactionCard/TransactionCard";
-import { Car, User, CarTypeEnum, Trip, Reservation, Transaction, PercentageUser } from "../../globaltypes";
+import { Car } from "../../globaltypes";
 import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUseStatsCard";
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
 import { useParams } from "react-router";

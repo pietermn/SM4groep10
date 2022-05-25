@@ -6,7 +6,7 @@ import ChartComponent from "../../components/ChartComponent/ChartComponent";
 import { Car, CarTypeEnum, PercentageUser, Reservation, Transaction, Trip, User } from "../../globaltypes";
 import BackButton from "../../components/BackButton/BackButton";
 import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUseStatsCard";
-  
+
 const BalanceScreen = () => {
     const navigate = useNavigate();
     const userOne: User = { id: "1", name: "Givan Wiggers", colour: "Pink", firebaseId: 404 };
@@ -19,12 +19,13 @@ const BalanceScreen = () => {
     const percentageTwo: PercentageUser = { id: "2", user: userTwo, percentage: 40 };
     const percentages: PercentageUser[] = [percentageOne, percentageTwo];
     const car: Car = {
-        id: "string",
+        id: 1,
         ownerId: userOne,
         maxRange: 350,
         name: "Cooper SE",
         colour: "Orange",
         odometer: 11304,
+        reserved: false,
         type: CarTypeEnum.minicooperside,
         tank: 60,
         users: users,
@@ -34,11 +35,11 @@ const BalanceScreen = () => {
         percentages: percentages,
     };
     return (
-        <div className="main-container" style={{justifyContent: "flex-start"}}>
-            <BackButton/>
-            <div  style={{width: "100vw", height: "5vh"}}/>
-            <ChartComponent car={car}/>
-            <AverageUseStatsCard car={car}/>
+        <div className="main-container" style={{ justifyContent: "flex-start" }}>
+            <BackButton />
+            <div style={{ width: "100vw", height: "5vh" }} />
+            <ChartComponent car={car} />
+            <AverageUseStatsCard car={car} />
         </div>
     );
 };

@@ -12,7 +12,7 @@ var origins = cors?.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
 if (origins == null || origins.Length == 0)
 {
-    origins = new string[] { "http://localhost", "http://localhost:3001", "http://localhost:3000" };
+    origins = new string[] { "http://localhost", "http://localhost:3001", "http://localhost:3000", "http://145.93.161.18:3000" };
 }
 
 builder.Services.AddCors(options =>
