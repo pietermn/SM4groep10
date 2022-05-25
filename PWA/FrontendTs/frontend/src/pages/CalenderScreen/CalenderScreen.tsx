@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import AvatarCustom from "../../components/Avatar/Avatar";
 import Calendar from 'react-calendar'
+import BackButton from "../../components/BackButton/BackButton";
 
 const CalenderScreen = () => {
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,18 +70,18 @@ const CalenderScreen = () => {
     },[date])
     
     return(
-        <div>
+        <div className="calendarscreen">
             <div className="calendar-container">
-                <Calendar/>
-            </div>
-            <button onClick={() => setDate(new Date(2022,4,25, 17,0,0,0))}>Date is today press to Change Date</button>
-            {reservationsOpen ? (
+            <BackButton/>
+                <Calendar onChange={setDate} value={date} />
+            </div> 
+            {reservationsOpen.length > 0 ? (
                 <div>
                     {reservationsOpen.map((reservation, i) => {
                     return (
                         <ReservationCard reservation={reservation} key={i}/>
                     );
-                })} 
+                })}
                 </div>
             ) : (
                 <div>

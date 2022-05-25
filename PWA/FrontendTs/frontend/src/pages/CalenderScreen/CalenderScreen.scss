@@ -47,8 +47,16 @@
   .stats-containers .stats-container .stats-topper p {
     visibility: hidden;
   }
-
-
+.calendarscreen{
+  .backButtonCarPage{
+    position: relative;
+    background-color: #2D2F32;    
+    padding-top: 15px;
+    padding-left: 10px;
+    margin-top: 0;
+    margin-left: 0;
+  }
+}
   .calendar-container {
     color: white;
     width: 100vw;
@@ -57,11 +65,102 @@
     height: 26.125%;
     position: relative;
 }
-.react-calendar__month-view__weekdays div{
-  color: white;
-  opacity: 50%;
-}
-.react-calendar__month-view__days button{
-  background-color: #282c34;
-  color: white;
+.react-calendar{
+  background-color: #2D2F32;
+  padding-bottom: 10px;
+  .react-calendar__century-view__decades{
+    display: flex;
+    //flex-wrap: nowrap !important;
+    overflow-x: scroll;
+    width: 95%;
+    margin: auto;
+    button{
+      background-color: #2D2F32;
+      color: white;
+      height:  20px;
+      font-size: 15px;
+      border: none;
+    }
+  }
+  .react-calendar__decade-view__years{
+    display: flex;
+    //flex-wrap: nowrap !important;
+    overflow-x: scroll;
+    width: 95%;
+    margin: auto;
+    button{
+      background-color: #2D2F32;
+      color: white;
+      height:  20px;
+      font-size: 15px;
+      border: none;
+    }
+  }
+  .react-calendar__year-view__months {
+    display: flex;
+    //flex-wrap: nowrap !important;
+    overflow-x: scroll;
+    width: 95%;
+    margin: auto;
+    button{
+      background-color: #2D2F32;
+      color: white;
+      height:  20px;
+      font-size: 15px;
+      border: none;
+      font-family: "Inter-regular";
+      text-transform: uppercase;
+    }
+  }
+  .react-calendar__month-view__days {
+    display: flex;
+    //flex-wrap: nowrap !important;
+    //overflow-x: scroll;
+
+    button{
+      background-color: #2D2F32;
+      color: white;
+      height:  20px;
+      font-size: 15px;
+      border: none;
+    }
+    button:focus{
+      // background-color: #1976D2;
+      // border-radius: 50%;
+      color: orange;
+    }
+    button:active{
+      background-color: orange;
+    }
+  }
+  .react-calendar__viewContainer{
+    overflow-x: scroll;
+  }
+  .react-calendar__month-view div{
+    width: 95%;
+    margin: auto;
+    align-items: flex-end;
+    
+  }
+  .react-calendar__navigation{
+    .react-calendar__navigation__arrow{
+      visibility: hidden;
+    }
+    .react-calendar__navigation__label{
+      background-color: #2D2F32;
+      border: none;
+      color: white;
+      margin-left: -15px;
+      font-size: 24px;
+      font-family: "Inter-semibold";
+      text-transform: uppercase;
+    }
+  }
+
+  .react-calendar__month-view__weekdays div{
+    color: white;
+    opacity: 50%;
+    text-transform: uppercase;
+    font-family: "Inter-light";
+  }
 }
