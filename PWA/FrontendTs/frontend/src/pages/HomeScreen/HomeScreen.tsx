@@ -1,51 +1,15 @@
-import { useEffect, useState } from "react";
 import "./HomeScreen.scss";
 import CarCard from "../../components/CarCard/CarCard";
-import FakeBackendAPI from "../../api/FakeBackendAPI";
-import { Car, CarStatus, CarTypeEnum, User } from "../../globaltypes";
-import CarStatsCard from "../../components/CarStatsCard/CarStatsCard";
-import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import AddCarCard from "../../components/AddCarCard/AddCarCard";
+import { useFetchCars } from "../../api/useQueryHooks/carHooks";
 
 const HomeScreen = () => {
-    const [user, setUser] = useState<User>();
-    const [cars, setCars] = useState<Car[]>([]);
-    const [range, getRange] = useState<number>();
-    const [status, getStatus] = useState<CarStatus>(CarStatus["Currently available"]);
-
-    async function loadData() {
-        setCars(await FakeBackendAPI.getCars());
-        setUser(await FakeBackendAPI.getUser());
-    }
-
-    // async function calculateRange(car:Car): number{
-    // //for each car you have to calculate the range it still has, which will be called from a different file.
-    // return fileMethod(car)
-    // }
-
-    // async function defineStatus(car: Car): CarStatus{
-    //   //for each car you have to check wether the car is currently available or not, which will be called form a different file.
-    //   return fileMethod(car)
-    // }
-
-    useEffect(() => {
-        loadData();
-    }, []);
+    const { data: cars } = useFetchCars();
 
     return (
         <div className="main-container">
             <div className="flex-containers">
-                {cars.map((car) => (
-                    <CarCard
-                        key={car.id}
-                        name={car.name}
-                        range="125"
-                        maxRange={car.maxRange.toString()}
-                        status="Currently reserved"
-                        type={car.type}
-                        colour={car.colour}
-                    ></CarCard>
-                ))}
+                {cars && cars.map((car) => <CarCard key={car.id} car={car}></CarCard>)}
                 <AddCarCard />
                 <div style={{ width: "100vw", height: "10px" }} />
             </div>

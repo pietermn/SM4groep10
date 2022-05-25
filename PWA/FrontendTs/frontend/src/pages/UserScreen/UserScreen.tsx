@@ -2,12 +2,9 @@ import "./UserScreen.scss";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import { Car, User, CarTypeEnum, Trip, Reservation, Transaction, PercentageUser } from "../../globaltypes";
 import UserPageHeader from "../../components/UserPageHeader/UserPageHeader";
-import { useEffect, useState } from "react";
-import FakeBackendAPI from "../../api/FakeBackendAPI";
+import { useFetchUser } from "../../api/useQueryHooks/useUserHooks";
 
 const StatsScreen = () => {
-    const [user, setUser] = useState<User>();
-
     const userOne: User = { id: "1", name: "Givan Wiggers", colour: "Pink", firebaseId: 404 };
     const userTwo: User = { id: "2", name: "Pieter van der Mullen", colour: "Orange", firebaseId: 405 };
     const users: User[] = [userOne, userTwo];
@@ -24,6 +21,7 @@ const StatsScreen = () => {
         name: "Cooper SE",
         colour: "Orange",
         odometer: 11304,
+        reserved: false,
         type: CarTypeEnum.minicooperside,
         tank: 60,
         users: users,
@@ -33,13 +31,7 @@ const StatsScreen = () => {
         percentages: percentages,
     };
 
-    async function loadData() {
-        setUser(await FakeBackendAPI.getUser());
-    }
-
-    useEffect(() => {
-        loadData();
-    }, []);
+    const { data: user, isLoading } = useFetchUser();
 
     return (
         <div className="main-container">

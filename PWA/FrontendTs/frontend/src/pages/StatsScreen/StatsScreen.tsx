@@ -29,6 +29,7 @@ const StatsScreen = () => {
         name: "Cooper SE",
         colour: "Orange",
         odometer: 11304,
+        reserved: false,
         type: CarTypeEnum.minicooperside,
         tank: 60,
         users: users,

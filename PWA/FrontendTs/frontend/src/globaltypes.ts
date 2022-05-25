@@ -5,6 +5,7 @@ export type Car = {
     odometer: number;
     name: string;
     colour: string;
+    reserved: boolean;
     type: CarTypeEnum;
     tank: number;
     users: User[];

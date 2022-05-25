@@ -94,6 +94,7 @@ namespace pwaApi.Schema
                     Name = "Cooper S",
                     Colour = "Orange",
                     Type = "minicooperside",
+                    Reserved = false,
                     MaxRange = 668,
                     Tank = 49,
                     Trips = new List<TripType>{
@@ -126,28 +127,28 @@ namespace pwaApi.Schema
                         new TransactionType{
                             Id = 1,
                             User = Kara,
-                            Date = DateTime.Parse("May 20, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 12, 2022, 11:00:00"),
                             Liters = 10,
                             Amount = 21.79
                         },
                         new TransactionType{
                             Id = 2,
                             User = Bob,
-                            Date = DateTime.Parse("May 22, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 14, 2022, 11:00:00"),
                             Liters = 3,
                             Amount = 6.54
                         },
                         new TransactionType{
                             Id = 3,
                             User = Kara,
-                            Date = DateTime.Parse("May 24, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 15, 2022, 11:00:00"),
                             Liters = 22,
                             Amount = 47.94
                         },
                         new TransactionType{
                             Id = 4,
                             User = Wim,
-                            Date = DateTime.Parse("May 25, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 20, 2022, 11:00:00"),
                             Liters = 42,
                             Amount = 91.51
                         },
@@ -189,6 +190,7 @@ namespace pwaApi.Schema
                     Name = "BMW M4",
                     Colour = "Gray",
                     Type = "bmw2022sideview",
+                    Reserved = true,
                     MaxRange = 527,
                     Tank = 59,
                     Trips = new List<TripType>{
@@ -221,28 +223,28 @@ namespace pwaApi.Schema
                         new TransactionType{
                             Id = 1,
                             User = Kara,
-                            Date = DateTime.Parse("May 20, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 12, 2022, 11:00:00"),
                             Liters = 10,
                             Amount = 21.79
                         },
                         new TransactionType{
                             Id = 2,
                             User = Bob,
-                            Date = DateTime.Parse("May 22, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 14, 2022, 11:00:00"),
                             Liters = 3,
                             Amount = 6.54
                         },
                         new TransactionType{
                             Id = 3,
                             User = Kara,
-                            Date = DateTime.Parse("May 24, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 15, 2022, 11:00:00"),
                             Liters = 22,
                             Amount = 47.94
                         },
                         new TransactionType{
                             Id = 4,
                             User = Wim,
-                            Date = DateTime.Parse("May 25, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 20, 2022, 11:00:00"),
                             Liters = 42,
                             Amount = 91.51
                         },
@@ -284,6 +286,7 @@ namespace pwaApi.Schema
                     Name = "Porsche Panamera",
                     Colour = "White",
                     Type = "porschetaycan",
+                    Reserved = false,
                     MaxRange = 772,
                     Tank = 80,
                     Trips = new List<TripType>{
@@ -316,28 +319,28 @@ namespace pwaApi.Schema
                         new TransactionType{
                             Id = 1,
                             User = Kara,
-                            Date = DateTime.Parse("May 20, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 12, 2022, 11:00:00"),
                             Liters = 10,
                             Amount = 21.79
                         },
                         new TransactionType{
                             Id = 2,
                             User = Bob,
-                            Date = DateTime.Parse("May 22, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 14, 2022, 11:00:00"),
                             Liters = 3,
                             Amount = 6.54
                         },
                         new TransactionType{
                             Id = 3,
                             User = Kara,
-                            Date = DateTime.Parse("May 24, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 15, 2022, 11:00:00"),
                             Liters = 22,
                             Amount = 47.94
                         },
                         new TransactionType{
                             Id = 4,
                             User = Wim,
-                            Date = DateTime.Parse("May 25, 2022, 11:00:00"),
+                            Date = DateTime.Parse("May 20, 2022, 11:00:00"),
                             Liters = 42,
                             Amount = 91.51
                         },

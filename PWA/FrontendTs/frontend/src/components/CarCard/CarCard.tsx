@@ -1,35 +1,41 @@
 import {} from "@mui/material";
-import { CarTypeEnum } from "../../globaltypes";
+import { Car } from "../../globaltypes";
 import "./CarCard.scss";
 import { useNavigate } from "react-router-dom";
 
 interface ICarCardProps {
-    name: string;
-    maxRange: string;
-    range: string;
-    status: string;
-    type: CarTypeEnum;
-    colour: string;
+    car: Car;
 }
 
-export default function CarCard(props: ICarCardProps) {
+export default function CarCard({ car }: ICarCardProps) {
+    const LatestTransaction = car.transactions[car.transactions.length - 1].date;
+    const range = car.trips.filter((t) => t.date > LatestTransaction).reduce((a, b) => a + b.distance, 0);
     const navigate = useNavigate();
+
     return (
-        <div className="car-container">
-            <h1 className="carName">{props.name}</h1>
+        <div className="car-container" onClick={() => navigate("/statsscreen")}>
+            <h1 className="carName">{car.name}</h1>
             <div className="carImage-container">
                 <img
                     className="carImage"
                     alt="carImage"
-                    src={"images/" + props.type.toString() + props.colour + ".png"}
+                    src={"images/" + car.type.toString() + car.colour + ".png"}
                 ></img>
             </div>
             <h2 className="carRange">
-                {" "}
-                {props.range} / {props.maxRange} KM LEFT
+                {range} / {car.maxRange} KM LEFT
             </h2>
             <div className="bottomBar">
-                <h2 className="carStatus"> {props.status}</h2>
+                {car.reserved ? (
+                    <h2 className="carStatus" style={{ color: "#FFD280" }}>
+                        Currently Reserved
+                    </h2>
+                ) : (
+                    <h2 className="carStatus" style={{ color: "#CCFF99" }}>
+                        Currently Available
+                    </h2>
+                )}
+
                 <p className="startTripButton" onClick={() => navigate("/safetyscreen")}>
                     Start trip
                 </p>

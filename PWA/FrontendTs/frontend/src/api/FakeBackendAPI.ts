@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import { Car, User } from "../globaltypes";
 
-import instance from "./APIInstance";
+let Connectionstring = "http://localhost:5200/graphql"
 
 export default class FakeBackendAPI{
-
+    
     static getUser = async() => {
-        const res: AxiosResponse<any> = await axios.post("http://localhost:5200/graphql", {
+        const res: AxiosResponse<any> = await axios.post(Connectionstring, {
             query: `{
                 user{
                   id
@@ -24,13 +24,14 @@ export default class FakeBackendAPI{
     }
 
     static getCars = async() => {
-        const res: AxiosResponse<any> = await axios.post("http://localhost:5200/graphql", {
+        const res: AxiosResponse<any> = await axios.post(Connectionstring, {
             query: `{
                 cars{
                     id
                     name
                     colour
                     type
+                    reserved
                     maxRange
                     tank
                 
