@@ -11,14 +11,15 @@ import BalanceCard from "../../components/BalanceCard/BalanceCard";
 const StatsScreen = () => {
     const userOne: User = { id: "1", name: "Givan Wiggers", colour: "Pink", firebaseId: 404 };
     const userTwo: User = { id: "2", name: "Pieter van der Mullen", colour: "Orange", firebaseId: 405 };
-    const users: User[] = [userOne, userTwo];
+    const userThree: User = { id: "3", name: "Pieter van Nunen", colour: "Blue", firebaseId: 406 };
+    const users: User[] = [userOne, userTwo, userThree];
     const trips: Trip[] = [];
     const reservations: Reservation[] = [];
     const transactions: Transaction[] = [
         { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
+        { id: "1235", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
+        { id: "1236", user: userTwo, date: new Date(Date.now()), liters: 10, amount: 27.38 },
+        { id: "1237", user: userThree, date: new Date(Date.now()), liters: 10, amount: 27.38 },
     ];
     const percentageOne: PercentageUser = { id: "1", user: userOne, percentage: 60 };
     const percentageTwo: PercentageUser = { id: "2", user: userTwo, percentage: 40 };
@@ -56,7 +57,6 @@ const StatsScreen = () => {
                 <AverageUseStatsCard car={car}></AverageUseStatsCard>
                 <BalanceCard 
                 car={car}
-                balance = {40.54}
                 ></BalanceCard>
                 <TransactionCard transactions={transactions} />
             </div>

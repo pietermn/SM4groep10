@@ -5,16 +5,25 @@ import "./BalanceCard.scss";
 
 interface IBalanceProps {
     car: Car;
-    balance: number;
 }
 
 export default function BalanceCard(props: IBalanceProps) {
-        function getColor() {
+        function getbalance(user: User){
+            var total = 0
+            const transactions_user = props.car.transactions.filter(x => x.user.id == user.id)
+            transactions_user.map((transaction) => {
+                return(
+                    total += transaction.amount
+                    )
+            })        
+            return total
+        }
+        function getColor(user:User) {
             var color = "white_Balance"
-            if (props.balance > 0){
+            if (getbalance(user) > 0){
                  color = "green_Balance"
             }
-            else if (props.balance < 0){
+            else if (getbalance(user) < 0){
                  color = "red_Balance"
             }
             return color;
@@ -32,7 +41,7 @@ export default function BalanceCard(props: IBalanceProps) {
                         <div className="balance-person">
                             <AvatarCustom className={user.name} name={user.name} colour={user.colour} />
                             <h1 className="balance-name">{user.name}</h1>
-                            <h1 className={getColor()} >€{props.balance}</h1>
+                            <h1 className={getColor(user)} >€{getbalance(user)}</h1>
                         </div>
                     );
                 })}
