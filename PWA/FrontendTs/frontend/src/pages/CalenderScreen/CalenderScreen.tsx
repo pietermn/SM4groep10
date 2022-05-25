@@ -71,8 +71,8 @@ const CalenderScreen = () => {
     
     return(
         <div className="calendarscreen">
-            <div className="calendar-container">
             <BackButton/>
+            <div className="calendar-container">
                 <Calendar onChange={setDate} value={date} />
             </div> 
             {reservationsOpen.length > 0 ? (

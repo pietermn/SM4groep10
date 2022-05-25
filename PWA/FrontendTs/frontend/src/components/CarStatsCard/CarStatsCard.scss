@@ -17,13 +17,14 @@
       align-items: baseline;
       overflow-y: hidden;
       .stats-title{
-        margin: 4%;
+        margin: auto;
+        width: 60%;
       }
       p{
         align-self: center;
         color: #DD8419;
         opacity: 40%;
-        margin: 4%;
+        margin: auto;
       }
     }
     .stats-info{
