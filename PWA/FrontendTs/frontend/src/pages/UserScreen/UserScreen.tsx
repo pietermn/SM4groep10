@@ -8,32 +8,6 @@ import { useFetchUser } from "../../api/useQueryHooks/useUserHooks";
 import OdometerOverlay from "../../components/OdometerOverlay/OdometerOverlay";
 
 const StatsScreen = () => {
-    const userOne: User = { id: "1", name: "Givan Wiggers", colour: "Pink", firebaseId: 404 };
-    const userTwo: User = { id: "2", name: "Pieter van der Mullen", colour: "Orange", firebaseId: 405 };
-    const users: User[] = [userOne, userTwo];
-    const trips: Trip[] = [];
-    const reservations: Reservation[] = [];
-    const transactions: Transaction[] = [];
-    const percentageOne: PercentageUser = { id: "1", user: userOne, percentage: 60 };
-    const percentageTwo: PercentageUser = { id: "2", user: userTwo, percentage: 40 };
-    const percentages: PercentageUser[] = [percentageOne, percentageTwo];
-    const car: Car = {
-        id: 1,
-        ownerId: userOne,
-        maxRange: 350,
-        name: "Cooper SE",
-        colour: "Orange",
-        odometer: 113042,
-        reserved: false,
-        type: CarTypeEnum.minicooperside,
-        tank: 60,
-        users: users,
-        trips: trips,
-        reservations: reservations,
-        transactions: transactions,
-        percentages: percentages,
-    };
-
     const { data: user, isLoading } = useFetchUser();
 
     return (
@@ -52,8 +26,8 @@ const StatsScreen = () => {
                 )}
                 {/* <CarPageHeader name={"COOPER SE"} type={CarTypeEnum.minicooperside} colour={"Orange"} tripStatus={false}></CarPageHeader> */}
                 {/* <CarStatsCard range={car.maxRange} volume={car.tank} odometer={car.odometer} consumption={"1 L:" + Math.round((car.maxRange/car.tank)).toString() + " km"}></CarStatsCard>
-        <AverageUseStatsCard car={car}></AverageUseStatsCard> */}
-                <OdometerOverlay car={car} />
+                <AverageUseStatsCard car={car}></AverageUseStatsCard> */}
+                {/* <OdometerOverlay car={car} /> */}
             </div>
         </div>
     );

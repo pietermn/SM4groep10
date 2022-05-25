@@ -7,9 +7,11 @@ interface IAverageUseStatsCardProps {
     car: Car;
 }
 
-export default function AverageUseStatsCard(props: IAverageUseStatsCardProps) {
+export default function AverageUseStatsCard({ car }: IAverageUseStatsCardProps) {
     function getPercentage(user: User): number {
-        return props.car.percentages?.find((c) => c.user.id === user.id)?.percentage || 0;
+        const range = car.trips.reduce((a, b) => a + b.distance, 0);
+        var userRange = car.trips.filter((t) => t.user.id === user.id).reduce((a, b) => a + b.distance, 0);
+        return (userRange / range) * 100;
     }
 
     const navigate = useNavigate();
@@ -19,12 +21,12 @@ export default function AverageUseStatsCard(props: IAverageUseStatsCardProps) {
                 <h1 className="averageUseStats-title">Average use per person</h1>
             </div>
             <div className="averageUseStats-people">
-                {props.car.users.map((user, i) => {
+                {car.users.map((user, i) => {
                     return (
                         <div className="averageUseStats-person" key={user.id}>
                             <AvatarCustom className={user.name} name={user.name} colour={user.colour} />
                             <h1 className="averageUseStats-name">{user.name}</h1>
-                            <h1 className="averageUseStats-statistics">{getPercentage(user)}%</h1>
+                            <h1 className="averageUseStats-statistics">{Math.round(getPercentage(user))}%</h1>
                         </div>
                     );
                 })}

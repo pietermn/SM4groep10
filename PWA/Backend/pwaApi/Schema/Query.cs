@@ -24,14 +24,14 @@ namespace pwaApi.Schema
         {
             Id = 2,
             Name = "Bob van Oranje",
-            Colour = "Orange",
+            Colour = "#4D909E",
             FirebaseId = "11"
         };
 
         private readonly UserType Wim = new UserType()
         {
             Id = 3,
-            Name = "Wim Wendel",
+            Name = "Cino Peeters",
             Colour = "#D970DB",
             FirebaseId = "12"
         };
@@ -182,6 +182,7 @@ namespace pwaApi.Schema
                     },
                     Owner = Kara,
                     Users = new List<UserType>{
+                        Kara,
                         Bob,
                         Wim
                     }
@@ -279,6 +280,7 @@ namespace pwaApi.Schema
                     },
                     Owner = Kara,
                     Users = new List<UserType>{
+                        Kara,
                         Bob,
                         Wim
                     }
@@ -376,6 +378,7 @@ namespace pwaApi.Schema
                     },
                     Owner = Kara,
                     Users = new List<UserType>{
+                        Kara,
                         Bob,
                         Wim
                     }

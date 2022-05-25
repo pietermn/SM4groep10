@@ -16,34 +16,34 @@ export type Car = {
   };
 
 export type User = {
-    id: string;
+    id: number;
     name: string;
     colour: string;
     firebaseId: number;
 };
 
 export type Reservation = {
-    id: string;
+    id: number;
     user: User
     startDate: Date;
     endDate: Date;
 }
 export type Transaction = {
-    id: string;
+    id: number;
     user: User;
     liters: number;
     date: Date;
     amount: number;
 }
 export type Trip = {
-    id: string;
+    id: number;
     user: User
     distance: number;
     date: Date;
 }
 
 export type PercentageUser = {
-    id: string;
+    id: number;
     user: User;
     percentage: number;
 }

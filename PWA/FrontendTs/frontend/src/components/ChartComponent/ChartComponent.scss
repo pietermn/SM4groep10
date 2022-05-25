@@ -1,52 +1,78 @@
 .chart-container{
-        margin: auto;
-        margin-top: 1vh;
-        margin-bottom: 0;
-        width: 95%;
-        height: fit-content;
-        border-radius: 10px;
-        background-color: #2D2F32;
-        overflow: hidden;
-        color: white;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-}
-.donutchart-innertext-value{
-    visibility: hidden;
+    position: relative;
+    min-height: 250px;
+    margin: auto;
+    margin-top: 1vh;
+    width: 95%;
+    border-radius: 10px;
+    background-color: #2D2F32;
     color: white;
 }
-.donutchart-legend{
-    color: white !important;
+
+.donutchart-container {
+    height: 250px;
+    width: 100%;
 }
-.donutchart-legend-item-label {
-    color: white;
-}
-.donutchart-container{
-    height: 100%;
-    overflow: hidden;
-    height: fit-content;
-}
+
 .chart-info{
+    position: relative;
+    height: 250px;
+    z-index: 0;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    width: 80%;
-    justify-content: space-between;
-    overflow-y: scroll;
-    max-height: 33%;
-    .chartInfo-person{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+}
 
-        .chartInfo-name{
-            margin-right: auto;
-            font-family: "Inter-semibold";
-        }
-        .chartInfo-percentage{
-            font-family: "Inter-light";
-        }
-    }
+.chartInfo-person{
+    text-align: center;
+    font-family: "Inter-semibold";
+}
+
+.chartInfo-colour {
+    position: absolute;
+    z-index: 2;
+    width: 70px;
+    height: 20px;
+    border-radius: 50px;
+    margin-top: 0px;
+}
+
+.tussendiv {
+    position: relative;
+
+}
+
+.chartInfo-colourBottom {
+    position:sticky;
+    z-index: 1;
+    width: 70px;
+    height: 20px;
+    border-radius: 50px;
+    margin-top: 5px;
+    filter: blur(6px);
+}
+
+.chartInfo-text {
+    height: 100%;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topChart {
+    position: absolute;
+    right: calc((100% - 250px)/2);
+    z-index: 2;
+}
+.bottomChart{
+    right: calc((100% - 250px)/2);
+    position: absolute;
+    z-index: 1;
+    filter: blur(8px);
+}
+
+path{
+    stroke: none !important;
 }

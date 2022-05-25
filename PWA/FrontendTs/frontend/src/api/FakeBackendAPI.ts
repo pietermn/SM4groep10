@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { Car, User } from "../globaltypes";
 
-let Connectionstring = "http://localhost:5200/graphql"
+let Connectionstring = "http://192.168.0.173:5200/graphql"
 
 export default class FakeBackendAPI{
     
@@ -31,13 +31,17 @@ export default class FakeBackendAPI{
                     name
                     colour
                     type
+                    odometer
                     reserved
                     maxRange
                     tank
                 
                     trips{
+                      id
                       user {
+                        id
                         name
+                        colour
                       }
                       date
                       distance
