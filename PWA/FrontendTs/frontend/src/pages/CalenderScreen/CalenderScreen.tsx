@@ -10,71 +10,47 @@ import moment from "moment";
 import AvatarCustom from "../../components/Avatar/Avatar";
 import Calendar from "react-calendar";
 import BackButton from "../../components/BackButton/BackButton";
+import { useParams } from "react-router";
+import { useFetchCars } from "../../api/useQueryHooks/carHooks";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const CalenderScreen = () => {
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    const dateNow: Date = new Date(Date.now());
-    const dateOne: Date = new Date(2022, 4, 24, 10, 0, 0, 0);
-    const dateTwo: Date = new Date(2022, 4, 25, 17, 0, 0, 0);
-    const dateThree: Date = new Date(2022, 4, 25, 17, 0, 0, 0);
-    const dateFour: Date = new Date(2022, 4, 25, 19, 0, 0, 0);
-    const dateFive: Date = new Date(2022, 4, 25, 21, 0, 0, 0);
-    const userOne: User = { id: "1", name: "Givan Wiggers", colour: "Pink", firebaseId: 404 };
-    const userTwo: User = { id: "2", name: "Pieter van der Mullen", colour: "Orange", firebaseId: 405 };
-    const users: User[] = [userOne, userTwo];
-    const trips: Trip[] = [];
-    const reservationOne: Reservation = { id: "1", startDate: dateOne, endDate: dateTwo, user: userOne };
-    const reservationTwo: Reservation = { id: "2", startDate: dateThree, endDate: dateFour, user: userTwo };
-    const reservationThree: Reservation = { id: "3", startDate: dateFour, endDate: dateFive, user: userOne };
-    const reservations: Reservation[] = [reservationOne, reservationTwo, reservationThree];
-    const transactions: Transaction[] = [
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-    ];
-    const percentageOne: PercentageUser = { id: "1", user: userOne, percentage: 60 };
-    const percentageTwo: PercentageUser = { id: "2", user: userTwo, percentage: 40 };
-    const percentages: PercentageUser[] = [percentageOne, percentageTwo];
-    const car: Car = {
-        id: 1,
-        ownerId: userOne,
-        maxRange: 350,
-        name: "Cooper SE",
-        colour: "Orange",
-        odometer: 11304,
-        reserved: false,
-        type: CarTypeEnum.minicooperside,
-        tank: 60,
-        users: users,
-        trips: trips,
-        reservations: reservations,
-        transactions: transactions,
-        percentages: percentages,
-    };
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    const { data: cars } = useFetchCars();
+    const [car, setCar] = useState<Car>();
+    const { carId } = useParams<{ carId: string }>();
+    
     const [date, setDate] = useState(new Date(Date.now()));
     const [reservationsOpen, setReservations] = useState<Reservation[]>([]);
+    
 
     function getReservationsToDate(date: Date) {
-        const newReservations = car.reservations.filter(
-            (x) => x.startDate.toLocaleDateString() === date.toLocaleDateString()
+        const newReservations = car?.reservations.filter(
+            (x) => new Date(x.startDate).toDateString() == new Date(date).toDateString()
         );
-
-        setReservations(newReservations);
+        setReservations(newReservations!);
     }
-    function doNothing() {}
 
     useEffect(() => {
-        getReservationsToDate(date);
-    }, [date]);
+        if (cars) {
+            setCar(cars?.find((c) => c.id === parseInt(carId || ""))!);
+        }
+    }, [cars]);
+
+    useEffect(() => {
+        if (car) {
+            getReservationsToDate(date);
+        }
+    }, [date, car]);
+    
 
     return (
         <div className="calendarscreen">
             <BackButton />
             <div className="calendar-container">
+                <h1>{date.getDate()}</h1>
                 <Calendar onChange={setDate} value={date} />
             </div>
+            
             {reservationsOpen.length > 0 ? (
                 <div>
                     {reservationsOpen.map((reservation, i) => {
@@ -90,6 +66,9 @@ const CalenderScreen = () => {
                     </div>
                 </div>
             )}
+            <div>
+                <AddCircleIcon className="AddIcon"/>
+            </div>
         </div>
     );
 };
