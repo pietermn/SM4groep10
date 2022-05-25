@@ -15,7 +15,7 @@ const StatsScreen = () => {
     const percentageTwo: PercentageUser = { id: "2", user: userTwo, percentage: 40 };
     const percentages: PercentageUser[] = [percentageOne, percentageTwo];
     const car: Car = {
-        id: "string",
+        id: 1,
         ownerId: userOne,
         maxRange: 350,
         name: "Cooper SE",

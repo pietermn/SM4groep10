@@ -1,5 +1,5 @@
 export type Car = {
-    id: string;
+    id: number;
     ownerId: User;
     maxRange: number;
     odometer: number;

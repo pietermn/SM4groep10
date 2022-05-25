@@ -9,7 +9,7 @@ interface IAverageUseStatsCardProps {
 
 export default function AverageUseStatsCard(props: IAverageUseStatsCardProps) {
     function getPercentage(user: User): number {
-        return props.car.percentages.find((c) => c.user.id === user.id)?.percentage || 0;
+        return props.car.percentages?.find((c) => c.user.id === user.id)?.percentage || 0;
     }
 
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function AverageUseStatsCard(props: IAverageUseStatsCardProps) {
             <div className="averageUseStats-people">
                 {props.car.users.map((user) => {
                     return (
-                        <div className="averageUseStats-person">
+                        <div className="averageUseStats-person" key={user.id}>
                             <AvatarCustom className={user.name} name={user.name} colour={user.colour} />
                             <h1 className="averageUseStats-name">{user.name}</h1>
                             <h1 className="averageUseStats-statistics">{getPercentage(user)}%</h1>

@@ -2,15 +2,14 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import "./CarPageHeader.scss";
 import { Fab } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Car } from "../../globaltypes";
 
 interface ICarCardProps {
-    name: string;
-    type: string;
-    colour: string;
+    car: Car;
     tripStatus: boolean;
 }
 
-export default function CarPageHeader(props: ICarCardProps) {
+export default function CarPageHeader({ car, tripStatus }: ICarCardProps) {
     const navigate = useNavigate();
     return (
         <div className="header-containerCarPage">
@@ -21,13 +20,13 @@ export default function CarPageHeader(props: ICarCardProps) {
             <div className="carImage-containerCarPage">
                 <img
                     className="carImageCarPage"
-                    alt="carsideview"
-                    src={"images/" + props.type + props.colour + ".png"}
+                    alt="carImage"
+                    src={"../images/" + car.type.toString() + car.colour + ".png"}
                 />
             </div>
             <div className="bottomContainerCarPage">
-                <h1 className="carnameCarPage">{props.name}</h1>
-                {props.tripStatus ? (
+                <h1 className="carnameCarPage">{car.name}</h1>
+                {tripStatus ? (
                     <Fab className="tripButtonCarPage" variant="extended" size="small" color="error" aria-label="add">
                         End trip
                     </Fab>

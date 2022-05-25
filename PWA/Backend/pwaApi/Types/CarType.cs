@@ -22,6 +22,7 @@ namespace pwaApi.Types
         public string? Type { get; set; }
 
         // Statistics
+        public int Odometer { get; set; }
         public bool Reserved { get; set; }
         public int? MaxRange { get; set; }
         public int? Tank { get; set; }

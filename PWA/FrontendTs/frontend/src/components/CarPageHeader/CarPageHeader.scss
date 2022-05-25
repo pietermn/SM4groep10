@@ -37,13 +37,14 @@
 .carImageCarPage{
     width: 100%;
     object-fit: scale-down;
-    margin-top: calc(((100vh * 0.26125) - ((100vw * 0.8) * 0.463))*0.2);
 }
 
 .carImage-containerCarPage{
     height: calc(100vh * 0.26125);
     width: 80%;
     margin: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .tripButtonCarPage {

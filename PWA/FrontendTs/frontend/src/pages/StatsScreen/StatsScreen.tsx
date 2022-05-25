@@ -6,56 +6,35 @@ import CarPageHeader from "../../components/CarPageHeader/CarPageHeader";
 import TransactionCard from "../../components/TransactionCard/TransactionCard";
 import { Car, User, CarTypeEnum, Trip, Reservation, Transaction, PercentageUser } from "../../globaltypes";
 import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUseStatsCard";
+import { useFetchCars } from "../../api/useQueryHooks/carHooks";
+import { useParams } from "react-router";
 
 const StatsScreen = () => {
-    const userOne: User = { id: "1", name: "Givan Wiggers", colour: "Pink", firebaseId: 404 };
-    const userTwo: User = { id: "2", name: "Pieter van der Mullen", colour: "Orange", firebaseId: 405 };
-    const users: User[] = [userOne, userTwo];
-    const trips: Trip[] = [];
-    const reservations: Reservation[] = [];
-    const transactions: Transaction[] = [
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-        { id: "1234", user: userOne, date: new Date(Date.now()), liters: 10, amount: 27.38 },
-    ];
-    const percentageOne: PercentageUser = { id: "1", user: userOne, percentage: 60 };
-    const percentageTwo: PercentageUser = { id: "2", user: userTwo, percentage: 40 };
-    const percentages: PercentageUser[] = [percentageOne, percentageTwo];
-    const car: Car = {
-        id: "string",
-        ownerId: userOne,
-        maxRange: 350,
-        name: "Cooper SE",
-        colour: "Orange",
-        odometer: 11304,
-        reserved: false,
-        type: CarTypeEnum.minicooperside,
-        tank: 60,
-        users: users,
-        trips: trips,
-        reservations: reservations,
-        transactions: transactions,
-        percentages: percentages,
-    };
+    const { data: cars } = useFetchCars();
+    const [car, setCar] = useState<Car>();
+    const { carId } = useParams<{ carId: string }>();
+
+    useEffect(() => {
+        if (cars) {
+            setCar(cars?.find((c) => c.id === parseInt(carId || ""))!);
+        }
+    }, [cars]);
+
     return (
         <div className="main-container">
-            <div className="stats-containers">
-                <CarPageHeader
-                    name={"COOPER SE"}
-                    type={CarTypeEnum.minicooperside}
-                    colour={"Orange"}
-                    tripStatus={false}
-                ></CarPageHeader>
-                <CarStatsCard
-                    range={car.maxRange}
-                    volume={car.tank}
-                    odometer={car.odometer}
-                    consumption={"1 L :" + Math.round(car.maxRange / car.tank).toString() + " km"}
-                ></CarStatsCard>
-                <AverageUseStatsCard car={car}></AverageUseStatsCard>
-                <TransactionCard transactions={transactions} />
-            </div>
+            {car && (
+                <div className="stats-containers">
+                    <CarPageHeader car={car} tripStatus={false}></CarPageHeader>
+                    <CarStatsCard
+                        range={car.maxRange}
+                        volume={car.tank}
+                        odometer={car.odometer}
+                        consumption={"1 L :" + Math.round(car.maxRange / car.tank).toString() + " km"}
+                    ></CarStatsCard>
+                    <AverageUseStatsCard key={car.id} car={car}></AverageUseStatsCard>
+                    <TransactionCard transactions={car.transactions} />
+                </div>
+            )}
         </div>
     );
 };
