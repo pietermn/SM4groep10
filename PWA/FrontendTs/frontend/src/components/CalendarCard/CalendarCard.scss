@@ -1,4 +1,4 @@
-.calendar-container{
+.calendarcard-container{
     margin: auto;
     margin-top: 1vh;
     width: 95%;
@@ -7,19 +7,15 @@
     background-color: #2D2F32;
     overflow: hidden;
     color: white;
-  
-    
-    
-    
   }
 
-  .calendar-title{
+  .calendarcard-title{
     padding: 15px;
     padding-bottom: 0px;
     font-family: Inter-semibold;
   }
 
-  .calendar-person{
+  .calendarcard-person{
     display: flex;
     justify-content: space-between;
     width: 80%;
@@ -27,16 +23,16 @@
     margin-bottom: 1vh;
   }
 
-  .calendar-name {
+  .calendarcard-name {
     font-size: 16px;
     color: white;
     align-self: center;
     font-family: "Inter-semibold";
     margin-right: auto;
-    margin-left: 1vw;
+    margin-left: 10%;
   }
 
-  .calendar-people{
+  .calendarcard-people{
     font-family: Inter-bold;
     vertical-align: middle;
     flex-direction: column;
@@ -44,13 +40,17 @@
     margin-bottom: 10px;
 }
 
-.calendar-date{
+.calendarcard-date{
   width: 100%;
   font-family: Inter-semibold;
 }
 
 .date-title{
-  border-bottom: 1px solid white;
+  color: #909090;
+  margin: auto;
+  margin-top: -10px;
+  width: 90%;
+  border-bottom: 1px solid #909090;
   font-size: 8px;
   display: flex;
   flex-direction: column;
@@ -59,7 +59,6 @@
 
 .date{
   margin: 4%;
-  color: white;
   align-self:flex-end;
   margin:0px 15px 5px 0px;
 }

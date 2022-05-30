@@ -9,11 +9,12 @@ import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUse
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
 import { useParams } from "react-router";
 import StatsCardRange from "../../components/StatsCardRange/StatsCardRange";
-import CalendarCard from "../../components/CalenderCard/CalendarCard";
+import CalendarCard from "../../components/CalendarCard/CalendarCard";
 import OdometerOverlay from "../../components/OdometerOverlay/OdometerOverlay";
 import ChartComponent from "../../components/ChartComponent/ChartComponent";
 import BalanceCard from "../../components/BalanceCard/BalanceCard";
 import BackButton from "../../components/BackButton/BackButton";
+
 
 const StatsScreen = () => {
     const { data: cars } = useFetchCars();
@@ -41,6 +42,7 @@ const StatsScreen = () => {
                     <ChartComponent car={car}/>
                     <BalanceCard car={car}/>
                     <BalanceCard car={car}/>
+                    {/* <CalendarCard reservations={car.reservations} /> */}
                      {/* <OdometerOverlay car={car} /> */}
                     {/* <CalendarCard car={car} /> */}
                     {/* <AverageUseStatsCard car={car}></AverageUseStatsCard>

@@ -2,9 +2,9 @@ import { Suspense } from "react";
 import { BrowserRouter, Routes as AllRoutes, Route } from "react-router-dom";
 import PageLoader from "../layout/PageLoader";
 import BalanceScreen from "../pages/BalanceScreen/BalanceScreen";
-import CalenderScreen from "../pages/CalenderScreen/CalenderScreen";
-import CarScreen from "../pages/CarScreen/CarScreen";
+import CalendarScreen from "../pages/CalendarScreen/CalendarScreen";
 import HomeScreen from "../pages/HomeScreen/HomeScreen";
+import CarScreen from "../pages/CarScreen/CarScreen";
 import SafetyScreen from "../pages/SafetyScreen/SafetyScreen";
 import StatsScreen from "../pages/StatsScreen/StatsScreen";
 import UserScreen from "../pages/UserScreen/UserScreen";
@@ -19,7 +19,7 @@ export default function Routes() {
             <Route path="carscreen/:carId" element={<CarScreen />} />
             <Route path="userscreen" element={<UserScreen />} />
             <Route path="balancescreen/:carId" element={<BalanceScreen />} />
-            <Route path="calenderscreen/:carId" element={<CalenderScreen />} />
+            <Route path="calendarscreen/:carId" element={<CalendarScreen />} />
         </AllRoutes>
     );
 }
