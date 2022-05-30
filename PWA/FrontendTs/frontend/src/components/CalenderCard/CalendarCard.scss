@@ -1,4 +1,4 @@
-.balance-container{
+.calendar-container{
     margin: auto;
     margin-top: 1vh;
     width: 95%;
@@ -7,14 +7,14 @@
     background-color: #2D2F32;
     overflow: hidden;
   
-    .balance-topper{
+    .calendar-topper{
       width: 100%;
       height: 30%;
       font-family: Inter-semibold;
       overflow-y: hidden;
       font-size: 13px;
-      .balance-title{
-        margin: 4%;
+      .calendar-title{
+        margin: 14px 0px 0px 25px;
         color: white;
       }
       p{
@@ -24,21 +24,38 @@
         margin: 4%;
       }
     }
-    .balance-people{
-      font-family: Inter-bold;
-      vertical-align: middle;
-      flex-direction: column;
-      height: 70%;
-      margin-bottom: 10px;
+    .calendar-date{
+        width: 100%;
+        font-family: Inter-semibold;
+        .date-title{
+            border-bottom: 1px solid white;
+            font-size: 8px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+                .date{
+                    margin: 4%;
+                    color: white;
+                    align-self:flex-end;
+                    margin:0px 15px 5px 0px;
+             }
+        }
     }
-    .balance-person{
+    .calendar-people{
+        font-family: Inter-bold;
+        vertical-align: middle;
+        flex-direction: column;
+        height: 70%;
+        margin-bottom: 10px;
+    }
+    .calendar-person{
       display: flex;
       justify-content: space-between;
       width: 80%;
       margin-left: 10%;
       margin-bottom: 1vh;
       
-      .balance-name {
+      .calendar-name {
         font-size: 16px;
         color: white;
         align-self: center;
