@@ -44,7 +44,7 @@
 }
 
 .chartInfo-colourBottom {
-    position:sticky;
+    position: sticky;
     z-index: 1;
     width: 70px;
     height: 20px;
@@ -75,4 +75,10 @@
 
 path{
     stroke: none !important;
+}
+
+.kilometersName{
+    padding: 15px;
+    padding-bottom: 0px;
+    font-family: Inter-semibold;
 }

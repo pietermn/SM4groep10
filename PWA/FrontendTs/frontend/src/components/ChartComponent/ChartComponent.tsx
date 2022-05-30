@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ChartComponent.scss";
 import DonutChart from "react-donut-chart";
-import { display } from "@mui/system";
 import { Car } from "../../globaltypes";
 import { Item } from "react-donut-chart/dist/DonutChart";
-import RectangleIcon from "@mui/icons-material/Rectangle";
 
 interface IChartComponent {
     car: Car;
@@ -54,6 +52,7 @@ export default function ChartComponent(props: IChartComponent) {
     useEffect(() => {}, [createData(props.car)]);
     return (
         <div className="chart-container">
+            <h1 className="kilometersName">Kilometers</h1>
             <div className="donutchart-container">
                 <DonutChart
                     className="topChart"
@@ -111,19 +110,6 @@ export default function ChartComponent(props: IChartComponent) {
                     })}
                 </div>
             </div>
-            {/* EIGEN GEMAAKTE LEGENDA */}
-            {/* <div className="chart-info">
-            {data.map((item) => {
-              console.log(colours[data.findIndex(c => c.label == item.label)].toString()) 
-                    return (
-                        <div className="chartInfo-person"> 
-                            <SquareIcon className="chartInfo-colour" style={{ color: colours[data.findIndex(c => c.label == item.label)].toString()}}/>
-                            <h3 className="chartInfo-name">{item.label}</h3> 
-                            <h3 className="chartInfo-percentage">{item.value}%</h3>
-                        </div>
-                    );
-                })}  
-            </div> */}
         </div>
     );
 }
