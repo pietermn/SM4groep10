@@ -1,7 +1,7 @@
 
 import { useQuery } from "react-query";
-import FakeBackendAPI from "../FakeBackendAPI";
+import BackendApi from "../BackendApi";
 
 export const useFetchUser = () => {
-    return useQuery("user", FakeBackendAPI.getUser)
+    return useQuery("user", BackendApi.getUser)
 }

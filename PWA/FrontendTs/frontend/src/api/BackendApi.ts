@@ -3,7 +3,7 @@ import { Car, User } from "../globaltypes";
 
 let Connectionstring = "http://localhost:5200/graphql"
 
-export default class FakeBackendAPI{
+export default class BackendApi{
     
     static getUser = async() => {
         const res: AxiosResponse<any> = await axios.post(Connectionstring, {

@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
-import FakeBackendAPI from "../FakeBackendAPI";
+import BackendApi from "../BackendApi";
 
 export const useFetchCars = () => {
-    return useQuery("cars", FakeBackendAPI.getCars)
+    return useQuery("cars", BackendApi.getCars)
 }
