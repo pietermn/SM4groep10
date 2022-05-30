@@ -17,6 +17,8 @@ export default function ChartComponent(props: IChartComponent) {
 
     // Sample data
     function createData(car: Car) {
+        data.splice(0, data.length);
+        colours.splice(0, colours.length);
         car.users.forEach((user) => {
             const userRange = car.trips.filter((t) => t.user.id === user.id).reduce((a, b) => a + b.distance, 0);
 
