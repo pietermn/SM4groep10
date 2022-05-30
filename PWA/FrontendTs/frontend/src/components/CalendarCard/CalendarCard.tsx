@@ -31,7 +31,6 @@ export default function CalendarCard({ reservations }: ICalendarProps) {
                 newCar3.push(car.startDate);
             }
         });
-        console.log(newCar2);
         return newCar3;
     }
 
