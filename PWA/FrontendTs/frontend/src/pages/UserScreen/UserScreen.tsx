@@ -6,6 +6,7 @@ import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUse
 import UserPageHeader from "../../components/UserPageHeader/UserPageHeader";
 import { useFetchUser } from "../../api/useQueryHooks/useUserHooks";
 import OdometerOverlay from "../../components/OdometerOverlay/OdometerOverlay";
+import StatsCardRange from "../../components/StatsCardRange/StatsCardRange";
 
 const StatsScreen = () => {
     const userOne: User = { id: "1", name: "Givan Wiggers", colour: "Pink", firebaseId: 404 };

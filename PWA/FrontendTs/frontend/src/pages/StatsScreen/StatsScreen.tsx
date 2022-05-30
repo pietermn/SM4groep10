@@ -8,6 +8,7 @@ import { Car } from "../../globaltypes";
 import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUseStatsCard";
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
 import { useParams } from "react-router";
+import StatsCardRange from "../../components/StatsCardRange/StatsCardRange";
 
 const StatsScreen = () => {
     const { data: cars } = useFetchCars();
@@ -33,6 +34,7 @@ const StatsScreen = () => {
                     ></CarStatsCard>
                     <AverageUseStatsCard car={car}></AverageUseStatsCard>
                     <TransactionCard transactions={car.transactions} />
+                    <StatsCardRange car={car} />
                 </div>
             )}
         </div>
