@@ -42,7 +42,8 @@ const CalendarScreen = () => {
 
     return (
         <div className="calendarscreen">
-            <BackButton />
+            <BackButton/>
+                    <div style={{ width: "100vw", height: "50px", backgroundColor:"#2D2F32"}} />
             <div className="calendar-container">
                 <h1>{date.getDate()}</h1>
                 <Calendar onChange={setDate} value={date} />

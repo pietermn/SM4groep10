@@ -7,9 +7,11 @@ import "./CalendarCard.scss";
 
 interface ICalendarProps {
     reservations: Reservation[];
+    id?: number;
 }
 
-export default function CalendarCard({ reservations }: ICalendarProps) {
+export default function CalendarCard({ reservations, id }: ICalendarProps) {
+    const navigate = useNavigate()
     function getReservations(startDate: Date) {
         const date_reservations = reservations.filter(
             (x) => moment(x.startDate).format("DD-MM-YY") === moment(startDate).format("DD-MM-YY")
@@ -36,7 +38,7 @@ export default function CalendarCard({ reservations }: ICalendarProps) {
     }
 
     return (
-        <div className="calendarcard-container">
+        <div className="calendarcard-container" onClick={() => navigate(`/calendarscreen/${id}`)}>
             <h1 className="calendarcard-title">Calendar</h1>
             {getDates()
                 .slice(0, 3)

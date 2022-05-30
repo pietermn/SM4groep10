@@ -2,7 +2,7 @@ import "./UserScreen.scss";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import UserPageHeader from "../../components/UserPageHeader/UserPageHeader";
 import { useFetchUser } from "../../api/useQueryHooks/useUserHooks";
-import CalendarCard from "../../components/CalenderCard/CalendarCard";
+import CalendarCard from "../../components/CalendarCard/CalendarCard";
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
 import { Reservation, User } from "../../globaltypes";
 

@@ -7,9 +7,9 @@ import TransactionCard from "../../components/TransactionCard/TransactionCard";
 import { Car } from "../../globaltypes";
 import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUseStatsCard";
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import StatsCardRange from "../../components/StatsCardRange/StatsCardRange";
-import CalendarCard from "../../components/CalenderCard/CalendarCard";
+import CalendarCard from "../../components/CalendarCard/CalendarCard";
 import OdometerOverlay from "../../components/OdometerOverlay/OdometerOverlay";
 import ChartComponent from "../../components/ChartComponent/ChartComponent";
 import BalanceCard from "../../components/BalanceCard/BalanceCard";
@@ -19,6 +19,7 @@ const CarScreen = () => {
     const { data: cars } = useFetchCars();
     const [car, setCar] = useState<Car>();
     const { carId } = useParams<{ carId: string }>();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (cars) {
@@ -30,9 +31,12 @@ const CarScreen = () => {
             {car && (
                 <div className="stats-containers">
                     <CarPageHeader car={car} tripStatus={false}/>
-                    <StatsCardRange car={car} />
-                    <CalendarCard car={car}/>
-                    
+                    <div onClick={() => navigate(`/statsscreen/${car.id}`)}>
+                    <   StatsCardRange car={car} />
+                    </div>
+                    {/* <div onClick={() => navigate(`/statsscreen/${car.id}`)}> */}
+                        <CalendarCard reservations={car.reservations} id={car.id} />
+                    {/* </div> */}
                     <div style={{ width: "100vw", height: "10px" }} />
                 </div>
             )}

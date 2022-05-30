@@ -14,7 +14,7 @@ export default function StatsCardRange(props: IStatsCardRangeProps){
   const LatestTransaction = props.car.transactions[props.car.transactions.length - 1].date;
     const range = props.car.trips.filter((t) => t.date > LatestTransaction).reduce((a, b) => a + b.distance, 0);
     return(
-        <div className="statsRange-container" onClick={() => navigate(`/statsscreen/${props.car.id}`)}>
+        <div className="statsRange-container" >
         <div className="stats-topper">
           <h1 className="stats-title">Stats</h1>  
           <p className="stats-seeall">See all</p>  

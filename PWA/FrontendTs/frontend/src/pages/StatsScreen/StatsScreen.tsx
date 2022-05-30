@@ -7,7 +7,7 @@ import TransactionCard from "../../components/TransactionCard/TransactionCard";
 import { Car } from "../../globaltypes";
 import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUseStatsCard";
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import StatsCardRange from "../../components/StatsCardRange/StatsCardRange";
 import CalendarCard from "../../components/CalendarCard/CalendarCard";
 import OdometerOverlay from "../../components/OdometerOverlay/OdometerOverlay";
@@ -20,6 +20,7 @@ const StatsScreen = () => {
     const { data: cars } = useFetchCars();
     const [car, setCar] = useState<Car>();
     const { carId } = useParams<{ carId: string }>();
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (cars) {
@@ -32,23 +33,11 @@ const StatsScreen = () => {
                 <div className="stats-containers">
                     <BackButton/>
                     <div style={{ width: "100vw", height: "50px" }} />
-                    {/* <CarStatsCard
-                        range={car.maxRange}
-                        volume={car.tank}
-                        odometer={car.odometer}
-                        consumption={"1 L :" + Math.round(car.maxRange / car.tank).toString() + " km"}
-                    ></CarStatsCard> */}
                     <StatsCardRange car={car} />
                     <ChartComponent car={car}/>
+                    <div onClick={() => navigate(`/balancescreen/${car.id}`)}>
                     <BalanceCard car={car}/>
-                    <BalanceCard car={car}/>
-                    {/* <CalendarCard reservations={car.reservations} /> */}
-                     {/* <OdometerOverlay car={car} /> */}
-                    {/* <CalendarCard car={car} /> */}
-                    {/* <AverageUseStatsCard car={car}></AverageUseStatsCard>
-                    <TransactionCard transactions={car.transactions} />
-                    
-                    <ChartComponent car={car} /> */}
+                    </div>
                     <div style={{ width: "100vw", height: "10px" }} />
                 </div>
             )}
