@@ -16,8 +16,8 @@ export default function Routes() {
             <Route path="safetyscreen" element={<SafetyScreen />} />
             <Route path="statsscreen/:carId" element={<StatsScreen />} />
             <Route path="userscreen" element={<UserScreen />} />
-            <Route path="balancescreen" element={<BalanceScreen />} />
-            <Route path="calenderscreen" element={<CalenderScreen />} />
+            <Route path="balancescreen/:carId" element={<BalanceScreen />} />
+            <Route path="calenderscreen/:carId" element={<CalenderScreen />} />
         </AllRoutes>
     );
 }
