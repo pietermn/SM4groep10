@@ -1,4 +1,4 @@
-import "./CalenderScreen.scss";
+import "./CalendarScreen.scss";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import { Car, User, CarTypeEnum, Trip, Reservation, Transaction, PercentageUser } from "../../globaltypes";
 import UserPageHeader from "../../components/UserPageHeader/UserPageHeader";
@@ -14,7 +14,7 @@ import { useParams } from "react-router";
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-const CalenderScreen = () => {
+const CalendarScreen = () => {
     const { data: cars } = useFetchCars();
     const [car, setCar] = useState<Car>();
     const { carId } = useParams<{ carId: string }>();
@@ -71,4 +71,4 @@ const CalenderScreen = () => {
     );
 };
 
-export default CalenderScreen;
+export default CalendarScreen;

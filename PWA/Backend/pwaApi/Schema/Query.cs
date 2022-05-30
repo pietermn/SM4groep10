@@ -274,8 +274,19 @@ namespace pwaApi.Schema
                         new ReservationType{
                             Id = 4,
                             User = Wim,
-                            StartDate = DateTime.Parse("May 27, 2022, 14:00:00"),
-                            EndDate = DateTime.Parse("May 27, 2022, 16:00:00")
+                            StartDate = DateTime.Parse("May 30, 2022, 14:00:00"),
+                            EndDate = DateTime.Parse("May 30, 2022, 16:00:00")
+                        },new ReservationType{
+                            Id = 5,
+                            User = Kara,
+                            StartDate = DateTime.Parse("May 31, 2022, 09:00:00"),
+                            EndDate = DateTime.Parse("May 31, 2022, 12:00:00")
+                        },
+                        new ReservationType{
+                            Id = 6,
+                            User = Bob,
+                            StartDate = DateTime.Parse("May 31, 2022, 13:00:00"),
+                            EndDate = DateTime.Parse("May 31, 2022, 17:00:00")
                         }
                     },
                     Owner = Kara,

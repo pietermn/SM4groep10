@@ -9,7 +9,7 @@ import AverageUseStatsCard from "../../components/AverageUseStatsCard/AverageUse
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
 import { useParams } from "react-router";
 import StatsCardRange from "../../components/StatsCardRange/StatsCardRange";
-import CalendarCard from "../../components/CalenderCard/CalendarCard";
+import CalendarCard from "../../components/CalendarCard/CalendarCard";
 
 const StatsScreen = () => {
     const { data: cars } = useFetchCars();
@@ -34,7 +34,7 @@ const StatsScreen = () => {
                         consumption={"1 L :" + Math.round(car.maxRange / car.tank).toString() + " km"}
                     ></CarStatsCard>
                     <StatsCardRange car={car} />
-                    <CalendarCard car={car} />
+                    <CalendarCard reservations={car.reservations} />
                     {/* <AverageUseStatsCard car={car}></AverageUseStatsCard>
                     <TransactionCard transactions={car.transactions} />
                     

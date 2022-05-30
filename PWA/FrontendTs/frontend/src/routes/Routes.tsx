@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { BrowserRouter, Routes as AllRoutes, Route } from "react-router-dom";
 import PageLoader from "../layout/PageLoader";
 import BalanceScreen from "../pages/BalanceScreen/BalanceScreen";
-import CalenderScreen from "../pages/CalenderScreen/CalenderScreen";
+import CalendarScreen from "../pages/CalendarScreen/CalendarScreen";
 import HomeScreen from "../pages/HomeScreen/HomeScreen";
 import SafetyScreen from "../pages/SafetyScreen/SafetyScreen";
 import StatsScreen from "../pages/StatsScreen/StatsScreen";
@@ -17,7 +17,7 @@ export default function Routes() {
             <Route path="statsscreen/:carId" element={<StatsScreen />} />
             <Route path="userscreen" element={<UserScreen />} />
             <Route path="balancescreen/:carId" element={<BalanceScreen />} />
-            <Route path="calenderscreen/:carId" element={<CalenderScreen />} />
+            <Route path="calendarscreen/:carId" element={<CalendarScreen />} />
         </AllRoutes>
     );
 }
