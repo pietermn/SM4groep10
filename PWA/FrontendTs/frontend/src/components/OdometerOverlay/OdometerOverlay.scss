@@ -1,4 +1,5 @@
 .odometerOverlay-container{
+    visibility: hidden;
     margin: auto;
     margin-top: 1vh;
     margin-bottom: 1vh;
@@ -7,7 +8,10 @@
     border-radius: 10px;
     background-color: #2D2F32;
     overflow: hidden;
-
+    position: absolute;
+    top: 30%;
+    left: 2.5%;
+    z-index: +10;
     .odometer-topper{
         width: 100%;
         height: 30%;
@@ -23,6 +27,7 @@
         width: 100%;
         height: 30%;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         font-family: Inter-semibold;
         align-items: baseline;
@@ -34,6 +39,7 @@
             font-family: "Inter-bold";
             text-transform: initial;
         }
+
     }
 }
 .odometer-container{

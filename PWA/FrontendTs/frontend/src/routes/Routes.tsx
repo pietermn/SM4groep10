@@ -3,6 +3,7 @@ import { BrowserRouter, Routes as AllRoutes, Route } from "react-router-dom";
 import PageLoader from "../layout/PageLoader";
 import BalanceScreen from "../pages/BalanceScreen/BalanceScreen";
 import CalenderScreen from "../pages/CalenderScreen/CalenderScreen";
+import CarScreen from "../pages/CarScreen/CarScreen";
 import HomeScreen from "../pages/HomeScreen/HomeScreen";
 import SafetyScreen from "../pages/SafetyScreen/SafetyScreen";
 import StatsScreen from "../pages/StatsScreen/StatsScreen";
@@ -15,6 +16,7 @@ export default function Routes() {
             <Route path="homescreen" element={<HomeScreen />} />
             <Route path="safetyscreen" element={<SafetyScreen />} />
             <Route path="statsscreen/:carId" element={<StatsScreen />} />
+            <Route path="carscreen/:carId" element={<CarScreen />} />
             <Route path="userscreen" element={<UserScreen />} />
             <Route path="balancescreen/:carId" element={<BalanceScreen />} />
             <Route path="calenderscreen/:carId" element={<CalenderScreen />} />

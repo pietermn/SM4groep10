@@ -7,6 +7,7 @@ import "./OdometerOverlay.scss";
 
 interface IOdometerOverlay {
     car: Car;
+    id: string;
 }
 
 export default function OdometerOverlay(props: IOdometerOverlay) {
@@ -31,7 +32,7 @@ export default function OdometerOverlay(props: IOdometerOverlay) {
     },[number1, number2, number3, number4, number5, number6])
     
     return (
-        <div className="odometerOverlay-container">
+        <div className="odometerOverlay-container" id={props.id}>
             <div className="odometer-topper">
                 <h1>Current odometer count</h1>
             </div>
@@ -59,6 +60,7 @@ export default function OdometerOverlay(props: IOdometerOverlay) {
                     >
                         Start trip
                     </Fab>
+
                     </div>
         </div>
     );

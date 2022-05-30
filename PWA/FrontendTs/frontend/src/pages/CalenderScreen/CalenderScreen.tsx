@@ -1,26 +1,21 @@
 import "./CalenderScreen.scss";
-import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
-import { Car, User, CarTypeEnum, Trip, Reservation, Transaction, PercentageUser } from "../../globaltypes";
-import UserPageHeader from "../../components/UserPageHeader/UserPageHeader";
-import OdometerOverlay from "../../components/OdometerOverlay/OdometerOverlay";
+import { Car, Reservation } from "../../globaltypes";
 import ReservationCard from "../../components/ReservationCard/ReservationCard";
-import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
-import moment from "moment";
-import AvatarCustom from "../../components/Avatar/Avatar";
 import Calendar from "react-calendar";
 import BackButton from "../../components/BackButton/BackButton";
 import { useParams } from "react-router";
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const CalenderScreen = () => {
     const { data: cars } = useFetchCars();
     const [car, setCar] = useState<Car>();
     const { carId } = useParams<{ carId: string }>();
-
+    
     const [date, setDate] = useState(new Date(Date.now()));
     const [reservationsOpen, setReservations] = useState<Reservation[]>([]);
+    
 
     function getReservationsToDate(date: Date) {
         const newReservations = car?.reservations.filter(
@@ -40,6 +35,7 @@ const CalenderScreen = () => {
             getReservationsToDate(date);
         }
     }, [date, car]);
+    
 
     return (
         <div className="calendarscreen">
@@ -48,7 +44,7 @@ const CalenderScreen = () => {
                 <h1>{date.getDate()}</h1>
                 <Calendar onChange={setDate} value={date} />
             </div>
-
+            
             {reservationsOpen.length > 0 ? (
                 <div>
                     {reservationsOpen.map((reservation, i) => {
@@ -65,7 +61,7 @@ const CalenderScreen = () => {
                 </div>
             )}
             <div>
-                <AddCircleIcon className="AddIcon" />
+                <AddCircleIcon className="AddIcon"/>
             </div>
         </div>
     );

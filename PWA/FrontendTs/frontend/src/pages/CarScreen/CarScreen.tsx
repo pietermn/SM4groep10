@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./StatsScreen.scss";
+import "./CarScreen.scss";
 import CarStatsCard from "../../components/CarStatsCard/CarStatsCard";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
 import CarPageHeader from "../../components/CarPageHeader/CarPageHeader";
@@ -15,7 +15,7 @@ import ChartComponent from "../../components/ChartComponent/ChartComponent";
 import BalanceCard from "../../components/BalanceCard/BalanceCard";
 import BackButton from "../../components/BackButton/BackButton";
 
-const StatsScreen = () => {
+const CarScreen = () => {
     const { data: cars } = useFetchCars();
     const [car, setCar] = useState<Car>();
     const { carId } = useParams<{ carId: string }>();
@@ -29,24 +29,10 @@ const StatsScreen = () => {
         <div className="main-container">
             {car && (
                 <div className="stats-containers">
-                    <BackButton/>
-                    <div style={{ width: "100vw", height: "50px" }} />
-                    {/* <CarStatsCard
-                        range={car.maxRange}
-                        volume={car.tank}
-                        odometer={car.odometer}
-                        consumption={"1 L :" + Math.round(car.maxRange / car.tank).toString() + " km"}
-                    ></CarStatsCard> */}
+                    <CarPageHeader car={car} tripStatus={false}/>
                     <StatsCardRange car={car} />
-                    <ChartComponent car={car}/>
-                    <BalanceCard car={car}/>
-                    <BalanceCard car={car}/>
-                     {/* <OdometerOverlay car={car} /> */}
-                    {/* <CalendarCard car={car} /> */}
-                    {/* <AverageUseStatsCard car={car}></AverageUseStatsCard>
-                    <TransactionCard transactions={car.transactions} />
+                    <CalendarCard car={car}/>
                     
-                    <ChartComponent car={car} /> */}
                     <div style={{ width: "100vw", height: "10px" }} />
                 </div>
             )}
@@ -54,4 +40,4 @@ const StatsScreen = () => {
     );
 };
 
-export default StatsScreen;
+export default CarScreen;

@@ -13,7 +13,7 @@ export default function CarCard({ car }: ICarCardProps) {
     const navigate = useNavigate();
 
     return (
-        <div className="car-container" onClick={() => navigate(`/statsscreen/${car.id}`)}>
+        <div className="car-container" onClick={() => navigate(`/carscreen/${car.id}`)}>
             <h1 className="carName">{car.name}</h1>
             <div className="carImage-container">
                 <img
