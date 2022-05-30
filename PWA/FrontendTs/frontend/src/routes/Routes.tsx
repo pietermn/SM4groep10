@@ -7,6 +7,7 @@ import HomeScreen from "../pages/HomeScreen/HomeScreen";
 import SafetyScreen from "../pages/SafetyScreen/SafetyScreen";
 import StatsScreen from "../pages/StatsScreen/StatsScreen";
 import UserScreen from "../pages/UserScreen/UserScreen";
+import TripsScreen from "../pages/TripsScreen/TripsScreen";
 
 export default function Routes() {
     return (
@@ -18,6 +19,7 @@ export default function Routes() {
             <Route path="userscreen" element={<UserScreen />} />
             <Route path="balancescreen/:carId" element={<BalanceScreen />} />
             <Route path="calenderscreen/:carId" element={<CalenderScreen />} />
+            <Route path="tripsscreen/:carId" element={<TripsScreen/>} />
         </AllRoutes>
     );
 }

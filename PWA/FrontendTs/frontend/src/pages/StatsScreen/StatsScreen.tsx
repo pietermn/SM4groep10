@@ -41,11 +41,7 @@ const StatsScreen = () => {
                     
                     <ChartComponent car={car} /> */}
                     <div style={{ width: "100vw", height: "10px" }} />
-                    <div>
-                    {car.trips.map((Trips, i) => {
-                        return <TripCard Trip={Trips} key={i} />;
-                    })}
-                </div>
+                    
                 </div>
             )}
         </div>
