@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./StatsScreen.scss";
 import CarStatsCard from "../../components/CarStatsCard/CarStatsCard";
 import UserStatsCard from "../../components/UserStatsCard/UserStatsCard";
+import TripCard from "../../components/TripCard/TripCard";
 import CarPageHeader from "../../components/CarPageHeader/CarPageHeader";
 import TransactionCard from "../../components/TransactionCard/TransactionCard";
 import { Car } from "../../globaltypes";
@@ -39,6 +40,7 @@ const StatsScreen = () => {
                     <BalanceCard car={car}/>
                     </div>
                     <div style={{ width: "100vw", height: "10px" }} />
+                    
                 </div>
             )}
         </div>
