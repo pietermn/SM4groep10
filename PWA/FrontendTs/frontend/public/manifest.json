@@ -1,6 +1,6 @@
 {
-    "short_name": "Weather App",
-    "name": "Weather App PWA",
+    "short_name": "CarShare",
+    "name": "CarShare",
     "icons": [
         {
             "src": "/images/logo.png",
@@ -10,6 +10,6 @@
     ],
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
+    "theme_color": "#E42C64",
+    "background_color": "#2D2F32"
 }

@@ -47,7 +47,6 @@ export default function CarPageHeader({ car, tripStatus }: ICarCardProps) {
                 )}
             </div>
         </div>
-        <OdometerOverlay  car={car} id="overlayStart"/>
         </div>
     );
 }
