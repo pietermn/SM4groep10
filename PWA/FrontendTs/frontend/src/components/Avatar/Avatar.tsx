@@ -36,7 +36,7 @@ function getColourBrightness(colour: string) {
 
     var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
 
-    if (luma < 40) {
+    if (luma < 130) {
         return "white";
     } else {
         return "black";
