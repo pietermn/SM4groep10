@@ -41,7 +41,7 @@ export default function BalanceCard(props: IBalanceProps) {
                         <div className="balance-person">
                             <AvatarCustom className={user.name} name={user.name} colour={user.colour} />
                             <h1 className="balance-name">{user.name}</h1>
-                            <h1 className={getColor(user)} >€{getbalance(user)}</h1>
+                            <h1 className={getColor(user)} >€{Math.round((getbalance(user)*100))/100}</h1>
                         </div>
                     );
                 })}

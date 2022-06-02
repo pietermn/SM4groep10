@@ -31,6 +31,16 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    }
+    },
+      "DockerDev": {
+        "commandName": "Project",
+        "launchBrowser": false,
+        "launchUrl": "graphql",
+        "applicationUrl": "http://localhost:5200",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "ASPNETCORE_URLS": "http://+:5200"
+        }
+      }
   }
 }

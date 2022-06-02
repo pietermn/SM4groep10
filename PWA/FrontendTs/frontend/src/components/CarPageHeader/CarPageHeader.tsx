@@ -3,6 +3,7 @@ import "./CarPageHeader.scss";
 import { Fab } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Car } from "../../globaltypes";
+import OdometerOverlay from "../OdometerOverlay/OdometerOverlay";
 
 interface ICarCardProps {
     car: Car;
@@ -11,8 +12,10 @@ interface ICarCardProps {
 
 export default function CarPageHeader({ car, tripStatus }: ICarCardProps) {
     const navigate = useNavigate();
+
     return (
-        <div className="header-containerCarPage">
+        <div>
+        <div className="header-containerCarPage" id="carPageHeader">
             <div className="backButtonCarPage">
                 <KeyboardArrowLeftIcon />
                 <p onClick={() => navigate(-1)}>Back</p>
@@ -37,12 +40,13 @@ export default function CarPageHeader({ car, tripStatus }: ICarCardProps) {
                         size="small"
                         color="primary"
                         aria-label="add"
-                        onClick={() => navigate("/safetyscreen")}
+                        // onClick={() => openOrCloseOverlay()}
                     >
                         Start trip
                     </Fab>
                 )}
             </div>
+        </div>
         </div>
     );
 }
