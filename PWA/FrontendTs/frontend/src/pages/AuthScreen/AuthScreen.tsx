@@ -9,11 +9,77 @@ import "./AuthScreen.scss";
 import AvatarCustom from "../../components/Avatar/Avatar";
 import { HexColorPicker } from "react-colorful";
 import CSS from "csstype";
+import { auth, db, provider } from "../../firebase/firebase";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut } from "firebase/auth";
+
+var Uid = "";
+
+const createUser = (email:string, password:string) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+}
+const signinUser = () => {
+    signInWithEmailAndPassword(auth, "karavanoranje@gmail.com", "123456")
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+        console.log(user)
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+    });
+}
+const redirectGoogle = () => {
+    signInWithRedirect(auth, provider)
+}
+const redirectResults = () => {
+    getRedirectResult(auth)
+    .then((result) => {
+        // This gives you a Google Access Token. You can use it to access Google APIs.
+        const credential = GoogleAuthProvider.credentialFromResult(result!);
+        const token = credential!.accessToken;
+        
+        // The signed-in user info.
+        const user = result!.user;
+        console.log(user)
+    }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+    });
+}
+const signOutFunction = () => {
+    signOut(auth).then(() =>{
+      // Sign-out successful.
+      console.log("logout succesfull")
+    }).catch((error) => {
+        // An error happened.
+    })
+}
 
 const AuthScreen = () => {
     const [avatarShown, setAvatarShown] = useState<boolean>(false);
     const [color, setColor] = useState("#b32aa9");
     const [username, setUsername] = useState<string>("");
+    const [loginEmail, setLoginEmail] = useState<string>("");
+    const [loginPassword, setLoginPassword] = useState<string>("");
     const [startStyle, setStartStyle] = useState<CSS.Properties>({});
     const [loginStyle, setLoginStyle] = useState<CSS.Properties>({ display: "none" });
     const [firstRegisterStyle, setFirstRegisterStyle] = useState<CSS.Properties>({ display: "none" });
@@ -123,13 +189,20 @@ const AuthScreen = () => {
                 </div>
 
                 <div className="login-container" style={loginStyle}>
-                    <TextField id="outlined-basic" className="textfield" label="Email" variant="outlined" />
+                    <TextField id="outlined-basic" className="textfield" label="Email" variant="outlined" value={loginEmail}
+                        onChange={(e) => {
+                            setLoginEmail(e.target.value);
+                        }}/>
                     <TextField
                         id="outlined-basic"
                         className="textfield"
                         label="Password"
                         type="password"
                         variant="outlined"
+                        value={loginPassword}
+                        onChange={(e) => {
+                            setLoginPassword(e.target.value);
+                        }}
                     />
 
                     <div style={{ width: "100%", height: "96px" }}></div>
