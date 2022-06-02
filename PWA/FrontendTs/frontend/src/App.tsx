@@ -15,7 +15,7 @@ function App() {
                 <AppWrapper>
                     <Routes />
                 </AppWrapper>
-                <ReactQueryDevtools initialIsOpen={false} />
+                {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             </QueryClientProvider>
         </Router>
     );
