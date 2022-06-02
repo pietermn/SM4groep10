@@ -15,12 +15,26 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 
 var Uid = "";
 
+const addUserToDb = async (id: string, username: string, colour: string) => {
+    try {
+        const docRef = await addDoc(collection(db, "users"), {
+          id: id,
+          name: username,
+          colour: colour,
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+}
+
 const createUser = (email:string, password:string) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
         // ...
+        console.log(user)
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -28,13 +42,14 @@ const createUser = (email:string, password:string) => {
         // ..
       });
 }
-const signinUser = () => {
-    signInWithEmailAndPassword(auth, "karavanoranje@gmail.com", "123456")
+const signinUser = (email:string, password:string) => {
+    signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
         // ...
         console.log(user)
+
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -75,11 +90,15 @@ const signOutFunction = () => {
 }
 
 const AuthScreen = () => {
+    const navigate = useNavigate()
     const [avatarShown, setAvatarShown] = useState<boolean>(false);
     const [color, setColor] = useState("#b32aa9");
     const [username, setUsername] = useState<string>("");
     const [loginEmail, setLoginEmail] = useState<string>("");
     const [loginPassword, setLoginPassword] = useState<string>("");
+    const [registerEmail, setRegisterEmail] = useState<string>("");
+    const [registerPassword, setRegisterPassword] = useState<string>("");
+    const [repeatRegisterPassword, setRepeatRegisterPassword] = useState<string>("");
     const [startStyle, setStartStyle] = useState<CSS.Properties>({});
     const [loginStyle, setLoginStyle] = useState<CSS.Properties>({ display: "none" });
     const [firstRegisterStyle, setFirstRegisterStyle] = useState<CSS.Properties>({ display: "none" });
@@ -97,6 +116,13 @@ const AuthScreen = () => {
                 break;
 
             case "loginLogin":
+                // createUser(loginEmail, loginPassword);
+                console.log(loginEmail)
+                console.log(loginPassword)
+                signinUser(loginEmail, loginPassword);
+                console.log(auth.currentUser)
+                auth.currentUser ? navigate("/userscreen") : navigate(0)
+                // auth.currentUser ? navigate("/userscreen"+ auth.currentUser?.uid) : navigate(0)
                 break;
 
             case "loginBack":
@@ -105,6 +131,9 @@ const AuthScreen = () => {
                 break;
 
             case "registerNext":
+                // createUser(registerEmail, registerPassword);
+                // signinUser(registerEmail, registerPassword);
+                // auth.currentUser ? navigate("/userscreen") : navigate(0)
                 setSecondRegisterStyle({ display: "" });
                 setFirstRegisterStyle({ display: "none" });
                 setAvatarShown(true);
@@ -122,6 +151,10 @@ const AuthScreen = () => {
                 break;
 
             case "secondregisterRegister":
+                createUser(registerEmail, registerPassword);
+                signinUser(registerEmail, registerPassword);
+                auth.currentUser ? addUserToDb(auth.currentUser.uid, username, color): console.log("currentuser is empty")
+                // auth.currentUser ? navigate("/userscreen") : navigate(0)
                 break;
 
             case "google":
@@ -220,13 +253,20 @@ const AuthScreen = () => {
                 </div>
 
                 <div className="first-register-container" style={firstRegisterStyle}>
-                    <TextField id="outlined-basic" className="textfield" label="Email" variant="outlined" />
+                    <TextField id="outlined-basic" className="textfield" label="Email" variant="outlined" value={registerEmail}
+                        onChange={(e) => {
+                            setRegisterEmail(e.target.value);
+                        }}/>
                     <TextField
                         id="outlined-basic"
                         className="textfield"
                         label="Password"
                         type="password"
                         variant="outlined"
+                        value={registerPassword}
+                        onChange={(e) => {
+                            setRegisterPassword(e.target.value);
+                        }}
                     />
                     <TextField
                         id="outlined-basic"
@@ -234,6 +274,10 @@ const AuthScreen = () => {
                         label="Repeat Password"
                         type="password"
                         variant="outlined"
+                        value={repeatRegisterPassword}
+                        onChange={(e) => {
+                            setRepeatRegisterPassword(e.target.value);
+                        }}
                     />
                     <div style={{ width: "100%", height: "30px" }}></div>
                     <Button

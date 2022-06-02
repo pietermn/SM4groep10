@@ -114,6 +114,7 @@ const UserScreen = () => {
 
     useEffect(() => {
         redirectResults()
+        console.log("Logged in user:")
         console.log(auth.currentUser)
     }, []);
 
