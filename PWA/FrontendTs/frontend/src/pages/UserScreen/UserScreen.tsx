@@ -6,10 +6,10 @@ import CalendarCard from "../../components/CalendarCard/CalendarCard";
 import { useFetchCars } from "../../api/useQueryHooks/carHooks";
 import { Reservation, User } from "../../globaltypes";
 import { auth, db, provider } from "../../firebase/firebase";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, query, QueryDocumentSnapshot, updateDoc, where } from "firebase/firestore";
 import { Button } from "@mui/material";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut } from "firebase/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 var Uid = "";
 
@@ -57,7 +57,7 @@ const redirectResults = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // The email of the user's account used.
-        const email = error.customData.email;
+        // const email = error.customData.email; ///////////////commented error
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
@@ -98,6 +98,23 @@ const signOutFunction = () => {
 //       }
 // }
 
+const getDataFromLoggedInUser = async () => {
+    try{
+        const q = query(collection(db, "users"), where("id", "==", auth.currentUser!.uid));
+        
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+          });
+    } catch(e){
+        console.error("Error getting document: ", e)
+    }
+}
+
+
+
+
 const UserScreen = () => {
     const { data: user, isLoading } = useFetchUser();
     const { data: cars } = useFetchCars();
@@ -116,6 +133,7 @@ const UserScreen = () => {
         redirectResults()
         console.log("Logged in user:")
         console.log(auth.currentUser)
+        getDataFromLoggedInUser()
     }, []);
 
     return (

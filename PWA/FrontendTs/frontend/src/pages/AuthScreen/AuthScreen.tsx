@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import { Button, TextField } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
@@ -13,7 +13,6 @@ import { auth, db, provider } from "../../firebase/firebase";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut } from "firebase/auth";
 
-var Uid = "";
 
 const addUserToDb = async (id: string, username: string, colour: string) => {
     try {
@@ -27,7 +26,19 @@ const addUserToDb = async (id: string, username: string, colour: string) => {
         console.error("Error adding document: ", e);
       }
 }
-
+function AsyncCreateUserAddtoDatabaseNavigate(email:string, password:string, username:string, color: string, navigate:NavigateFunction){
+    var Uid = "";
+    return new Promise(() =>{
+        setTimeout((result)=>{
+            Uid = auth.currentUser!.uid
+            console.log(auth.currentUser)
+            auth.currentUser ? addUserToDb(Uid, username, color): console.log("didn't add User to DB")
+            auth.currentUser ? navigate("/userscreen") : console.log("didn't navigate")
+        ;}, 1000);
+    console.log("na TimeOut")
+    createUser(email, password);
+    })
+}
 const createUser = (email:string, password:string) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -49,7 +60,6 @@ const signinUser = (email:string, password:string) => {
         const user = userCredential.user;
         // ...
         console.log(user)
-
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -88,9 +98,13 @@ const signOutFunction = () => {
         // An error happened.
     })
 }
+async function RegisterLoginAndAddToDB(email: string, password: string, username:string, color:string, navigate:NavigateFunction){
+    await AsyncCreateUserAddtoDatabaseNavigate(email, password, username, color, navigate)
+}
 
 const AuthScreen = () => {
     const navigate = useNavigate()
+    const [Uid, setUid] = useState<string>("");
     const [avatarShown, setAvatarShown] = useState<boolean>(false);
     const [color, setColor] = useState("#b32aa9");
     const [username, setUsername] = useState<string>("");
@@ -117,11 +131,12 @@ const AuthScreen = () => {
 
             case "loginLogin":
                 // createUser(loginEmail, loginPassword);
-                console.log(loginEmail)
-                console.log(loginPassword)
+                // console.log(loginEmail)
+                // console.log(loginPassword)
                 signinUser(loginEmail, loginPassword);
                 console.log(auth.currentUser)
-                auth.currentUser ? navigate("/userscreen") : navigate(0)
+                // console.log(auth.currentUser?.uid)
+                // auth.currentUser ? navigate("/userscreen") : console.log("didnt login")
                 // auth.currentUser ? navigate("/userscreen"+ auth.currentUser?.uid) : navigate(0)
                 break;
 
@@ -151,13 +166,13 @@ const AuthScreen = () => {
                 break;
 
             case "secondregisterRegister":
-                createUser(registerEmail, registerPassword);
-                signinUser(registerEmail, registerPassword);
-                auth.currentUser ? addUserToDb(auth.currentUser.uid, username, color): console.log("currentuser is empty")
-                // auth.currentUser ? navigate("/userscreen") : navigate(0)
+                RegisterLoginAndAddToDB(registerEmail, registerPassword, username, color, navigate)
                 break;
 
             case "google":
+                //EVERYTHING NEEDS TO BE PROMISED AND TIMEDOUT
+                // redirectGoogle()
+                // navigate("/userscreen")
                 break;
 
             case "apple":
