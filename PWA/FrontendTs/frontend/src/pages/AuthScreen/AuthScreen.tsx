@@ -98,9 +98,6 @@ const signOutFunction = () => {
         // An error happened.
     })
 }
-async function RegisterLoginAndAddToDB(email: string, password: string, username:string, color:string, navigate:NavigateFunction){
-    await AsyncCreateUserAddtoDatabaseNavigate(email, password, username, color, navigate)
-}
 
 const AuthScreen = () => {
     const navigate = useNavigate()
@@ -166,7 +163,7 @@ const AuthScreen = () => {
                 break;
 
             case "secondregisterRegister":
-                RegisterLoginAndAddToDB(registerEmail, registerPassword, username, color, navigate)
+                AsyncCreateUserAddtoDatabaseNavigate(registerEmail, registerPassword, username, color, navigate)
                 break;
 
             case "google":
