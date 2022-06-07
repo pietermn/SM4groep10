@@ -133,7 +133,7 @@ const UserScreen = () => {
         redirectResults()
         console.log("Logged in user:")
         console.log(auth.currentUser)
-        getDataFromLoggedInUser()
+        auth.currentUser ? getDataFromLoggedInUser() : console.log("Not logged in")
     }, []);
 
     return (
