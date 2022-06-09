@@ -12,6 +12,7 @@ import CSS from "csstype";
 import { auth, db, provider } from "../../firebase/firebase";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut } from "firebase/auth";
+import moment from "moment";
 
 
 const addUserToDb = async (id: string, username: string, colour: string) => {
@@ -37,6 +38,43 @@ function AsyncCreateUserAddtoDatabaseNavigate(email:string, password:string, use
         ;}, 1000);
     console.log("na TimeOut")
     createUser(email, password);
+    })
+}
+function AsyncGoogleUserAddtoDatabaseNavigate(navigate:NavigateFunction){
+    return new Promise(() =>{
+        setTimeout((result)=>{
+            console.log("navigating")
+            auth.currentUser ? navigate("/userscreen") : console.log("didn't navigate")
+        ;}, 1000);
+        console.log("before if statement")
+        console.log("creationdate: " + moment(new Date(auth.currentUser?.metadata.creationTime!)).format('L'))
+        console.log("lastsignindate: " + moment(new Date(auth.currentUser?.metadata.lastSignInTime!)).format('L'))
+        console.log("creation + 2: " + moment(new Date(auth.currentUser?.metadata.creationTime!)).add(5, 's').format('h:mm:ss'))
+        console.log("lastsignin: " + moment(new Date(auth.currentUser?.metadata.lastSignInTime!)).format('h:mm:ss'))
+        console.log(auth.currentUser)
+        if(
+            (
+                (moment(new Date(auth.currentUser?.metadata.creationTime!)).format('L') == moment(new Date(auth.currentUser?.metadata.lastSignInTime!)).format('L')
+                ) && (
+                    moment(new Date(auth.currentUser?.metadata.creationTime!)).add(5, 's').format('h:mm:ss') >= moment(new Date(auth.currentUser?.metadata.lastSignInTime!)).format('h:mm:ss')
+                )
+            ) && auth.currentUser){
+            console.log("First time login")
+            const color: string = "#ffffff"
+            const username = auth.currentUser!.displayName
+            const Uid = auth.currentUser!.uid
+            console.log(auth.currentUser)
+            auth.currentUser ? addUserToDb(Uid, username!, color): console.log("didn't add User to DB")
+        }
+    })
+}
+
+function getGoogleResults(navigate:NavigateFunction){
+    return new Promise(() =>{
+        setTimeout((result) =>{
+            AsyncGoogleUserAddtoDatabaseNavigate(navigate)
+        ;}, 5000);
+        redirectResults();
     })
 }
 const createUser = (email:string, password:string) => {
@@ -84,7 +122,7 @@ const redirectResults = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // The email of the user's account used.
-        const email = error.customData.email;
+        // const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
@@ -132,6 +170,7 @@ const AuthScreen = () => {
                 // console.log(loginPassword)
                 signinUser(loginEmail, loginPassword);
                 console.log(auth.currentUser)
+                navigate("/userscreen")
                 // console.log(auth.currentUser?.uid)
                 // auth.currentUser ? navigate("/userscreen") : console.log("didnt login")
                 // auth.currentUser ? navigate("/userscreen"+ auth.currentUser?.uid) : navigate(0)
@@ -167,9 +206,7 @@ const AuthScreen = () => {
                 break;
 
             case "google":
-                //EVERYTHING NEEDS TO BE PROMISED AND TIMEDOUT
-                // redirectGoogle()
-                // navigate("/userscreen")
+                redirectGoogle()
                 break;
 
             case "apple":
@@ -188,6 +225,11 @@ const AuthScreen = () => {
                 break;
         }
     }
+    useEffect(() => {
+        getGoogleResults(navigate);
+        console.log("Logged in user:")
+        console.log(auth.currentUser)
+    }, []);//user keeps looping
 
     return (
         <div className="main-container">

@@ -11,7 +11,6 @@ import { Button } from "@mui/material";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 
-var Uid = "";
 
 const createUser = () => {
     createUserWithEmailAndPassword(auth, "karavanoranje@gmail.com", "123456")
@@ -98,25 +97,34 @@ const signOutFunction = () => {
 //       }
 // }
 
-const getDataFromLoggedInUser = async () => {
+const getDataFromLoggedInUser = async (): Promise<User> => {
+    var user: User = {id:"",name:"",colour:"",firebaseId:""}
     try{
         const q = query(collection(db, "users"), where("id", "==", auth.currentUser!.uid));
-        
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-          });
+            user = {
+                id: doc.data().id,
+                name: doc.data().name,
+                colour: doc.data().colour,
+                firebaseId: doc.id
+            }
+        });
+        console.log(user)
     } catch(e){
         console.error("Error getting document: ", e)
     }
+    return user
 }
 
 
 
 
 const UserScreen = () => {
-    const { data: user, isLoading } = useFetchUser();
+    // const { data: user, isLoading } = useFetchUser();
+    const[user, setUser] = useState<User>()
     const { data: cars } = useFetchCars();
     var reservations: Reservation[];
 
@@ -128,19 +136,26 @@ const UserScreen = () => {
         console.log(reservations);
         return reservations
     }
+    
+    async function getUser(){
+        auth.currentUser ? setUser(await getDataFromLoggedInUser()) : console.log("Not logged in")
+    }
 
     useEffect(() => {
         redirectResults()
         console.log("Logged in user:")
         console.log(auth.currentUser)
-        auth.currentUser ? getDataFromLoggedInUser() : console.log("Not logged in")
-    }, []);
+        if(!user){
+            getUser()
+        }
+    }, [user]);//user keeps looping
 
     return (
         <div className="main-container">
             <div className="user-containers">
                 {user ? (
                     <>
+                   
                         <UserPageHeader name={user.name} colour={user.colour} />
                         <UserStatsCard driven={100} paid={210} />
                         {/* <CalendarCard reservations={getReservationsFromUser(user)}/> */}

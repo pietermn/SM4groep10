@@ -16,10 +16,10 @@ export type Car = {
   };
 
 export type User = {
-    id: number;
+    id: string;
     name: string;
     colour: string;
-    firebaseId: number;
+    firebaseId: string;
 };
 
 export type Reservation = {
