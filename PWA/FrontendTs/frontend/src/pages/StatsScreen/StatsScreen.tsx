@@ -39,7 +39,7 @@ const StatsScreen = () => {
                     <div onClick={() => navigate(`/balancescreen/${car.id}`)}>
                     <BalanceCard car={car}/>
                     </div>
-                    <div style={{ width: "100vw", height: "10px" }} />
+                    <div style={{ width: "100vw", height: "90px ", backgroundColor:"#1A1C1F"}} />
                     
                 </div>
             )}

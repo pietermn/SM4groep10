@@ -11,7 +11,8 @@ const HomeScreen = () => {
             <div className="flex-containers">
                 {cars && cars.map((car) => <CarCard key={car.id} car={car}></CarCard>)}
                 <AddCarCard />
-                <div style={{ width: "100vw", height: "10px" }} />
+                
+                <div style={{ width: "100vw", height: "90px ", backgroundColor:"#1A1C1F"}} />
             </div>
         </div>
     );

@@ -37,7 +37,7 @@ const CarScreen = () => {
                     {/* <div onClick={() => navigate(`/statsscreen/${car.id}`)}> */}
                         <CalendarCard reservations={car.reservations} id={car.id} />
                     {/* </div> */}
-                    <OdometerOverlay car={car}/>
+                    {/* <OdometerOverlay car={car}/> */}
                     <div style={{ width: "100vw", height: "10px" }} />
                 </div>
             )}
