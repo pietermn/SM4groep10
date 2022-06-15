@@ -64,6 +64,10 @@
     margin-top: 0;
     margin-left: 0;
   }
+  .calendar-overflow{
+    overflow-y: scroll;
+    height: 61vh;
+  }
 }
 
   .calendar-container {

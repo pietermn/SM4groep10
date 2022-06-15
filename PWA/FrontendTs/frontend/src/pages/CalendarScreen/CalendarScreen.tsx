@@ -50,7 +50,7 @@ const CalendarScreen = () => {
             </div>
             
             {reservationsOpen.length > 0 ? (
-                <div>
+                <div className="calendar-overflow">
                     {reservationsOpen.map((reservation, i) => {
                         return <ReservationCard reservation={reservation} key={i} />;
                     })}
