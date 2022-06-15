@@ -12,32 +12,32 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 import { useEffect, useState } from "react";
 
 
-const createUser = () => {
-    createUserWithEmailAndPassword(auth, "karavanoranje@gmail.com", "123456")
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
-}
-const signinUser = () => {
-    signInWithEmailAndPassword(auth, "karavanoranje@gmail.com", "123456")
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-        console.log(user)
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-    });
-}
+// const createUser = () => {
+//     createUserWithEmailAndPassword(auth, "karavanoranje@gmail.com", "123456")
+//       .then((userCredential) => {
+//         // Signed in 
+//         const user = userCredential.user;
+//         // ...
+//       })
+//       .catch((error) => {
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//         // ..
+//       });
+// }
+// const signinUser = () => {
+//     signInWithEmailAndPassword(auth, "karavanoranje@gmail.com", "123456")
+//     .then((userCredential) => {
+//         // Signed in 
+//         const user = userCredential.user;
+//         // ...
+//         console.log(user)
+//     })
+//     .catch((error) => {
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//     });
+// }
 const redirectGoogle = () => {
     signInWithRedirect(auth, provider)
 }
@@ -173,8 +173,8 @@ const UserScreen = () => {
 
                 {/* <Button onClick={() => addFire()}>Add</Button>
                 <Button onClick={() => updateFire()}>Update</Button> */}
-                <Button onClick={() => createUser()}>Create User</Button>
-                <Button onClick={() => signinUser()}>Sign in User</Button>
+                {/* <Button onClick={() => createUser()}>Create User</Button>
+                <Button onClick={() => signinUser()}>Sign in User</Button> */}
                 <Button onClick={() => redirectGoogle()}>Google redirect</Button>
                 <Button onClick={() => signOutFunction()}>Sign out</Button>
             </div>
